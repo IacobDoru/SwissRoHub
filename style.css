@@ -1,0 +1,55 @@
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: url('fundal_steag_blurat.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+}
+header {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0,0,0,0.7);
+}
+nav {
+  background: red;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+button.dropdown-btn {
+  margin: 5px;
+  padding: 10px;
+  background: white;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+.dropdown-content {
+  display: none;
+  flex-direction: column;
+  background: black;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+button.active + .dropdown-content {
+  display: flex;
+}
+#whatsapp {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  background: green;
+  padding: 10px;
+  border-radius: 50px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.fondator {
+  width: 100px;
+  border-radius: 50%;
+}
