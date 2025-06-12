@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SwissRoHub - Comunitatea românilor din Elveția</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: black url('assets/fundal_steag_blurat.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+    header {
+      background: rgba(0,0,0,0.8);
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    nav .dropdown {
+      position: relative;
+    }
+    nav .dropdown-content {
+      display: none;
+      position: absolute;
+      background: #333;
+      padding: 10px;
+      border-radius: 5px;
+      z-index: 1000;
+    }
+    nav .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    section {
+      background: rgba(0,0,0,0.7);
+      margin: 20px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    h2 {
+      color: #FFD700;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><img src="assets/poza_fondator.png" alt="Fondator" height="80"></div>
+    <nav>
+      <div class="dropdown">
+        <button>🏠 Acte & Rezidență</button>
+        <div class="dropdown-content">
+          <a href="#sedere">Ședere temporară</a>
+          <a href="#permis_l">Permis L</a>
+          <a href="#permis_b">Permis B</a>
+          <a href="#permis_c">Permis C</a>
+          <a href="#schimbare">Schimbare adresă</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>💼 Muncă</button>
+        <div class="dropdown-content">
+          <a href="#drepturi">Drepturi lucrători</a>
+          <a href="#cv">CV Elvețian</a>
+          <a href="#agentii">Agenții plasare</a>
+          <a href="#contract">Contract muncă</a>
+          <a href="#somaj">Șomaj & RAV</a>
+          <a href="#ajutor_social">Ajutor social</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>🏡 Locuințe</button>
+        <div class="dropdown-content">
+          <a href="#tipuri">Tipuri locuințe</a>
+          <a href="#preturi">Prețuri</a>
+          <a href="#inchiriere">Procedură închiriere</a>
+          <a href="#escrocherii">Escrocherii</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>🛠️ Servicii</button>
+        <div class="dropdown-content">
+          <a href="#avocati">Avocați</a>
+          <a href="#doctori">Doctori</a>
+          <a href="#contabili">Contabili</a>
+          <a href="#rate">Rate & Leasing</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>🌐 Ghid limba germană</button>
+        <div class="dropdown-content">
+          <a href="#salutari">Salutări</a>
+          <a href="#munca">La muncă</a>
+          <a href="#magazin">La magazin</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>📢 Anunțuri</button>
+        <div class="dropdown-content">
+          <a href="#munca_oferte">Oferte muncă</a>
+          <a href="#relatii">Întâlniri</a>
+          <a href="#prestari">Prestări servicii</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button>👤 Despre fondator</button>
+      </div>
+      <div class="dropdown">
+        <button>🆘 WhatsApp Urgențe</button>
+      </div>
+    </nav>
+  </header>
+
+  <section id="despre">
+    <h2>👤 Despre fondator</h2>
+    <p>Proiectul SwissRoHub a fost creat pentru a ajuta românii din Elveția să se informeze corect, să colaboreze și să formeze o comunitate unită. Informațiile sunt verificate și explicate detaliat.</p>
+  </section>
+
+  <a href="https://wa.me/41767110358" style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:10px 15px;border-radius:50px;text-decoration:none;font-weight:bold;">Contact WhatsApp</a>
+</body>
+</html>
