@@ -1,666 +1,1171 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SwissRoHub.ch - Ghid complet</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      background-attachment: fixed;
-      color: #e0e0e0;
-      line-height: 1.6;
-    }
-    .overlay {
-      min-height: 100vh;
-      padding-bottom: 100px;
-    }
-    .navbar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.8rem;
-      background: rgba(0, 0, 0, 0.9);
-      padding: 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .navbar a {
-      background: linear-gradient(to right, #d32f2f, #b71c1c);
-      color: white;
-      text-decoration: none;
-      padding: 0.7rem 1.5rem;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    }
-    .navbar a:hover {
-      background: linear-gradient(to right, #b71c1c, #8e0000);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 8px rgba(0,0,0,0.3);
-    }
-    h1 {
-      text-align: center;
-      color: #ff5252;
-      font-size: 3.5rem;
-      font-family: 'Pacifico', cursive;
-      margin: 2rem 0 0.5rem;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    }
-    .tagline {
-      text-align: center;
-      font-size: 1.6rem;
-      font-style: italic;
-      margin: 0.5rem auto 2rem;
-      color: #f0f0f0;
-      max-width: 800px;
-      padding: 0 20px;
-    }
-    .section {
-      background: rgba(30, 30, 46, 0.85);
-      max-width: 900px;
-      margin: 2.5rem auto;
-      padding: 2.5rem;
-      border-left: 5px solid #ff5252;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      position: relative;
-      overflow: hidden;
-    }
-    .section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(to right, #ff5252, #ff9800);
-    }
-    .section h2 {
-      color: #ff9800;
-      border-bottom: 2px solid #ff5252;
-      padding-bottom: 0.7rem;
-      margin-top: 0;
-      font-size: 2.2rem;
-    }
-    .highlight {
-      color: #4fc3f7;
-      font-weight: bold;
-    }
-    .info-card {
-      background: rgba(25, 25, 40, 0.8);
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-      border-left: 3px solid #4fc3f7;
-    }
-    .info-card h3 {
-      color: #4fc3f7;
-      margin-top: 0;
-    }
-    ul {
-      padding-left: 1.5rem;
-    }
-    li {
-      margin-bottom: 0.8rem;
-    }
-    .whatsapp {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      background: linear-gradient(to right, #25D366, #128C7E);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-weight: bold;
-      text-decoration: none;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: all 0.3s;
-    }
-    .whatsapp:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-    }
-    .community-stats {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      margin: 2rem 0;
-      text-align: center;
-    }
-    .stat-box {
-      background: rgba(255, 82, 82, 0.15);
-      border-radius: 10px;
-      padding: 1.5rem;
-      width: 200px;
-      margin: 10px;
-      transition: all 0.3s;
-    }
-    .stat-box:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 82, 82, 0.25);
-    }
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: #ff5252;
-      margin: 0.5rem 0;
-    }
-    .stat-label {
-      font-size: 1.1rem;
-      color: #f0f0f0;
-    }
-    .quote {
-      font-style: italic;
-      border-left: 3px solid #ff9800;
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
-      background: rgba(255, 152, 0, 0.1);
-      border-radius: 0 8px 8px 0;
-    }
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      margin-top: 3rem;
-      background: rgba(0, 0, 0, 0.7);
-      border-top: 1px solid #ff5252;
-    }
-    .important-note {
-      background: rgba(255, 152, 0, 0.2);
-      border: 1px solid #ff9800;
-      border-radius: 8px;
-      padding: 1rem;
-      margin: 1.5rem 0;
-    }
-    .resources-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin: 1.5rem 0;
-    }
-    .resource-card {
-      background: rgba(25, 25, 40, 0.9);
-      border-radius: 10px;
-      padding: 1.5rem;
-      transition: all 0.3s;
-      border: 1px solid #4a4a6e;
-    }
-    .resource-card:hover {
-      transform: translateY(-5px);
-      border-color: #ff5252;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    }
-    .resource-card h3 {
-      color: #4fc3f7;
-      margin-top: 0;
-    }
-    .btn {
-      display: inline-block;
-      background: linear-gradient(to right, #ff5252, #ff9800);
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 0.5rem 0;
-      transition: all 0.3s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-    }
-    .step-container {
-      counter-reset: step-counter;
-      margin: 2rem 0;
-    }
-    .step {
-      position: relative;
-      padding-left: 60px;
-      margin-bottom: 2rem;
-    }
-    .step::before {
-      counter-increment: step-counter;
-      content: counter(step-counter);
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 40px;
-      height: 40px;
-      background: #ff5252;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-    @media (max-width: 768px) {
-      .navbar {
-        gap: 0.5rem;
-        padding: 0.8rem;
-      }
-      .navbar a {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-      }
-      h1 {
-        font-size: 2.5rem;
-      }
-      .tagline {
-        font-size: 1.2rem;
-      }
-      .section {
-        padding: 1.5rem;
-        margin: 1.5rem 15px;
-      }
-      .stat-box {
-        width: 130px;
-        padding: 1rem;
-      }
-      .stat-number {
-        font-size: 1.8rem;
-      }
-    }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwissRoHub.ch - Portalul Românilor în Elveția</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #D32F2F;
+            --primary-dark: #B71C1C;
+            --secondary: #0F3460;
+            --accent: #4FC3F7;
+            --light: #F5F5F5;
+            --dark: #1A1A2E;
+            --success: #4CAF50;
+            --warning: #FF9800;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background-attachment: fixed;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-family: 'Pacifico', cursive;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3') no-repeat center center;
+            background-size: cover;
+            padding: 100px 0;
+            position: relative;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: var(--light);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, var(--secondary), #0a2458);
+        }
+        
+        /* Community Stats */
+        .stats {
+            padding: 60px 0;
+            background: rgba(25, 25, 40, 0.6);
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: all 0.3s;
+            border-left: 5px solid var(--accent);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        
+        .stat-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.2rem;
+        }
+        
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--warning));
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 1.1rem;
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: rgba(30, 30, 46, 0.85);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--warning));
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .service-card p {
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        
+        /* Calculators Section */
+        .calculators {
+            background: rgba(25, 25, 40, 0.6);
+            padding: 80px 0;
+        }
+        
+        .calculators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .calculator-card {
+            background: rgba(30, 30, 46, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calculator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--success), #2E7D32);
+        }
+        
+        .calculator-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .calculator-card h3 i {
+            color: var(--warning);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #4a4a6e;
+            background: rgba(25, 25, 40, 0.8);
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .btn-calculate {
+            background: linear-gradient(to right, var(--primary), var(--warning));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-calculate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .results {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #4a4a6e;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 8px 0;
+        }
+        
+        .result-item.total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent);
+            border-top: 2px solid #4a4a6e;
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+        
+        /* Community Section */
+        .community {
+            padding: 80px 0;
+        }
+        
+        .community-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .community-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .community-text p {
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        
+        .community-features {
+            margin-top: 30px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .feature-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--light);
+        }
+        
+        .community-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        
+        .community-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--primary);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #ccc;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            background: linear-gradient(to right, #25D366, #128C7E);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .community-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .community-image {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="overlay" id="content">
-    <div class="navbar">
-      <a href="#acte">Acte și rezidență</a>
-      <a href="#munca">Muncă</a>
-      <a href="#locuinte">Locuințe</a>
-      <a href="#finantare">Finanțare</a>
-      <a href="#biserici">Biserici</a>
-      <a href="#servicii">Servicii</a>
-      <a href="#anunturi">Anunțuri</a>
-      <a href="#cafea">Cafea în doi</a>
-      <a href="#somaj">Șomaj</a>
-      <a href="#asigurari">Asigurări</a>
-      <a href="#taxe">Taxe</a>
-    </div>
-    
-    <h1>SwissRoHub.ch</h1>
-    <div class="tagline">Sprijin pentru fiecare român în Elveția. Construim împreună o comunitate unită și prosperă.</div>
-    
-    <div class="community-stats">
-      <div class="stat-box">
-        <div class="stat-number">80.000+</div>
-        <div class="stat-label">Români în Elveția</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">15+</div>
-        <div class="stat-label">Ani de comunitate</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">100+</div>
-        <div class="stat-label">Evenimente anual</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">24/7</div>
-        <div class="stat-label">Suport comunitate</div>
-      </div>
-    </div>
-    
-    <!-- Secțiunile -->
-    <div class="section" id="acte">
-      <h2>Acte și rezidență</h2>
-      <div class="info-card">
-        <h3>Documente necesare pentru stabilire în Elveția</h3>
-        <ul>
-          <li>Pașaport valid sau carte de identitate</li>
-          <li>Contract de muncă sau dovadă a mijloacelor de subzistență</li>
-          <li>Dovada asigurării medicale</li>
-          <li>Contract de închiriere sau dovadă a locuinței</li>
-        </ul>
-      </div>
-      
-      <div class="step-container">
-        <div class="step">
-          <h3>Înregistrarea în primire</h3>
-          <p>În termen de 14 zile de la sosire, trebuie să vă înregistrați la autoritățile locale (Einwohnerkontrolle).</p>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Swiss<span>Ro</span>Hub.ch</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Acasă</a></li>
+                    <li><a href="#services">Servicii</a></li>
+                    <li><a href="#calculators">Calculatoare</a></li>
+                    <li><a href="#community">Comunitate</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-        <div class="step">
-          <h3>Permis de ședere</h3>
-          <p>Tipul de permis depinde de contractul de muncă: 
-            <span class="highlight">Permis L</span> (scurtă durată), 
-            <span class="highlight">Permis B</span> (rezidență), 
-            <span class="highlight">Permis C</span> (de stabilire).</p>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h2>Comunitatea Românilor în Elveția</h2>
+            <p>Sprijin, informații și resurse pentru fiecare român în Elveția. Construim împreună o comunitate unită și prosperă.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn">Explorează Serviciile</a>
+                <a href="#community" class="btn btn-secondary">Alătură-te Comunității</a>
+            </div>
         </div>
-        <div class="step">
-          <h3>Cetățenie elvețiană</h3>
-          <p>Se poate obține după 10 ani de rezidență, cu integrare dovedită și cunoștințe ale limbii și culturii.</p>
+    </section>
+
+    <!-- Community Stats -->
+    <section class="stats">
+        <div class="container stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">80.000+</div>
+                <div class="stat-text">Români în Elveția</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-number">15+</div>
+                <div class="stat-text">Ani de comunitate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-number">100+</div>
+                <div class="stat-text">Evenimente anual</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="stat-number">24/7</div>
+                <div class="stat-text">Suport comunitate</div>
+            </div>
         </div>
-      </div>
-    </div>
-    
-    <div class="section" id="munca">
-      <h2>Muncă și carieră</h2>
-      <div class="info-card">
-        <h3>Găsirea unui loc de muncă</h3>
-        <p>Principalele site-uri pentru joburi în Elveția:</p>
-        <ul>
-          <li>jobs.ch</li>
-          <li>jobup.ch</li>
-          <li>linkedin.com</li>
-          <li>adecco.ch</li>
-        </ul>
-      </div>
-      
-      <div class="important-note">
-        <p>📌 Salariul mediu în Elveția este de aproximativ 6.500 CHF/lună (brut), dar variază în funcție de regiune și domeniu.</p>
-      </div>
-      
-      <div class="resources-grid">
-        <div class="resource-card">
-          <h3>Recunoaștere diplome</h3>
-          <p>Procesul de recunoaștere a diplomelor românești în Elveția prin intermediul Centrului Național de Recunoaștere a Diplomelor.</p>
-          <a href="#" class="btn">Detalii</a>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Servicii Complete</h2>
+                <p>Oferim o gamă completă de servicii pentru a-ți ușura viața în Elveția</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3>Acte și rezidență</h3>
+                    <p>Asistență pentru obținerea permiselor de ședere, înregistrare și documente necesare.</p>
+                    <a href="#" class="btn">Detalii</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Muncă și carieră</h3>
+                    <p>Găsire loc de muncă, recunoaștere diplome, sfaturi carieră și resurse.</p>
+                    <a href="#" class="btn">Detalii</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Locuințe</h3>
+                    <p>Asistență în căutarea locuințelor, înțelegerea contractelor și a legislației.</p>
+                    <a href="#" class="btn">Detalii</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3>Biserici românești</h3>
+                    <p>Lista bisericilor ortodoxe românești și programul slujbelor în toată Elveția.</p>
+                    <a href="#" class="btn">Detalii</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Finanțare</h3>
+                    <p>Credite, împrumuturi, leasing auto și sfaturi financiare personalizate.</p>
+                    <a href="#" class="btn">Detalii</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-umbrella"></i>
+                    </div>
+                    <h3>Asigurări</h3>
+                    <p>Ghid complet pentru asigurările obligatorii și opționale în sistemul elvețian.</p>
+                    <a href="#" class="btn">Detalii</a>
+                </div>
+            </div>
         </div>
-        <div class="resource-card">
-          <h3>CV elvețian</h3>
-          <p>Modele și sfaturi pentru crearea unui CV conform standardelor elvețiene.</p>
-          <a href="#" class="btn">Descarcă model</a>
+    </section>
+
+    <!-- Calculators Section -->
+    <section class="calculators" id="calculators">
+        <div class="container">
+            <div class="section-title">
+                <h2>Calculatoare Utile</h2>
+                <p>Instrumente practice pentru calcule financiare și nu numai</p>
+            </div>
+            
+            <div class="calculators-grid">
+                <!-- Mortgage Calculator -->
+                <div class="calculator-card">
+                    <h3><i class="fas fa-calculator"></i> Calculator Rate Credit</h3>
+                    <div class="input-group">
+                        <label for="loanAmount">Suma împrumutată (CHF):</label>
+                        <input type="number" id="loanAmount" min="10000" max="2000000" value="300000" step="10000">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="interestRate">Rata dobânzii (%):</label>
+                        <input type="range" id="interestRate" min="1" max="10" step="0.1" value="3.5">
+                        <span class="range-value" id="interestValue">3.5%</span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="loanTerm">Perioadă (ani):</label>
+                        <input type="range" id="loanTerm" min="5" max="30" value="15">
+                        <span class="range-value" id="termValue">15 ani</span>
+                    </div>
+                    
+                    <button class="btn-calculate" id="calculateMortgage">Calculează Rata</button>
+                    
+                    <div class="results">
+                        <div class="result-item">
+                            <span>Rata lunară:</span>
+                            <span id="monthlyPayment">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Total plătit:</span>
+                            <span id="totalPayment">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Dobândă totală:</span>
+                            <span id="totalInterest">-</span>
+                        </div>
+                        <div class="result-item total">
+                            <span>Economii lunare:</span>
+                            <span id="monthlySavings">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Currency Converter -->
+                <div class="calculator-card">
+                    <h3><i class="fas fa-exchange-alt"></i> Convertor Valutar</h3>
+                    <div class="input-group">
+                        <label for="convertAmount">Suma:</label>
+                        <input type="number" id="convertAmount" value="1000">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="fromCurrency">De la:</label>
+                        <select id="fromCurrency">
+                            <option value="CHF">CHF - Franc elvețian</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="RON">RON - Leu românesc</option>
+                            <option value="USD">USD - Dolar american</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="toCurrency">La:</label>
+                        <select id="toCurrency">
+                            <option value="RON">RON - Leu românesc</option>
+                            <option value="CHF">CHF - Franc elvețian</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="USD">USD - Dolar american</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-calculate" id="convertCurrency">Converteste</button>
+                    
+                    <div class="results">
+                        <div class="result-item total">
+                            <span>Rezultat:</span>
+                            <span id="conversionResult">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>1 CHF =</span>
+                            <span id="chfToEur">0.94 EUR</span>
+                        </div>
+                        <div class="result-item">
+                            <span>1 CHF =</span>
+                            <span id="chfToRon">5.05 RON</span>
+                        </div>
+                        <div class="result-item">
+                            <span>1 CHF =</span>
+                            <span id="chfToUsd">1.10 USD</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tax Calculator -->
+                <div class="calculator-card">
+                    <h3><i class="fas fa-file-invoice-dollar"></i> Calculator Taxe</h3>
+                    <div class="input-group">
+                        <label for="salary">Salariu Brut (CHF/lună):</label>
+                        <input type="number" id="salary" min="3000" max="30000" value="6500" step="100">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="canton">Canton:</label>
+                        <select id="canton">
+                            <option value="zurich">Zürich</option>
+                            <option value="bern">Bern</option>
+                            <option value="geneva">Geneva</option>
+                            <option value="basel">Basel</option>
+                            <option value="lausanne">Lausanne</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>
+                            <input type="checkbox" id="hasChildren"> Am copii
+                        </label>
+                    </div>
+                    
+                    <button class="btn-calculate" id="calculateTax">Calculează Taxe</button>
+                    
+                    <div class="results">
+                        <div class="result-item">
+                            <span>Salariu brut:</span>
+                            <span id="grossSalary">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Impozit federal:</span>
+                            <span id="federalTax">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Impozit cantonal:</span>
+                            <span id="cantonalTax">-</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Deduceri:</span>
+                            <span id="deductions">-</span>
+                        </div>
+                        <div class="result-item total">
+                            <span>Salariu net:</span>
+                            <span id="netSalary">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="resource-card">
-          <h3>Interviuri</h3>
-          <p>Cum să te pregătești pentru un interviu în Elveția - așteptări culturale și profesionale.</p>
-          <a href="#" class="btn">Sfaturi</a>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community" id="community">
+        <div class="container">
+            <div class="section-title">
+                <h2>Comunitatea Noastră</h2>
+                <p>Alătură-te celei mai mari comunități de români din Elveția</p>
+            </div>
+            
+            <div class="community-content">
+                <div class="community-text">
+                    <h3>O comunitate unită și activă</h3>
+                    <p>SwissRoHub este mai mult decât un site - este o comunitate vibrantă de români care locuiesc și lucrează în Elveția. Ne strângem împreună pentru a ne sprijini, a împărtăși experiențe și a construi legături puternice.</p>
+                    
+                    <div class="community-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Evenimente regulate</h4>
+                                <p>Festivaluri culturale, întâlniri, tabere și excursii în fiecare lună</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Program de mentorat</h4>
+                                <p>"O cafea în doi" - conectează-te cu români experimentați pentru sfaturi</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Grupuri regionale</h4>
+                                <p>Comunități locale în toate regiunile Elveției</p>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn">Alătură-te comunității</a>
+                    </div>
+                </div>
+                
+                <div class="community-image">
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Comunitatea românilor în Elveția">
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    
-    <div class="section" id="locuinte">
-      <h2>Locuințe</h2>
-      <div class="info-card">
-        <h3>Găsirea unei locuințe</h3>
-        <p>Principalele site-uri pentru căutare locuințe:</p>
-        <ul>
-          <li>homegate.ch</li>
-          <li>immoscout24.ch</li>
-          <li>comparis.ch</li>
-          <li>anibis.ch</li>
-        </ul>
-      </div>
-      
-      <div class="quote">
-        "Chiria medie pentru un apartament cu 2 camere în Zürich este de 2.000-2.500 CHF/lună, dar poate fi mai mică în orașele mai mici."
-      </div>
-      
-      <h3>Documente necesare pentru închiriere</h3>
-      <ul>
-        <li>Carte de identitate sau pașaport</li>
-        <li>Permis de ședere</li>
-        <li>Dovada venitului (ultimele 3 fluturași de salariu)</li>
-        <li>Istoric de credit (din registrul de evidență a debitorilor)</li>
-      </ul>
-    </div>
-    
-    <div class="section" id="finantare">
-      <h2>Finanțare - Rate și Leasing</h2>
-      <div class="info-card">
-        <h3>Credite și împrumuturi</h3>
-        <p>Condiții pentru românii care locuiesc în Elveția:</p>
-        <ul>
-          <li>Permis de ședere tip B sau C</li>
-          <li>Minim 3-6 luni de muncă în Elveția</li>
-          <li>Venit lunar stabil</li>
-          <li>Istoric de credit bun</li>
-        </ul>
-      </div>
-      
-      <div class="resources-grid">
-        <div class="resource-card">
-          <h3>Bănci recomandate</h3>
-          <p>BCR Elveția, Raiffeisen, Credit Suisse, UBS - oferte speciale pentru comunitatea românească.</p>
-          <a href="#" class="btn">Compară oferte</a>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>SwissRoHub.ch</h3>
+                    <p>Portalul comunității românilor în Elveția. Oferim informații, resurse și suport pentru a ușura integrarea și viața în Elveția.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Linkuri Rapide</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Acasă</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Servicii</a></li>
+                        <li><a href="#calculators"><i class="fas fa-chevron-right"></i> Calculatoare</a></li>
+                        <li><a href="#community"><i class="fas fa-chevron-right"></i> Comunitate</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Servicii</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Acte și rezidență</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Muncă și carieră</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Locuințe</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Finanțare</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Asigurări</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Zürich, Elveția</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+41 76 711 03 58</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@swissrohub.ch</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp: +41 76 711 03 58</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SwissRoHub.ch. Toate drepturile rezervate. | Un proiect al comunității pentru comunitate</p>
+            </div>
         </div>
-        <div class="resource-card">
-          <h3>Leasing auto</h3>
-          <p>Condiții avantajoase pentru românii cu contract de muncă în Elveția.</p>
-          <a href="#" class="btn">Calculează rata</a>
-        </div>
-        <div class="resource-card">
-          <h3>Împrumut ipotecar</h3>
-          <p>Pentru cumpărarea unei locuințe în Elveția sau România.</p>
-          <a href="#" class="btn">Află detalii</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="section" id="biserici">
-      <h2>Biserici românești</h2>
-      <div class="info-card">
-        <h3>Biserici ortodoxe românești în principalele orașe</h3>
-        <ul>
-          <li><span class="highlight">Zürich</span>: Biserica "Sfântul Nicolae" - Badenerstrasse 69</li>
-          <li><span class="highlight">Geneva</span>: Parohia "Sfântul Gheorghe" - Rue de Lyon 106</li>
-          <li><span class="highlight">Basel</span>: Biserica "Sfântul Ioan Botezătorul" - Missionsstrasse 24</li>
-          <li><span class="highlight">Bern</span>: Parohia "Înălțarea Domnului" - Murtenstrasse 1</li>
-        </ul>
-      </div>
-      
-      <p>Program slujbe și contacte pentru fiecare parohie sunt disponibile pe site-ul Mitropoliei Ortodoxe Române pentru Elveția.</p>
-      <a href="#" class="btn">Vezi program slujbe</a>
-    </div>
-    
-    <div class="section" id="servicii">
-      <h2>Servicii pentru comunitate</h2>
-      <div class="resources-grid">
-        <div class="resource-card">
-          <h3>Traduceri autorizate</h3>
-          <p>Traducători autorizați pentru documente oficiale (diplome, certificate, acte).</p>
-          <a href="#" class="btn">Listă traducători</a>
-        </div>
-        <div class="resource-card">
-          <h3>Medici români</h3>
-          <p>Lista medicilor români care lucrează în sistemul elvețian.</p>
-          <a href="#" class="btn">Găsește medic</a>
-        </div>
-        <div class="resource-card">
-          <h3>Avocați</h3>
-          <p>Specialiști în drept elvețian care vorbesc română.</p>
-          <a href="#" class="btn">Contactează</a>
-        </div>
-        <div class="resource-card">
-          <h3>Școli românești</h3>
-          <p>Cursuri de limba și cultura română pentru copii.</p>
-          <a href="#" class="btn">Înscrie copilul</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="section" id="anunturi">
-      <h2>Anunțuri comunitare</h2>
-      <div class="info-card">
-        <h3>Evenimente viitoare</h3>
-        <ul>
-          <li><span class="highlight">15 Iulie</span>: Festivalul Românesc la Zürich - Parcul Belvoir</li>
-          <li><span class="highlight">28-30 Iulie</span>: Tabără de familie în Alpi</li>
-          <li><span class="highlight">10 August</span>: Ziua Națională a României - Berna</li>
-        </ul>
-      </div>
-      
-      <div class="info-card">
-        <h3>Oferte de muncă</h3>
-        <ul>
-          <li>Bucătar în Geneva - salariu 4.500 CHF net + beneficii</li>
-          <li>Asistent medical în Basel - 6.000 CHF brut</li>
-          <li>Programator Java în Zürich - 8.000 CHF brut</li>
-        </ul>
-      </div>
-      
-      <a href="#" class="btn">Postează anunț</a>
-      <a href="#" class="btn">Vezi toate anunțurile</a>
-    </div>
-    
-    <div class="section" id="cafea">
-      <h2>O cafea în doi</h2>
-      <div class="info-card">
-        <h3>Program de mentorat</h3>
-        <p>Conectează-te cu membri experimentați ai comunității pentru sfaturi practice.</p>
-      </div>
-      
-      <div class="quote">
-        "Am ajuns în Elveția acum 3 luni. Prin programul 'O cafea în doi' am găsit un mentor care m-a ajutat să înțeleg sistemul medical și să-mi găsesc un apartament. A fost ca un înger!" - Maria, Berna
-      </div>
-      
-      <div class="step-container">
-        <div class="step">
-          <h3>Înscriere</h3>
-          <p>Completează formularul online indicând domeniul în care ai nevoie de ajutor.</p>
-        </div>
-        <div class="step">
-          <h3>Potrivire</h3>
-          <p>Te vom conecta cu un membru experimentat al comunității în regiunea ta.</p>
-        </div>
-        <div class="step">
-          <h3>Întâlnire</h3>
-          <p>Stabiliți o întâlnire la o cafenea din orașul tău.</p>
-        </div>
-      </div>
-      
-      <a href="#" class="btn">Înscrie-te acum</a>
-    </div>
-    
-    <div class="section" id="somaj">
-      <h2>Șomaj și ajutoare sociale</h2>
-      <div class="info-card">
-        <h3>Condiții pentru alocația de șomaj</h3>
-        <ul>
-          <li>Minim 12 luni de muncă în ultimii 2 ani</li>
-          <li>Înregistrare imediată la biroul de șomaj după pierderea locului de muncă</li>
-          <li>Disponibilitate pentru nouă muncă</li>
-        </ul>
-      </div>
-      
-      <h3>Alocația de șomaj în Elveția</h3>
-      <p>Se calculează ca 70% din salariul mediu din ultimele 6 luni, cu o limită maximă de 10.500 CHF/lună. Durata depinde de vârstă și vechime în muncă.</p>
-    </div>
-    
-    <div class="section" id="asigurari">
-      <h2>Asigurări obligatorii</h2>
-      <div class="info-card">
-        <h3>Asigurarea medicală</h3>
-        <p>Obligatorie pentru toți rezidenții. Costul mediu: 300-500 CHF/lună pentru adulți.</p>
-      </div>
-      
-      <div class="resources-grid">
-        <div class="resource-card">
-          <h3>Asigurări de sănătate</h3>
-          <p>Compară ofertele de la diferite companii: Swica, Helsana, CSS, Concordia.</p>
-          <a href="#" class="btn">Compară oferte</a>
-        </div>
-        <div class="resource-card">
-          <h3>Asigurare de răspundere civilă</h3>
-          <p>Obligatorie pentru chiriași - acoperă daunele produse proprietății.</p>
-          <a href="#" class="btn">Află mai multe</a>
-        </div>
-        <div class="resource-card">
-          <h3>Asigurare auto</h3>
-          <p>Obligatorie pentru toți proprietarii de autovehicule.</p>
-          <a href="#" class="btn">Calculează preț</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="section" id="taxe">
-      <h2>Sistemul fiscal elvețian</h2>
-      <div class="info-card">
-        <h3>Impozitarea salariilor</h3>
-        <p>În Elveția, impozitul se plătește la trei niveluri:</p>
-        <ul>
-          <li>Federal - între 0.77% și 11.5%</li>
-          <li>Cantonal - variază între 1% și 13%</li>
-          <li>Comunal - între 30% și 60% din impozitul cantonal</li>
-        </ul>
-      </div>
-      
-      <div class="quote">
-        "Un salariu brut de 8.000 CHF/lună în Zürich rezultă într-un salariu net de aproximativ 6.500 CHF/lună."
-      </div>
-      
-      <h3>Declarația fiscală</h3>
-      <p>Trebuie depusă anual până la 31 martie. Multe cantoane oferă asistență gratuită pentru completare.</p>
-      <a href="#" class="btn">Ghid completare declarație</a>
-    </div>
-    
-    <div class="footer">
-      <h3>SwissRoHub.ch - Comunitatea Românilor din Elveția</h3>
-      <p>© 2025 Toate drepturile rezervate | Un proiect al comunității pentru comunitate</p>
-      <p>Contact: info@swissrohub.ch | Tel: +41 76 711 03 58</p>
-      <p>Urmărește-ne pe: 
-        <a href="#" style="color: #4fc3f7; margin: 0 10px;">Facebook</a> | 
-        <a href="#" style="color: #4fc3f7; margin: 0 10px;">Instagram</a> | 
-        <a href="#" style="color: #4fc3f7; margin: 0 10px;">Telegram</a>
-      </p>
-    </div>
-  </div>
-  
-  <a class="whatsapp" href="https://wa.me/41767110358" target="_blank">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-    WhatsApp Suport
-  </a>
-  
-  <script>
-    // Animare la scroll
-    document.addEventListener('DOMContentLoaded', function() {
-      const sections = document.querySelectorAll('.section');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = 1;
-            entry.target.style.transform = 'translateY(0)';
-          }
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/41767110358" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i> WhatsApp Suport
+    </a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mortgage Calculator
+            const loanAmount = document.getElementById('loanAmount');
+            const interestRate = document.getElementById('interestRate');
+            const loanTerm = document.getElementById('loanTerm');
+            const interestValue = document.getElementById('interestValue');
+            const termValue = document.getElementById('termValue');
+            const calculateBtn = document.getElementById('calculateMortgage');
+            const monthlyPayment = document.getElementById('monthlyPayment');
+            const totalPayment = document.getElementById('totalPayment');
+            const totalInterest = document.getElementById('totalInterest');
+            const monthlySavings = document.getElementById('monthlySavings');
+            
+            // Update slider values
+            interestRate.addEventListener('input', function() {
+                interestValue.textContent = this.value + '%';
+            });
+            
+            loanTerm.addEventListener('input', function() {
+                termValue.textContent = this.value + ' ani';
+            });
+            
+            // Calculate mortgage
+            calculateBtn.addEventListener('click', function() {
+                const principal = parseFloat(loanAmount.value);
+                const interest = parseFloat(interestRate.value) / 100 / 12;
+                const payments = parseFloat(loanTerm.value) * 12;
+                
+                // Calculate monthly payment
+                const x = Math.pow(1 + interest, payments);
+                const monthly = (principal * x * interest) / (x - 1);
+                
+                if (isFinite(monthly)) {
+                    monthlyPayment.textContent = monthly.toFixed(2) + ' CHF';
+                    totalPayment.textContent = (monthly * payments).toFixed(2) + ' CHF';
+                    totalInterest.textContent = ((monthly * payments) - principal).toFixed(2) + ' CHF';
+                    
+                    // Calculate savings compared to average
+                    const averageRate = 4.5;
+                    const avgInterest = averageRate / 100 / 12;
+                    const avgX = Math.pow(1 + avgInterest, payments);
+                    const avgMonthly = (principal * avgX * avgInterest) / (avgX - 1);
+                    const savings = avgMonthly - monthly;
+                    
+                    monthlySavings.textContent = savings.toFixed(2) + ' CHF';
+                } else {
+                    monthlyPayment.textContent = 'Eroare';
+                    totalPayment.textContent = 'Eroare';
+                    totalInterest.textContent = 'Eroare';
+                    monthlySavings.textContent = 'Eroare';
+                }
+            });
+            
+            // Trigger initial calculation
+            calculateBtn.click();
+            
+            // Currency Converter
+            const convertAmount = document.getElementById('convertAmount');
+            const fromCurrency = document.getElementById('fromCurrency');
+            const toCurrency = document.getElementById('toCurrency');
+            const convertBtn = document.getElementById('convertCurrency');
+            const conversionResult = document.getElementById('conversionResult');
+            
+            // Exchange rates (as of 2025)
+            const exchangeRates = {
+                CHF: 1,
+                EUR: 0.94,
+                RON: 5.05,
+                USD: 1.10
+            };
+            
+            // Convert currency
+            function convertCurrency() {
+                const amount = parseFloat(convertAmount.value);
+                if (isNaN(amount)) {
+                    conversionResult.textContent = '0';
+                    return;
+                }
+                
+                const from = fromCurrency.value;
+                const to = toCurrency.value;
+                
+                const rate = exchangeRates[to] / exchangeRates[from];
+                const result = amount * rate;
+                
+                conversionResult.textContent = result.toFixed(2) + ' ' + to;
+            }
+            
+            convertBtn.addEventListener('click', convertCurrency);
+            convertAmount.addEventListener('input', convertCurrency);
+            fromCurrency.addEventListener('change', convertCurrency);
+            toCurrency.addEventListener('change', convertCurrency);
+            
+            // Initial conversion
+            convertCurrency();
+            
+            // Update currency info
+            document.getElementById('chfToEur').textContent = exchangeRates['EUR'].toFixed(2) + ' EUR';
+            document.getElementById('chfToRon').textContent = exchangeRates['RON'].toFixed(2) + ' RON';
+            document.getElementById('chfToUsd').textContent = exchangeRates['USD'].toFixed(2) + ' USD';
+            
+            // Tax Calculator
+            const salaryInput = document.getElementById('salary');
+            const cantonSelect = document.getElementById('canton');
+            const hasChildren = document.getElementById('hasChildren');
+            const calculateTaxBtn = document.getElementById('calculateTax');
+            
+            const grossSalary = document.getElementById('grossSalary');
+            const federalTax = document.getElementById('federalTax');
+            const cantonalTax = document.getElementById('cantonalTax');
+            const deductions = document.getElementById('deductions');
+            const netSalary = document.getElementById('netSalary');
+            
+            // Tax rates by canton (simplified)
+            const taxRates = {
+                zurich: 0.18,
+                bern: 0.20,
+                geneva: 0.22,
+                basel: 0.19,
+                lausanne: 0.21
+            };
+            
+            // Calculate taxes
+            calculateTaxBtn.addEventListener('click', function() {
+                const salary = parseFloat(salaryInput.value);
+                const canton = cantonSelect.value;
+                const children = hasChildren.checked;
+                
+                // Federal tax (simplified calculation)
+                const federal = salary * 0.05;
+                
+                // Cantonal tax
+                const cantonal = salary * taxRates[canton];
+                
+                // Deductions
+                let deduct = 0;
+                if (children) {
+                    deduct = salary * 0.03; // 3% deduction for children
+                }
+                
+                // Net salary
+                const net = salary - federal - cantonal + deduct;
+                
+                // Update UI
+                grossSalary.textContent = salary.toFixed(2) + ' CHF';
+                federalTax.textContent = federal.toFixed(2) + ' CHF';
+                cantonalTax.textContent = cantonal.toFixed(2) + ' CHF';
+                deductions.textContent = deduct.toFixed(2) + ' CHF';
+                netSalary.textContent = net.toFixed(2) + ' CHF';
+            });
+            
+            // Trigger initial tax calculation
+            calculateTaxBtn.click();
         });
-      }, { threshold: 0.1 });
-      
-      sections.forEach(section => {
-        section.style.opacity = 0;
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-        observer.observe(section);
-      });
-      
-      // Efect pentru butoane
-      const buttons = document.querySelectorAll('.btn, .navbar a');
-      buttons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-3px)';
-        });
-        button.addEventListener('mouseleave', function() {
-          this.style.transform = 'translateY(0)';
-        });
-      });
-      
-      // Efect pentru carduri
-      const cards = document.querySelectorAll('.resource-card, .stat-box');
-      cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-8px)';
-        });
-        card.addEventListener('mouseleave', function() {
-          this.style.transform = 'translateY(0)';
-        });
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
