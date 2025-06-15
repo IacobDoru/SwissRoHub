@@ -1,1361 +1,666 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwissRoHub - Tot ce ai nevoie pentru viața în Elveția</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #0088cc;
-            --primary-dark: #006699;
-            --accent: #00bfff;
-            --dark: #1a1a1a;
-            --light: #f8f9fa;
-            --text: #333;
-            --text-light: #666;
-            --border: #e0e0e0;
-            --success: #28a745;
-            --danger: #dc3545;
-            --warning: #ffc107;
-            --info: #17a2b8;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #f0f8ff 0%, #e6f7ff 100%);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        /* Top Bar Styles */
-        .top-bar {
-            background-color: #0a2940;
-            padding: 10px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-            font-size: 0.9rem;
-        }
-        
-        .contact-info {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .contact-info a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: opacity 0.3s;
-        }
-        
-        .contact-info a:hover {
-            opacity: 0.8;
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-icons a {
-            color: white;
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-        }
-        
-        .social-icons a:hover {
-            transform: translateY(-3px);
-        }
-        
-        /* Main Navigation */
-        .main-nav {
-            background: white;
-            box-shadow: var(--shadow);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-        }
-        
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 1rem;
-            position: relative;
-            padding: 5px 0;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        /* Secondary Navigation */
-        .secondary-nav {
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            padding: 10px 5%;
-        }
-        
-        .secondary-nav-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-        
-        .secondary-nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-        
-        .secondary-nav-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(10, 41, 64, 0.8), rgba(10, 41, 64, 0.9)), 
-                        url('https://images.unsplash.com/photo-1563714193017-5a73392e0753?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 100px 5%;
-            text-align: center;
-            color: white;
-            position: relative;
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .romanian-tag {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            display: block;
-            color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-        
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            border: 2px solid white;
-            cursor: pointer;
-            font-size: 1.1rem;
-        }
-        
-        .btn-primary {
-            background: white;
-            color: var(--primary);
-        }
-        
-        .btn-primary:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            color: white;
-        }
-        
-        .btn-outline:hover {
-            background: white;
-            color: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        /* Main Content Sections */
-        .section {
-            padding: 80px 5%;
-            background: white;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.2rem;
-            color: var(--primary-dark);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-        
-        .section-title p {
-            color: var(--text-light);
-            max-width: 700px;
-            margin: 15px auto 0;
-        }
-        
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .card {
-            background: #f8f9fa;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .card-header {
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .card-header h3 {
-            font-size: 1.5rem;
-            margin: 0;
-        }
-        
-        .card-header i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .card-body {
-            padding: 25px;
-        }
-        
-        .card-body ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .card-body li {
-            padding: 8px 0;
-            border-bottom: 1px dashed var(--border);
-            display: flex;
-            align-items: center;
-        }
-        
-        .card-body li:last-child {
-            border-bottom: none;
-        }
-        
-        .card-body li i {
-            color: var(--primary);
-            margin-right: 10px;
-            min-width: 20px;
-        }
-        
-        /* Expression Cards */
-        .expressions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .expression-card {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--primary);
-        }
-        
-        .expression-card h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent);
-        }
-        
-        .expression-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px dashed var(--border);
-        }
-        
-        .expression-item:last-child {
-            border-bottom: none;
-        }
-        
-        .romanian {
-            font-weight: 600;
-        }
-        
-        .german {
-            font-style: italic;
-            color: var(--primary-dark);
-        }
-        
-        /* Professional Cards */
-        .professional-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .professional-card {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--primary);
-        }
-        
-        .professional-card h3 {
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-        }
-        
-        .professional-card p {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .professional-card i {
-            width: 20px;
-            margin-right: 10px;
-            color: var(--primary);
-        }
-        
-        /* Community Section */
-        .community-section {
-            background: linear-gradient(rgba(248, 249, 250, 0.9), rgba(248, 249, 250, 0.9)), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%230088cc" fill-opacity="0.05"/></svg>');
-            background-size: 120px 120px;
-        }
-        
-        .community-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .community-card {
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: all 0.3s;
-        }
-        
-        .community-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        .community-card i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        
-        .community-card h3 {
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-        }
-        
-        .community-card p {
-            color: var(--text-light);
-            margin-bottom: 20px;
-        }
-        
-        .feature-btn {
-            display: inline-block;
-            padding: 10px 25px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .feature-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-        }
-        
-        .emergency-btn {
-            background: var(--danger);
-        }
-        
-        .emergency-btn:hover {
-            background: #c82333;
-        }
-        
-        /* Form Styles */
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--primary-dark);
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.1);
-        }
-        
-        .form-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .form-row .form-group {
-            flex: 1;
-            margin-bottom: 0;
-        }
-        
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 5% 30px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .footer-section h3 {
-            color: var(--accent);
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-        
-        .footer-section p, .footer-section a {
-            color: #ccc;
-            margin-bottom: 12px;
-            display: block;
-            transition: all 0.3s;
-        }
-        
-        .footer-section a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-        
-        .footer-social {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .footer-social a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-        
-        .footer-social a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-        
-        .footer-bottom {
-            text-align: center;
-            padding-top: 40px;
-            margin-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-        
-        /* Buton WhatsApp fix */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-            animation: pulse 1.5s infinite;
-            text-decoration: none;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-        
-        /* Responsive */
-        @media (max-width: 992px) {
-            .nav-links {
-                gap: 15px;
-            }
-            
-            .secondary-nav-links {
-                flex-wrap: wrap;
-            }
-            
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            .hero p {
-                font-size: 1.3rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .top-bar {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .main-nav {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero {
-                padding: 60px 5%;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                max-width: 300px;
-                text-align: center;
-                margin-bottom: 10px;
-            }
-            
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwissRoHub.ch - Ghid complet</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background-attachment: fixed;
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+    .overlay {
+      min-height: 100vh;
+      padding-bottom: 100px;
+    }
+    .navbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .navbar a {
+      background: linear-gradient(to right, #d32f2f, #b71c1c);
+      color: white;
+      text-decoration: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+    .navbar a:hover {
+      background: linear-gradient(to right, #b71c1c, #8e0000);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+    }
+    h1 {
+      text-align: center;
+      color: #ff5252;
+      font-size: 3.5rem;
+      font-family: 'Pacifico', cursive;
+      margin: 2rem 0 0.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .tagline {
+      text-align: center;
+      font-size: 1.6rem;
+      font-style: italic;
+      margin: 0.5rem auto 2rem;
+      color: #f0f0f0;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    .section {
+      background: rgba(30, 30, 46, 0.85);
+      max-width: 900px;
+      margin: 2.5rem auto;
+      padding: 2.5rem;
+      border-left: 5px solid #ff5252;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, #ff5252, #ff9800);
+    }
+    .section h2 {
+      color: #ff9800;
+      border-bottom: 2px solid #ff5252;
+      padding-bottom: 0.7rem;
+      margin-top: 0;
+      font-size: 2.2rem;
+    }
+    .highlight {
+      color: #4fc3f7;
+      font-weight: bold;
+    }
+    .info-card {
+      background: rgba(25, 25, 40, 0.8);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 3px solid #4fc3f7;
+    }
+    .info-card h3 {
+      color: #4fc3f7;
+      margin-top: 0;
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.8rem;
+    }
+    .whatsapp {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: linear-gradient(to right, #25D366, #128C7E);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: bold;
+      text-decoration: none;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s;
+    }
+    .whatsapp:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .community-stats {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .stat-box {
+      background: rgba(255, 82, 82, 0.15);
+      border-radius: 10px;
+      padding: 1.5rem;
+      width: 200px;
+      margin: 10px;
+      transition: all 0.3s;
+    }
+    .stat-box:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 82, 82, 0.25);
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #ff5252;
+      margin: 0.5rem 0;
+    }
+    .stat-label {
+      font-size: 1.1rem;
+      color: #f0f0f0;
+    }
+    .quote {
+      font-style: italic;
+      border-left: 3px solid #ff9800;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      background: rgba(255, 152, 0, 0.1);
+      border-radius: 0 8px 8px 0;
+    }
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      background: rgba(0, 0, 0, 0.7);
+      border-top: 1px solid #ff5252;
+    }
+    .important-note {
+      background: rgba(255, 152, 0, 0.2);
+      border: 1px solid #ff9800;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .resource-card {
+      background: rgba(25, 25, 40, 0.9);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      border: 1px solid #4a4a6e;
+    }
+    .resource-card:hover {
+      transform: translateY(-5px);
+      border-color: #ff5252;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .resource-card h3 {
+      color: #4fc3f7;
+      margin-top: 0;
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(to right, #ff5252, #ff9800);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0.5rem 0;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+    .step-container {
+      counter-reset: step-counter;
+      margin: 2rem 0;
+    }
+    .step {
+      position: relative;
+      padding-left: 60px;
+      margin-bottom: 2rem;
+    }
+    .step::before {
+      counter-increment: step-counter;
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      background: #ff5252;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    @media (max-width: 768px) {
+      .navbar {
+        gap: 0.5rem;
+        padding: 0.8rem;
+      }
+      .navbar a {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+      h1 {
+        font-size: 2.5rem;
+      }
+      .tagline {
+        font-size: 1.2rem;
+      }
+      .section {
+        padding: 1.5rem;
+        margin: 1.5rem 15px;
+      }
+      .stat-box {
+        width: 130px;
+        padding: 1rem;
+      }
+      .stat-number {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="contact-info">
-            <a href="mailto:contact@swissrohub.ch">
-                <i class="fas fa-envelope"></i> contact@swissrohub.ch
-            </a>
-            <a href="tel:+41767110358">
-                <i class="fas fa-phone"></i> +41 76 711 03 58
-            </a>
-        </div>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-telegram"></i></a>
-        </div>
+  <div class="overlay" id="content">
+    <div class="navbar">
+      <a href="#acte">Acte și rezidență</a>
+      <a href="#munca">Muncă</a>
+      <a href="#locuinte">Locuințe</a>
+      <a href="#finantare">Finanțare</a>
+      <a href="#biserici">Biserici</a>
+      <a href="#servicii">Servicii</a>
+      <a href="#anunturi">Anunțuri</a>
+      <a href="#cafea">Cafea în doi</a>
+      <a href="#somaj">Șomaj</a>
+      <a href="#asigurari">Asigurări</a>
+      <a href="#taxe">Taxe</a>
     </div>
     
-    <!-- Main Navigation -->
-    <nav class="main-nav">
-        <div class="logo">
-            <i class="fas fa-mountain logo-icon"></i>
-            <div class="logo-text">SWISSROHUB-CH</div>
-        </div>
-        <div class="nav-links">
-            <a href="#acasa">Acasă</a>
-            <a href="#rezidenta">Rezidență și Înregistrare</a>
-            <a href="#munca">Muncă</a>
-            <a href="#limba">Ghid DE</a>
-            <a href="#locuinte">Locuințe</a>
-            <a href="#biserici">Biserici</a>
-        </div>
-    </nav>
+    <h1>SwissRoHub.ch</h1>
+    <div class="tagline">Sprijin pentru fiecare român în Elveția. Construim împreună o comunitate unită și prosperă.</div>
     
-    <!-- Secondary Navigation -->
-    <div class="secondary-nav">
-        <div class="secondary-nav-links">
-            <a href="#diferente">Diferențe și Rate</a>
-            <a href="#credite">Credite și Împrumuturi</a>
-            <a href="#servicii">Prestări Servicii</a>
-            <a href="#cafea">O Cafea în Doi</a>
-        </div>
+    <div class="community-stats">
+      <div class="stat-box">
+        <div class="stat-number">80.000+</div>
+        <div class="stat-label">Români în Elveția</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Ani de comunitate</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">100+</div>
+        <div class="stat-label">Evenimente anual</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Suport comunitate</div>
+      </div>
     </div>
     
-    <!-- Hero Section -->
-    <section class="hero" id="acasa">
-        <div class="hero-content">
-            <span class="romanian-tag">Român</span>
-            <h1>SWISSROHUB-CH</h1>
-            <p>Conectăm românii din Elveția – tot ce ai nevoie, într-un singur loc.</p>
-            <div class="hero-buttons">
-                <a href="#fondator" class="btn btn-primary">DESPRE FONDATOR</a>
-                <a href="#whatsapp" class="btn btn-outline">WHATSAPP</a>
-            </div>
+    <!-- Secțiunile -->
+    <div class="section" id="acte">
+      <h2>Acte și rezidență</h2>
+      <div class="info-card">
+        <h3>Documente necesare pentru stabilire în Elveția</h3>
+        <ul>
+          <li>Pașaport valid sau carte de identitate</li>
+          <li>Contract de muncă sau dovadă a mijloacelor de subzistență</li>
+          <li>Dovada asigurării medicale</li>
+          <li>Contract de închiriere sau dovadă a locuinței</li>
+        </ul>
+      </div>
+      
+      <div class="step-container">
+        <div class="step">
+          <h3>Înregistrarea în primire</h3>
+          <p>În termen de 14 zile de la sosire, trebuie să vă înregistrați la autoritățile locale (Einwohnerkontrolle).</p>
         </div>
-    </section>
+        <div class="step">
+          <h3>Permis de ședere</h3>
+          <p>Tipul de permis depinde de contractul de muncă: 
+            <span class="highlight">Permis L</span> (scurtă durată), 
+            <span class="highlight">Permis B</span> (rezidență), 
+            <span class="highlight">Permis C</span> (de stabilire).</p>
+        </div>
+        <div class="step">
+          <h3>Cetățenie elvețiană</h3>
+          <p>Se poate obține după 10 ani de rezidență, cu integrare dovedită și cunoștințe ale limbii și culturii.</p>
+        </div>
+      </div>
+    </div>
     
-    <!-- Rezidență și Înregistrare -->
-    <section id="rezidenta" class="section">
-        <div class="section-title">
-            <h2>Rezidență și Înregistrare</h2>
-            <p>Informații complete despre permisele de ședere și procedurile de înregistrare în Elveția</p>
+    <div class="section" id="munca">
+      <h2>Muncă și carieră</h2>
+      <div class="info-card">
+        <h3>Găsirea unui loc de muncă</h3>
+        <p>Principalele site-uri pentru joburi în Elveția:</p>
+        <ul>
+          <li>jobs.ch</li>
+          <li>jobup.ch</li>
+          <li>linkedin.com</li>
+          <li>adecco.ch</li>
+        </ul>
+      </div>
+      
+      <div class="important-note">
+        <p>📌 Salariul mediu în Elveția este de aproximativ 6.500 CHF/lună (brut), dar variază în funcție de regiune și domeniu.</p>
+      </div>
+      
+      <div class="resources-grid">
+        <div class="resource-card">
+          <h3>Recunoaștere diplome</h3>
+          <p>Procesul de recunoaștere a diplomelor românești în Elveția prin intermediul Centrului Național de Recunoaștere a Diplomelor.</p>
+          <a href="#" class="btn">Detalii</a>
         </div>
-        
-        <div class="card-grid">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-clock"></i>
-                    <h3>Ședere temporară fără acte</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-check-circle"></i> Poți sta în Elveția până la 90 de zile fără înregistrare</li>
-                        <li><i class="fas fa-exclamation-triangle"></i> Munca fără acte este interzisă</li>
-                        <li><i class="fas fa-gavel"></i> Riscuri: amendă și expulzare</li>
-                        <li><i class="fas fa-info-circle"></i> Angajatorii pot face cereri speciale</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-file-alt"></i>
-                    <h3>Permis L</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-briefcase"></i> Pentru contracte sub 1 an</li>
-                        <li><i class="fas fa-home"></i> Necesită adresă stabilă</li>
-                        <li><i class="fas fa-file-signature"></i> Documente: pașaport, contract muncă</li>
-                        <li><i class="fas fa-calendar-alt"></i> Valabilitate: până la 12 luni</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-file-contract"></i>
-                    <h3>Permis B</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-file-contract"></i> Contract muncă minim 12 luni</li>
-                        <li><i class="fas fa-calendar-check"></i> Valabilitate: 5 ani</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Înregistrare la primărie obligatorie</li>
-                        <li><i class="fas fa-hourglass-half"></i> Procesare: 14 zile</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-id-card-alt"></i>
-                    <h3>Permis C</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-calendar-day"></i> După 5 ani de ședere continuă</li>
-                        <li><i class="fas fa-language"></i> Cunoștințe de limbă necesare</li>
-                        <li><i class="fas fa-user-check"></i> Integrare în societate</li>
-                        <li><i class="fas fa-file-alt"></i> Cerere la oficiul migrație</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="resource-card">
+          <h3>CV elvețian</h3>
+          <p>Modele și sfaturi pentru crearea unui CV conform standardelor elvețiene.</p>
+          <a href="#" class="btn">Descarcă model</a>
         </div>
-    </section>
+        <div class="resource-card">
+          <h3>Interviuri</h3>
+          <p>Cum să te pregătești pentru un interviu în Elveția - așteptări culturale și profesionale.</p>
+          <a href="#" class="btn">Sfaturi</a>
+        </div>
+      </div>
+    </div>
     
-    <!-- Muncă -->
-    <section id="munca" class="section" style="background-color: #f0f8ff;">
-        <div class="section-title">
-            <h2>Muncă în Elveția</h2>
-            <p>Ghid complet pentru găsirea unui loc de muncă, drepturile lucrătorilor și procedurile de șomaj</p>
-        </div>
-        
-        <div class="card-grid">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-gavel"></i>
-                    <h3>Drepturile lucrătorilor</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-money-bill-wave"></i> Salariu minim (variază pe canton)</li>
-                        <li><i class="fas fa-umbrella-beach"></i> 4 săptămâni concediu pe an</li>
-                        <li><i class="fas fa-shield-alt"></i> Protecție la concediere</li>
-                        <li><i class="fas fa-file-medical"></i> Asigurări sociale obligatorii</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-search"></i>
-                    <h3>Găsirea unui loc de muncă</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-globe"></i> Site-uri: jobup.ch, indeed.ch, x28.ch</li>
-                        <li><i class="fas fa-user-tie"></i> CV elvețian: scurt, clar, cu poză</li>
-                        <li><i class="fas fa-hands-helping"></i> Ajutor de la RAV</li>
-                        <li><i class="fas fa-building"></i> Agenții de plasare: Adecco, Manpower</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-file-invoice"></i>
-                    <h3>Contractul de muncă</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-file-signature"></i> Trebuie să fie în scris</li>
-                        <li><i class="fas fa-clock"></i> Specifică orele, salariul, responsabilitățile</li>
-                        <li><i class="fas fa-user-clock"></i> Perioadă probă max. 3 luni</li>
-                        <li><i class="fas fa-exclamation-circle"></i> Păstrează întotdeauna o copie</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="section" id="locuinte">
+      <h2>Locuințe</h2>
+      <div class="info-card">
+        <h3>Găsirea unei locuințe</h3>
+        <p>Principalele site-uri pentru căutare locuințe:</p>
+        <ul>
+          <li>homegate.ch</li>
+          <li>immoscout24.ch</li>
+          <li>comparis.ch</li>
+          <li>anibis.ch</li>
+        </ul>
+      </div>
+      
+      <div class="quote">
+        "Chiria medie pentru un apartament cu 2 camere în Zürich este de 2.000-2.500 CHF/lună, dar poate fi mai mică în orașele mai mici."
+      </div>
+      
+      <h3>Documente necesare pentru închiriere</h3>
+      <ul>
+        <li>Carte de identitate sau pașaport</li>
+        <li>Permis de ședere</li>
+        <li>Dovada venitului (ultimele 3 fluturași de salariu)</li>
+        <li>Istoric de credit (din registrul de evidență a debitorilor)</li>
+      </ul>
+    </div>
     
-    <!-- Locuințe -->
-    <section id="locuinte" class="section">
-        <div class="section-title">
-            <h2>Locuințe</h2>
-            <p>Informații despre găsirea locuințelor, contracte de închiriere și zone recomandate</p>
+    <div class="section" id="finantare">
+      <h2>Finanțare - Rate și Leasing</h2>
+      <div class="info-card">
+        <h3>Credite și împrumuturi</h3>
+        <p>Condiții pentru românii care locuiesc în Elveția:</p>
+        <ul>
+          <li>Permis de ședere tip B sau C</li>
+          <li>Minim 3-6 luni de muncă în Elveția</li>
+          <li>Venit lunar stabil</li>
+          <li>Istoric de credit bun</li>
+        </ul>
+      </div>
+      
+      <div class="resources-grid">
+        <div class="resource-card">
+          <h3>Bănci recomandate</h3>
+          <p>BCR Elveția, Raiffeisen, Credit Suisse, UBS - oferte speciale pentru comunitatea românească.</p>
+          <a href="#" class="btn">Compară oferte</a>
         </div>
-        
-        <div class="card-grid">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-search"></i>
-                    <h3>Găsirea unei locuințe</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-globe"></i> Site-uri utile: homegate.ch, immoscout24.ch</li>
-                        <li><i class="fas fa-user"></i> Contact direct cu proprietarul</li>
-                        <li><i class="fas fa-folder"></i> Dosar cu contract, acte, cont bancar</li>
-                        <li><i class="fas fa-euro-sign"></i> Pregătește garanție (max. 3 luni chirii)</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-file-contract"></i>
-                    <h3>Contract de închiriere</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-file-contract"></i> Include durată, chirie, garanție</li>
-                        <li><i class="fas fa-search"></i> Citește cu atenție toate clauzele</li>
-                        <li><i class="fas fa-signature"></i> Semnează doar după verificare</li>
-                        <li><i class="fas fa-calendar-times"></i> Reziliere cu preaviz 3 luni</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <h3>Zone recomandate</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-city"></i> Zürich - centru financiar, multe oportunități</li>
-                        <li><i class="fas fa-university"></i> Lausanne - oraș universitar, atmosferă tânără</li>
-                        <li><i class="fas fa-landmark"></i> Luzern - pitoresc, costuri mai mici</li>
-                        <li><i class="fas fa-mountain"></i> Bern - capitală, atmosferă relaxată</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="resource-card">
+          <h3>Leasing auto</h3>
+          <p>Condiții avantajoase pentru românii cu contract de muncă în Elveția.</p>
+          <a href="#" class="btn">Calculează rata</a>
         </div>
-    </section>
+        <div class="resource-card">
+          <h3>Împrumut ipotecar</h3>
+          <p>Pentru cumpărarea unei locuințe în Elveția sau România.</p>
+          <a href="#" class="btn">Află detalii</a>
+        </div>
+      </div>
+    </div>
     
-    <!-- Biserici -->
-    <section id="biserici" class="section" style="background-color: #fff8f0;">
-        <div class="section-title">
-            <h2>Biserici</h2>
-            <p>Biserici ortodoxe românești și alte locașuri de cult în Elveția</p>
-        </div>
-        
-        <div class="card-grid">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-church"></i>
-                    <h3>Biserica Ortodoxă Română Zürich</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Adresă: X-strasse 12, Zürich</li>
-                        <li><i class="fas fa-user"></i> Preot: Părintele Daniel</li>
-                        <li><i class="fas fa-clock"></i> Program slujbe: Duminică 10:00</li>
-                        <li><i class="fas fa-phone"></i> Contact: +41 76 XXX XX XX</li>
-                        <li><i class="fab fa-whatsapp"></i> Grup WhatsApp pentru comunitate</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-church"></i>
-                    <h3>Parohia Sf. Gheorghe Geneva</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Adresă: Rue du Jura 7, Geneva</li>
-                        <li><i class="fas fa-user"></i> Preot: Părintele Mihai</li>
-                        <li><i class="fas fa-clock"></i> Program slujbe: Duminică 11:30</li>
-                        <li><i class="fas fa-phone"></i> Contact: +41 78 XXX XX XX</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <i class="fas fa-church"></i>
-                    <h3>Biserica Ortodoxă Română Bern</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Adresă: Y-strasse 8, Bern</li>
-                        <li><i class="fas fa-user"></i> Preot: Părintele Andrei</li>
-                        <li><i class="fas fa-clock"></i> Program slujbe: Sâmbătă 18:00, Duminică 9:30</li>
-                        <li><i class="fab fa-whatsapp"></i> Grup WhatsApp pentru comunitate</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="section" id="biserici">
+      <h2>Biserici românești</h2>
+      <div class="info-card">
+        <h3>Biserici ortodoxe românești în principalele orașe</h3>
+        <ul>
+          <li><span class="highlight">Zürich</span>: Biserica "Sfântul Nicolae" - Badenerstrasse 69</li>
+          <li><span class="highlight">Geneva</span>: Parohia "Sfântul Gheorghe" - Rue de Lyon 106</li>
+          <li><span class="highlight">Basel</span>: Biserica "Sfântul Ioan Botezătorul" - Missionsstrasse 24</li>
+          <li><span class="highlight">Bern</span>: Parohia "Înălțarea Domnului" - Murtenstrasse 1</li>
+        </ul>
+      </div>
+      
+      <p>Program slujbe și contacte pentru fiecare parohie sunt disponibile pe site-ul Mitropoliei Ortodoxe Române pentru Elveția.</p>
+      <a href="#" class="btn">Vezi program slujbe</a>
+    </div>
     
-    <!-- Ghid Limba Germană -->
-    <section id="limba" class="section">
-        <div class="section-title">
-            <h2>Ghid Limba Germană</h2>
-            <p>Expresii și cuvinte utile pentru viața în Elveția</p>
+    <div class="section" id="servicii">
+      <h2>Servicii pentru comunitate</h2>
+      <div class="resources-grid">
+        <div class="resource-card">
+          <h3>Traduceri autorizate</h3>
+          <p>Traducători autorizați pentru documente oficiale (diplome, certificate, acte).</p>
+          <a href="#" class="btn">Listă traducători</a>
         </div>
-        
-        <div class="expressions-grid">
-            <div class="expression-card">
-                <h3>Loc de muncă</h3>
-                <div class="expression-item">
-                    <span class="romanian">Caut un loc de muncă</span>
-                    <span class="german">Ich suche eine Arbeit</span>
-                </div>
-                <div class="expression-item">
-                    <span class="romanian">Lucrez ca...</span>
-                    <span class="german">Ich arbeite als...</span>
-                </div>
-                <div class="expression-item">
-                    <span class="romanian">Am nevoie de un contract</span>
-                    <span class="german">Ich brauche einen Vertrag</span>
-                </div>
-                <div class="expression-item">
-                    <span class="romanian">Care este salariul?</span>
-                    <span class="german">Was ist das Gehalt?</span>
-                </div>
-            </div>
-            
-            <div class="expression-card">
-                <h3>Cazare</h3>
-                <div class="expression-item">
-                    <span class="romanian">Caut o locuință</span>
-                    <span class="german">Ich suche eine Wohnung</span>
-                </div>
-                <div class="expression-item">
-                    <span class="romanian">Chirie</span>
-                    <span class="german">Miete</span>
-                </div>
-                <div class="expression-item">
-                    <span class="romanian">Costuri suplimentare</span>
-                    <span class="german">Nebenkosten</span>
-                </div>
-                <div class="expression-item">
-                    <span class="romanian">Garanție</span>
-                    <span class="german">Kaution</span>
-                </div>
-            </div>
-            
-            <div class="expression-card">
-                <h3>Urgențe</h3>
-                <div class="expression-item">
-                    <span class="romanian">Am nevoie de ajutor!</span>
-                    <span class="german">Ich brauche Hilfe!</span>
-                </div>
-                <div class="expression-item">
-                    <span class="romanian">Am avut un accident</span>
-                    <span class="german">Ich hatte einen Unfall</span>
-                </div>
-                <div class="expression-item">
-                    <span class="romanian">Chemați o ambulanță</span>
-                    <span class="german">Rufen Sie einen Krankenwagen</span>
-                </div>
-                <div class="expression-item">
-                    <span class="romanian">Unde este spitalul?</span>
-                    <span class="german">Wo ist das Krankenhaus?</span>
-                </div>
-            </div>
+        <div class="resource-card">
+          <h3>Medici români</h3>
+          <p>Lista medicilor români care lucrează în sistemul elvețian.</p>
+          <a href="#" class="btn">Găsește medic</a>
         </div>
-    </section>
+        <div class="resource-card">
+          <h3>Avocați</h3>
+          <p>Specialiști în drept elvețian care vorbesc română.</p>
+          <a href="#" class="btn">Contactează</a>
+        </div>
+        <div class="resource-card">
+          <h3>Școli românești</h3>
+          <p>Cursuri de limba și cultura română pentru copii.</p>
+          <a href="#" class="btn">Înscrie copilul</a>
+        </div>
+      </div>
+    </div>
     
-    <!-- Servicii & Profesioniști -->
-    <section id="servicii" class="section" style="background-color: #f8f9fa;">
-        <div class="section-title">
-            <h2>Servicii & Profesioniști</h2>
-            <p>Avocați, doctori și contabili români în Elveția</p>
-        </div>
-        
-        <div class="professional-list">
-            <div class="professional-card">
-                <h3>Avocați români</h3>
-                <p><i class="fas fa-user"></i> Av. Andrei Popescu (Zürich)</p>
-                <p><i class="fas fa-phone"></i> +41 76 123 45 67</p>
-                <p><i class="fas fa-gavel"></i> Specializare: Dreptul muncii</p>
-                <p><i class="fas fa-clock"></i> Program: Luni-Vineri 9:00-17:00</p>
-            </div>
-            
-            <div class="professional-card">
-                <h3>Doctori români</h3>
-                <p><i class="fas fa-user"></i> Dr. Iulian D. (Geneva)</p>
-                <p><i class="fas fa-phone"></i> +41 78 234 56 78</p>
-                <p><i class="fas fa-stethoscope"></i> Specializare: Medicină de familie</p>
-                <p><i class="fas fa-comment-medical"></i> Consultații în limba română</p>
-            </div>
-            
-            <div class="professional-card">
-                <h3>Contabili români</h3>
-                <p><i class="fas fa-user"></i> Expert contabil Andreea S. (Luzern)</p>
-                <p><i class="fas fa-phone"></i> +41 79 345 67 89</p>
-                <p><i class="fas fa-calculator"></i> Servicii: Contabilitate PFA și firme</p>
-                <p><i class="fab fa-whatsapp"></i> Disponibil pe WhatsApp</p>
-            </div>
-        </div>
-    </section>
+    <div class="section" id="anunturi">
+      <h2>Anunțuri comunitare</h2>
+      <div class="info-card">
+        <h3>Evenimente viitoare</h3>
+        <ul>
+          <li><span class="highlight">15 Iulie</span>: Festivalul Românesc la Zürich - Parcul Belvoir</li>
+          <li><span class="highlight">28-30 Iulie</span>: Tabără de familie în Alpi</li>
+          <li><span class="highlight">10 August</span>: Ziua Națională a României - Berna</li>
+        </ul>
+      </div>
+      
+      <div class="info-card">
+        <h3>Oferte de muncă</h3>
+        <ul>
+          <li>Bucătar în Geneva - salariu 4.500 CHF net + beneficii</li>
+          <li>Asistent medical în Basel - 6.000 CHF brut</li>
+          <li>Programator Java în Zürich - 8.000 CHF brut</li>
+        </ul>
+      </div>
+      
+      <a href="#" class="btn">Postează anunț</a>
+      <a href="#" class="btn">Vezi toate anunțurile</a>
+    </div>
     
-    <!-- Comunitate -->
-    <section id="comunitate" class="section community-section">
-        <div class="section-title">
-            <h2>Comunitate</h2>
-            <p>Alătură-te comunității de români din Elveția și beneficiază de servicii dedicate</p>
+    <div class="section" id="cafea">
+      <h2>O cafea în doi</h2>
+      <div class="info-card">
+        <h3>Program de mentorat</h3>
+        <p>Conectează-te cu membri experimentați ai comunității pentru sfaturi practice.</p>
+      </div>
+      
+      <div class="quote">
+        "Am ajuns în Elveția acum 3 luni. Prin programul 'O cafea în doi' am găsit un mentor care m-a ajutat să înțeleg sistemul medical și să-mi găsesc un apartament. A fost ca un înger!" - Maria, Berna
+      </div>
+      
+      <div class="step-container">
+        <div class="step">
+          <h3>Înscriere</h3>
+          <p>Completează formularul online indicând domeniul în care ai nevoie de ajutor.</p>
         </div>
-        
-        <div class="community-features">
-            <div class="community-card">
-                <i class="fas fa-bullhorn"></i>
-                <h3>Anunțuri de muncă</h3>
-                <p>Publică sau caută anunțuri de muncă valabile 30 de zile. Formular simplu cu nume, activitate, contact.</p>
-                <a href="#anunturi" class="feature-btn">Vezi anunțuri</a>
-            </div>
-            
-            <div class="community-card">
-                <i class="fas fa-coffee"></i>
-                <h3>O cafea în doi</h3>
-                <p>Cunoaște alți români în Elveția. Completează formularul cu prenume, oraș, vârstă și preferințe.</p>
-                <a href="#cafea" class="feature-btn">Participă</a>
-            </div>
-            
-            <div class="community-card">
-                <i class="fas fa-comment-medical"></i>
-                <h3>WhatsApp Urgențe</h3>
-                <p>Ai nevoie de ajutor urgent? Contactează fondatorul direct prin WhatsApp pentru asistență.</p>
-                <a href="#whatsapp" class="feature-btn emergency-btn">Ajutor urgent</a>
-            </div>
+        <div class="step">
+          <h3>Potrivire</h3>
+          <p>Te vom conecta cu un membru experimentat al comunității în regiunea ta.</p>
         </div>
-    </section>
+        <div class="step">
+          <h3>Întâlnire</h3>
+          <p>Stabiliți o întâlnire la o cafenea din orașul tău.</p>
+        </div>
+      </div>
+      
+      <a href="#" class="btn">Înscrie-te acum</a>
+    </div>
     
-    <!-- Formular Anunțuri -->
-    <section id="anunturi" class="section">
-        <div class="section-title">
-            <h2>Anunțuri de Muncă</h2>
-            <p>Publică un anunț pentru servicii oferite sau solicitate</p>
-        </div>
-        
-        <div class="form-container">
-            <form id="job-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nume">Nume complet</label>
-                        <input type="text" id="nume" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="activitate">Activitate oferită</label>
-                        <input type="text" id="activitate" class="form-control" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="oras">Oraș</label>
-                        <input type="text" id="oras" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="telefon">Telefon</label>
-                        <input type="tel" id="telefon" class="form-control" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="whatsapp">Link WhatsApp (opțional)</label>
-                    <input type="url" id="whatsapp" class="form-control">
-                </div>
-                
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Publică Anunț</button>
-                </div>
-            </form>
-        </div>
-    </section>
+    <div class="section" id="somaj">
+      <h2>Șomaj și ajutoare sociale</h2>
+      <div class="info-card">
+        <h3>Condiții pentru alocația de șomaj</h3>
+        <ul>
+          <li>Minim 12 luni de muncă în ultimii 2 ani</li>
+          <li>Înregistrare imediată la biroul de șomaj după pierderea locului de muncă</li>
+          <li>Disponibilitate pentru nouă muncă</li>
+        </ul>
+      </div>
+      
+      <h3>Alocația de șomaj în Elveția</h3>
+      <p>Se calculează ca 70% din salariul mediu din ultimele 6 luni, cu o limită maximă de 10.500 CHF/lună. Durata depinde de vârstă și vechime în muncă.</p>
+    </div>
     
-    <!-- Formular Cafea -->
-    <section id="cafea" class="section" style="background-color: #f0f8ff;">
-        <div class="section-title">
-            <h2>O Cafea în Doi</h2>
-            <p>Cunoaște oameni noi în comunitatea românească din Elveția</p>
+    <div class="section" id="asigurari">
+      <h2>Asigurări obligatorii</h2>
+      <div class="info-card">
+        <h3>Asigurarea medicală</h3>
+        <p>Obligatorie pentru toți rezidenții. Costul mediu: 300-500 CHF/lună pentru adulți.</p>
+      </div>
+      
+      <div class="resources-grid">
+        <div class="resource-card">
+          <h3>Asigurări de sănătate</h3>
+          <p>Compară ofertele de la diferite companii: Swica, Helsana, CSS, Concordia.</p>
+          <a href="#" class="btn">Compară oferte</a>
         </div>
-        
-        <div class="form-container">
-            <form id="coffee-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="prenume">Prenume</label>
-                        <input type="text" id="prenume" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="varsta">Vârstă</label>
-                        <input type="number" id="varsta" class="form-control" min="18" max="99" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="oras-coffee">Oraș</label>
-                        <input type="text" id="oras-coffee" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="preferinte">Preferințe</label>
-                        <select id="preferinte" class="form-control" required>
-                            <option value="">Selectează...</option>
-                            <option value="prietenie">Prietenie</option>
-                            <option value="networking">Networking profesional</option>
-                            <option value="relatie">Cunoaștere pentru relație</option>
-                            <option value="activitati">Activități în comun</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="whatsapp-coffee">Link WhatsApp</label>
-                    <input type="url" id="whatsapp-coffee" class="form-control" required>
-                </div>
-                
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Trimite</button>
-                </div>
-            </form>
+        <div class="resource-card">
+          <h3>Asigurare de răspundere civilă</h3>
+          <p>Obligatorie pentru chiriași - acoperă daunele produse proprietății.</p>
+          <a href="#" class="btn">Află mai multe</a>
         </div>
-    </section>
+        <div class="resource-card">
+          <h3>Asigurare auto</h3>
+          <p>Obligatorie pentru toți proprietarii de autovehicule.</p>
+          <a href="#" class="btn">Calculează preț</a>
+        </div>
+      </div>
+    </div>
     
-    <!-- Despre Fondator -->
-    <section id="fondator" class="section" style="background-color: #fff8f0;">
-        <div class="section-title">
-            <h2>Despre Fondator</h2>
-        </div>
-        
-        <div class="form-container">
-            <blockquote style="font-style: italic; font-size: 1.2rem; line-height: 1.8; text-align: center; padding: 20px;">
-                "Am creat acest proiect din dorința sinceră de a ajuta pe cei care primesc informații greșite sau nu primesc deloc din răutate. 
-                Vrem să construim o comunitate unică de sprijin în lume, unde fiecare român din Elveția se poate simți acasă și găsește tot 
-                ce are nevoie pentru o integrare ușoară și reușită."
-            </blockquote>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                     alt="Fondator SwissRoHub" 
-                     style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 5px solid var(--primary);">
-                <h3 style="margin-top: 20px;">Alexandru Popescu</h3>
-                <p>Fondator SwissRoHub</p>
-            </div>
-        </div>
-    </section>
+    <div class="section" id="taxe">
+      <h2>Sistemul fiscal elvețian</h2>
+      <div class="info-card">
+        <h3>Impozitarea salariilor</h3>
+        <p>În Elveția, impozitul se plătește la trei niveluri:</p>
+        <ul>
+          <li>Federal - între 0.77% și 11.5%</li>
+          <li>Cantonal - variază între 1% și 13%</li>
+          <li>Comunal - între 30% și 60% din impozitul cantonal</li>
+        </ul>
+      </div>
+      
+      <div class="quote">
+        "Un salariu brut de 8.000 CHF/lună în Zürich rezultă într-un salariu net de aproximativ 6.500 CHF/lună."
+      </div>
+      
+      <h3>Declarația fiscală</h3>
+      <p>Trebuie depusă anual până la 31 martie. Multe cantoane oferă asistență gratuită pentru completare.</p>
+      <a href="#" class="btn">Ghid completare declarație</a>
+    </div>
     
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Despre SwissRoHub</h3>
-                <p>Platforma dedicată românilor din Elveția pentru informații despre rezidență, muncă, locuințe și integrare.</p>
-                <p>"Conectăm românii din Elveția – tot ce ai nevoie, într-un singur loc."</p>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Linkuri Rapide</h3>
-                <a href="#acasa"><i class="fas fa-chevron-right"></i> Acasă</a>
-                <a href="#rezidenta"><i class="fas fa-chevron-right"></i> Rezidență și Înregistrare</a>
-                <a href="#munca"><i class="fas fa-chevron-right"></i> Muncă</a>
-                <a href="#limba"><i class="fas fa-chevron-right"></i> Ghid DE</a>
-                <a href="#locuinte"><i class="fas fa-chevron-right"></i> Locuințe</a>
-                <a href="#biserici"><i class="fas fa-chevron-right"></i> Biserici</a>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><i class="fas fa-map-marker-alt"></i> Zürich, Elveția</p>
-                <p><i class="fas fa-phone"></i> +41 76 711 03 58</p>
-                <p><i class="fas fa-envelope"></i> contact@swissrohub.ch</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2023 SwissRoHub-CH. Toate drepturile rezervate. Proiect realizat cu pasiune pentru comunitatea românească din Elveția.</p>
-        </div>
-    </footer>
-    
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/41767110358" class="whatsapp-float" target="_blank" id="whatsapp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') === '#') return;
-                    
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Form submission handling
-            document.getElementById('job-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Anunțul a fost publicat cu succes! Va fi vizibil timp de 30 de zile.');
-                this.reset();
-            });
-            
-            document.getElementById('coffee-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Cererea a fost trimisă cu succes! Vei fi contactat în scurt timp.');
-                this.reset();
-            });
-            
-            // Card animation
-            const cards = document.querySelectorAll('.card, .community-card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 200 * index);
-            });
+    <div class="footer">
+      <h3>SwissRoHub.ch - Comunitatea Românilor din Elveția</h3>
+      <p>© 2025 Toate drepturile rezervate | Un proiect al comunității pentru comunitate</p>
+      <p>Contact: info@swissrohub.ch | Tel: +41 76 711 03 58</p>
+      <p>Urmărește-ne pe: 
+        <a href="#" style="color: #4fc3f7; margin: 0 10px;">Facebook</a> | 
+        <a href="#" style="color: #4fc3f7; margin: 0 10px;">Instagram</a> | 
+        <a href="#" style="color: #4fc3f7; margin: 0 10px;">Telegram</a>
+      </p>
+    </div>
+  </div>
+  
+  <a class="whatsapp" href="https://wa.me/41767110358" target="_blank">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    WhatsApp Suport
+  </a>
+  
+  <script>
+    // Animare la scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('.section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
         });
-    </script>
+      }, { threshold: 0.1 });
+      
+      sections.forEach(section => {
+        section.style.opacity = 0;
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        observer.observe(section);
+      });
+      
+      // Efect pentru butoane
+      const buttons = document.querySelectorAll('.btn, .navbar a');
+      buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-3px)';
+        });
+        button.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+      
+      // Efect pentru carduri
+      const cards = document.querySelectorAll('.resource-card, .stat-box');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-8px)';
+        });
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+    });
+  </script>
 </body>
 </html>
