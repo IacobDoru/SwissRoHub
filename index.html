@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwissRoHub - Portal Securizat pentru Românii în Elveția</title>
+    <title>SwissRoHub - Portal pentru Românii în Elveția</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -30,13 +30,6 @@
             line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
-            transition: filter 0.5s ease;
-        }
-        
-        body.blurred {
-            filter: blur(8px);
-            pointer-events: none;
         }
         
         /* Header */
@@ -46,7 +39,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 1rem 2rem;
+            padding: 1rem 0;
         }
         
         .header-container {
@@ -55,6 +48,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 2rem;
         }
         
         .logo {
@@ -71,25 +65,29 @@
             color: var(--accent);
         }
         
+        /* Navigation */
         .nav-container {
             display: flex;
-            gap: 1.5rem;
+            gap: 1px;
+            background: rgba(0, 87, 184, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
         
         .nav-item {
-            padding: 0.8rem 1.2rem;
+            position: relative;
+            padding: 1rem 1.8rem;
             color: var(--dark);
             text-decoration: none;
             font-weight: 500;
-            border-radius: 6px;
             transition: all 0.3s;
-            position: relative;
             cursor: pointer;
+            text-align: center;
+            min-width: 150px;
         }
         
         .nav-item:hover {
-            background: rgba(0, 87, 184, 0.08);
-            color: var(--primary);
+            background: rgba(0, 87, 184, 0.15);
         }
         
         .nav-item.active {
@@ -97,8 +95,49 @@
             color: white;
         }
         
-        /* Main Content */
-        .main-container {
+        .nav-item i {
+            margin-right: 8px;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            width: 100%;
+            box-shadow: var(--shadow);
+            border-radius: 0 0 8px 8px;
+            z-index: 100;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 0.8rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            display: block;
+            transition: all 0.2s;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-size: 0.95rem;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(0, 87, 184, 0.08);
+            padding-left: 1.5rem;
+        }
+        
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Content */
+        .content-container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 2rem;
@@ -112,88 +151,23 @@
             font-size: 1.2rem;
         }
         
-        /* Category Sections */
-        .category-container {
+        .content-section {
             display: none;
-            margin-top: 2rem;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .category-container.active {
-            display: block;
-        }
-        
-        .subcategory-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-        
-        .subcategory-card {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
-            cursor: pointer;
-            border-left: 4px solid var(--primary);
-        }
-        
-        .subcategory-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .subcategory-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1rem;
-        }
-        
-        .subcategory-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(0, 87, 184, 0.1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-        
-        .subcategory-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .subcategory-content {
-            color: var(--gray);
-            line-height: 1.7;
-        }
-        
-        /* Detail View */
-        .detail-container {
-            display: none;
-            margin-top: 2rem;
             animation: slideUp 0.5s ease;
         }
         
-        .detail-container.active {
+        .content-section.active {
             display: block;
         }
         
-        .detail-header {
+        .content-header {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
         
-        .detail-icon {
+        .content-icon {
             width: 60px;
             height: 60px;
             background: rgba(0, 87, 184, 0.1);
@@ -205,13 +179,13 @@
             font-size: 1.8rem;
         }
         
-        .detail-title {
+        .content-title {
             font-size: 1.8rem;
             font-weight: 600;
             color: var(--dark);
         }
         
-        .detail-content {
+        .content-body {
             background: var(--light);
             border-radius: 12px;
             padding: 2rem;
@@ -254,26 +228,6 @@
             color: var(--accent);
             margin-top: 5px;
             font-size: 0.9rem;
-        }
-        
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0.8rem 1.5rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-            margin-bottom: 1rem;
-        }
-        
-        .back-button:hover {
-            background: #0046a0;
-            transform: translateY(-2px);
         }
         
         /* Lock Modal */
@@ -388,7 +342,7 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
@@ -399,7 +353,7 @@
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(40px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -408,6 +362,14 @@
         }
         
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-item {
+                min-width: 130px;
+                padding: 1rem 1rem;
+                font-size: 0.95rem;
+            }
+        }
+        
         @media (max-width: 768px) {
             .header-container {
                 flex-direction: column;
@@ -416,7 +378,12 @@
             
             .nav-container {
                 flex-wrap: wrap;
-                justify-content: center;
+                width: 100%;
+            }
+            
+            .nav-item {
+                min-width: 48%;
+                margin-bottom: 1px;
             }
             
             .modal-content {
@@ -441,134 +408,87 @@
             </a>
             
             <div class="nav-container">
-                <div class="nav-item" data-category="acte">
+                <div class="nav-item">
                     <i class="fas fa-file-alt"></i> Acte & Rezidență
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" data-content="permise">
+                            <i class="fas fa-chevron-right"></i> Permise de Ședere
+                        </div>
+                        <div class="dropdown-item" data-content="radiere">
+                            <i class="fas fa-chevron-right"></i> Radierea Adresei
+                        </div>
+                        <div class="dropdown-item" data-content="permis-conducere">
+                            <i class="fas fa-chevron-right"></i> Permis de Conducere
+                        </div>
+                    </div>
                 </div>
-                <div class="nav-item" data-category="locuinte">
+                
+                <div class="nav-item">
                     <i class="fas fa-home"></i> Locuințe
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" data-content="gasire-locuinta">
+                            <i class="fas fa-chevron-right"></i> Găsire Locuință
+                        </div>
+                        <div class="dropdown-item" data-content="contracte-inchiriere">
+                            <i class="fas fa-chevron-right"></i> Contracte Închiriere
+                        </div>
+                        <div class="dropdown-item" data-content="drepturi-chiriasi">
+                            <i class="fas fa-chevron-right"></i> Drepturi Chiriași
+                        </div>
+                    </div>
                 </div>
-                <div class="nav-item" data-category="munca">
+                
+                <div class="nav-item">
                     <i class="fas fa-briefcase"></i> Muncă
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" data-content="oportunitati">
+                            <i class="fas fa-chevron-right"></i> Oportunități
+                        </div>
+                        <div class="dropdown-item" data-content="contracte-munca">
+                            <i class="fas fa-chevron-right"></i> Contracte de Muncă
+                        </div>
+                        <div class="dropdown-item" data-content="drepturi-lucratori">
+                            <i class="fas fa-chevron-right"></i> Drepturi Lucrători
+                        </div>
+                    </div>
                 </div>
-                <div class="nav-item" data-category="asigurari">
+                
+                <div class="nav-item">
                     <i class="fas fa-heartbeat"></i> Asigurări
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item" data-content="lamal">
+                            <i class="fas fa-chevron-right"></i> Asigurare LaMal
+                        </div>
+                        <div class="dropdown-item" data-content="asigurari-complementare">
+                            <i class="fas fa-chevron-right"></i> Asigurări Complementare
+                        </div>
+                        <div class="dropdown-item" data-content="comparare-oferte">
+                            <i class="fas fa-chevron-right"></i> Comparare Oferte
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="main-container">
+    <!-- Content -->
+    <div class="content-container">
         <div class="content-placeholder">
             <i class="fas fa-compass fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
             <h2>Bun venit pe SwissRoHub!</h2>
-            <p>Selectați o categorie din bara de navigare pentru a accesa informațiile</p>
+            <p>Selectați o opțiune din meniul de navigare pentru a accesa informațiile</p>
         </div>
         
-        <!-- Acte & Rezidenta -->
-        <div class="category-container" id="acte-category">
-            <button class="back-button" onclick="hideCategory('acte')">
-                <i class="fas fa-arrow-left"></i> Înapoi la categorii
-            </button>
-            
-            <div class="subcategory-grid">
-                <div class="subcategory-card" data-detail="permise">
-                    <div class="subcategory-header">
-                        <div class="subcategory-icon">
-                            <i class="fas fa-id-card"></i>
-                        </div>
-                        <h3 class="subcategory-title">Permise de Ședere</h3>
-                    </div>
-                    <div class="subcategory-content">
-                        Informații complete despre tipurile de permise necesare în Elveția
-                    </div>
-                </div>
-                
-                <div class="subcategory-card" data-detail="radiere">
-                    <div class="subcategory-header">
-                        <div class="subcategory-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <h3 class="subcategory-title">Radierea Adresei</h3>
-                    </div>
-                    <div class="subcategory-content">
-                        Procedura obligatorie la schimbarea domiciliului în Elveția
-                    </div>
-                </div>
-                
-                <div class="subcategory-card" data-detail="permis-conducere">
-                    <div class="subcategory-header">
-                        <div class="subcategory-icon">
-                            <i class="fas fa-car"></i>
-                        </div>
-                        <h3 class="subcategory-title">Permis de Conducere</h3>
-                    </div>
-                    <div class="subcategory-content">
-                        Cum să schimbi permisul românesc cu cel elvețian
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Locuinte & Inchirieri -->
-        <div class="category-container" id="locuinte-category">
-            <button class="back-button" onclick="hideCategory('locuinte')">
-                <i class="fas fa-arrow-left"></i> Înapoi la categorii
-            </button>
-            
-            <div class="subcategory-grid">
-                <div class="subcategory-card" data-detail="gasire-locuinta">
-                    <div class="subcategory-header">
-                        <div class="subcategory-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <h3 class="subcategory-title">Găsire Locuință</h3>
-                    </div>
-                    <div class="subcategory-content">
-                        Ghid complet pentru găsirea unei locuințe în Elveția
-                    </div>
-                </div>
-                
-                <div class="subcategory-card" data-detail="contracte-inchiriere">
-                    <div class="subcategory-header">
-                        <div class="subcategory-icon">
-                            <i class="fas fa-file-contract"></i>
-                        </div>
-                        <h3 class="subcategory-title">Contracte de Închiriere</h3>
-                    </div>
-                    <div class="subcategory-content">
-                        Elemente esențiale în contractele elvețiene
-                    </div>
-                </div>
-                
-                <div class="subcategory-card" data-detail="drepturi-chiriasi">
-                    <div class="subcategory-header">
-                        <div class="subcategory-icon">
-                            <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <h3 class="subcategory-title">Drepturi & Obligații</h3>
-                    </div>
-                    <div class="subcategory-content">
-                        Drepturile și obligațiile chiriașilor în Elveția
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Detail Views -->
-        <div class="detail-container" id="permise-detail">
-            <button class="back-button" onclick="hideDetail('permise')">
-                <i class="fas fa-arrow-left"></i> Înapoi la subcategorii
-            </button>
-            
-            <div class="detail-header">
-                <div class="detail-icon">
+        <!-- Permise de Sedere -->
+        <div class="content-section" id="permise-content">
+            <div class="content-header">
+                <div class="content-icon">
                     <i class="fas fa-id-card"></i>
                 </div>
-                <h2 class="detail-title">Permise de Ședere în Elveția</h2>
+                <h2 class="content-title">Permise de Ședere în Elveția</h2>
             </div>
             
-            <div class="detail-content">
+            <div class="content-body">
                 <div class="detail-section">
                     <h3 class="detail-section-title"><i class="fas fa-info-circle"></i> Informații Generale</h3>
                     <p>Toți cetățenii străini care doresc să lucreze sau să locuiască în Elveția trebuie să obțină un permis de ședere. Tipul de permis depinde de durata și scopul șederii.</p>
@@ -597,19 +517,16 @@
             </div>
         </div>
         
-        <div class="detail-container" id="radiere-detail">
-            <button class="back-button" onclick="hideDetail('radiere')">
-                <i class="fas fa-arrow-left"></i> Înapoi la subcategorii
-            </button>
-            
-            <div class="detail-header">
-                <div class="detail-icon">
+        <!-- Radierea Adresei -->
+        <div class="content-section" id="radiere-content">
+            <div class="content-header">
+                <div class="content-icon">
                     <i class="fas fa-home"></i>
                 </div>
-                <h2 class="detail-title">Radierea Adresei în Elveția</h2>
+                <h2 class="content-title">Radierea Adresei în Elveția</h2>
             </div>
             
-            <div class="detail-content">
+            <div class="content-body">
                 <div class="detail-section">
                     <h3 class="detail-section-title"><i class="fas fa-info-circle"></i> Procedura Obligatorie</h3>
                     <p>La mutarea în Elveția sau schimbarea cantonului, este obligatoriu să radiați adresa veche și să vă înregistrați la noua adresă în termen de 14 zile.</p>
@@ -632,6 +549,49 @@
                         <li><i class="fas fa-warning"></i> Nerespectarea termenului de 14 zile poate duce la amenzi de până la 200 CHF</li>
                         <li><i class="fas fa-warning"></i> Radierea este necesară pentru a evita dubla impozitare</li>
                         <li><i class="fas fa-warning"></i> Asigurați-vă că anunțați toate instituțiile (bănci, asigurători) despre schimbarea adresei</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Găsire Locuință -->
+        <div class="content-section" id="gasire-locuinta-content">
+            <div class="content-header">
+                <div class="content-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h2 class="content-title">Găsirea Locuinței în Elveția</h2>
+            </div>
+            
+            <div class="content-body">
+                <div class="detail-section">
+                    <h3 class="detail-section-title"><i class="fas fa-info-circle"></i> Platforme Recomandate</h3>
+                    <ul class="detail-list">
+                        <li><i class="fas fa-check"></i> <strong>Homegate.ch</strong> - Cea mai mare platformă imobiliară din Elveția</li>
+                        <li><i class="fas fa-check"></i> <strong>Comparis.ch</strong> - Comparație prețuri și oferte</li>
+                        <li><i class="fas fa-check"></i> <strong>Ronorp.ch</strong> - Platformă specializată pentru români</li>
+                        <li><i class="fas fa-check"></i> <strong>Immoscout24.ch</strong> - Oferte diverse în toată țara</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <h3 class="detail-section-title"><i class="fas fa-file-alt"></i> Documente Necesare</h3>
+                    <ul class="detail-list">
+                        <li><i class="fas fa-file-contract"></i> Copie permis de ședere</li>
+                        <li><i class="fas fa-money-bill-wave"></i> Dovadă venit (ultimele 3 fluturași de salariu)</li>
+                        <li><i class="fas fa-file-invoice"></i> Istoric credit (din țara de origine)</li>
+                        <li><i class="fas fa-passport"></i> Pașaport valid</li>
+                        <li><i class="fas fa-file-signature"></i> Formular de aplicare completat</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <h3 class="detail-section-title"><i class="fas fa-euro-sign"></i> Costuri Medii</h3>
+                    <ul class="detail-list">
+                        <li><i class="fas fa-city"></i> Zürich: 1800-2500 CHF/lună pentru 2 camere</li>
+                        <li><i class="fas fa-building"></i> Geneva: 1700-2300 CHF/lună pentru 2 camere</li>
+                        <li><i class="fas fa-home"></i> Basel: 1500-2000 CHF/lună pentru 2 camere</li>
+                        <li><i class="fas fa-university"></i> Berna: 1400-1900 CHF/lună pentru 2 camere</li>
                     </ul>
                 </div>
             </div>
@@ -659,82 +619,21 @@
 
     <script>
         // Navigation functionality
-        function showCategory(category) {
-            // Hide all categories and details
-            document.querySelectorAll('.category-container, .detail-container').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            // Show selected category
-            document.getElementById(`${category}-category`).classList.add('active');
-            
-            // Update navigation active state
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelector(`.nav-item[data-category="${category}"]`).classList.add('active');
-            
-            // Hide content placeholder
-            document.querySelector('.content-placeholder').style.display = 'none';
-            
-            // Reset timer on user activity
-            resetLockTimer();
-        }
-        
-        function hideCategory(category) {
-            // Hide category
-            document.getElementById(`${category}-category`).classList.remove('active');
-            
-            // Show content placeholder
-            document.querySelector('.content-placeholder').style.display = 'block';
-            
-            // Reset navigation active state
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Reset timer on user activity
-            resetLockTimer();
-        }
-        
-        function showDetail(detail) {
-            // Hide all categories and details
-            document.querySelectorAll('.category-container, .detail-container').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            // Show selected detail
-            document.getElementById(`${detail}-detail`).classList.add('active');
-            
-            // Reset timer on user activity
-            resetLockTimer();
-        }
-        
-        function hideDetail(detail) {
-            // Hide detail
-            document.getElementById(`${detail}-detail`).classList.remove('active');
-            
-            // Show parent category
-            const category = detail.includes('permise') || detail.includes('radiere') || detail.includes('permis-conducere') ? 'acte' : 
-                            detail.includes('gasire') || detail.includes('contracte') || detail.includes('drepturi') ? 'locuinte' : '';
-            if(category) {
-                document.getElementById(`${category}-category`).classList.add('active');
-            }
-            
-            // Reset timer on user activity
-            resetLockTimer();
-        }
-        
-        // Set up event listeners
-        document.querySelectorAll('.nav-item').forEach(item => {
+        document.querySelectorAll('.dropdown-item').forEach(item => {
             item.addEventListener('click', function() {
-                showCategory(this.getAttribute('data-category'));
-            });
-        });
-        
-        document.querySelectorAll('.subcategory-card').forEach(card => {
-            card.addEventListener('click', function() {
-                showDetail(this.getAttribute('data-detail'));
+                const contentId = this.getAttribute('data-content') + '-content';
+                
+                // Hide all content sections and placeholder
+                document.querySelectorAll('.content-section, .content-placeholder').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // Show selected content
+                document.getElementById(contentId).style.display = 'block';
+                document.getElementById(contentId).classList.add('active');
+                
+                // Reset lock timer on user activity
+                resetLockTimer();
             });
         });
         
@@ -749,7 +648,6 @@
         // Start lock timer (25 seconds)
         function startLockTimer() {
             lockTimer = setTimeout(() => {
-                document.body.classList.add('blurred');
                 lockModal.classList.add('active');
                 startCountdown();
             }, 25000); // 25 seconds
@@ -773,7 +671,6 @@
                 
                 if (seconds <= 0) {
                     clearInterval(countdownTimer);
-                    // In a real scenario, you might generate a new code or take other actions
                 }
             }, 1000);
         }
@@ -804,7 +701,6 @@
             
             // Check if code is 5050
             if (code === '5050') {
-                document.body.classList.remove('blurred');
                 lockModal.classList.remove('active');
                 clearInterval(countdownTimer);
                 
