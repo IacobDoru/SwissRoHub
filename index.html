@@ -34,19 +34,6 @@
             overflow-x: hidden;
         }
 
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(69, 123, 157, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(230, 57, 70, 0.1) 0%, transparent 20%);
-            z-index: -1;
-        }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -61,9 +48,6 @@
             margin-bottom: 30px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            position: sticky;
-            top: 20px;
-            z-index: 100;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -75,15 +59,6 @@
             align-items: center;
             width: 100%;
             margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex: 1;
-            min-width: 250px;
         }
 
         .logo {
@@ -93,21 +68,20 @@
         }
 
         .logo-image {
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background: linear-gradient(45deg, #e63946, #457b9d);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 15px rgba(230, 57, 70, 0.4);
-            overflow: hidden;
+            box-shadow: 0 0 20px rgba(230, 57, 70, 0.4);
             position: relative;
         }
 
         .logo-image::before {
             content: "SRH";
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             color: white;
         }
@@ -118,35 +92,15 @@
         }
 
         .logo-text h1 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             background: linear-gradient(90deg, #f1faee, #a8dadc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 5px;
         }
 
-        .logo-text .slogan {
-            color: var(--accent);
-            font-size: 0.8rem;
-            font-style: italic;
-            opacity: 0.9;
-        }
-
-        .slogan-large {
-            text-align: center;
-            font-size: 1.1rem;
-            color: var(--accent);
-            margin: 10px 0;
-            font-style: italic;
-            padding: 10px;
-            border-top: 1px solid rgba(168, 218, 220, 0.3);
-            border-bottom: 1px solid rgba(168, 218, 220, 0.3);
-            width: 100%;
-        }
-
         .language-switcher {
             position: relative;
-            display: inline-block;
         }
 
         .language-btn {
@@ -156,51 +110,10 @@
             padding: 10px 15px;
             border-radius: 30px;
             font-size: 0.9rem;
-            font-weight: 500;
             cursor: pointer;
-            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
-            flex-shrink: 0;
-        }
-
-        .language-btn:hover {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 0 15px rgba(230, 57, 70, 0.4);
-        }
-
-        .language-dropdown {
-            display: none;
-            position: absolute;
-            background: rgba(29, 53, 87, 0.9);
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            border-radius: 10px;
-            z-index: 1;
-            overflow: hidden;
-            right: 0;
-            margin-top: 5px;
-        }
-
-        .language-dropdown a {
-            color: var(--accent);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
-
-        .language-dropdown a:hover {
-            background: rgba(69, 123, 157, 0.5);
-            color: white;
-        }
-
-        .language-switcher:hover .language-dropdown {
-            display: block;
         }
 
         .search-container {
@@ -212,21 +125,13 @@
 
         .search-container input {
             width: 100%;
-            padding: 12px 20px 12px 50px;
+            padding: 14px 20px 14px 50px;
             border-radius: 50px;
             border: none;
             background: rgba(255, 255, 255, 0.1);
             color: white;
             font-size: 1rem;
-            transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .search-container input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(168, 218, 220, 0.4);
-            box-shadow: 0 0 15px rgba(168, 218, 220, 0.3);
         }
 
         .search-container i {
@@ -235,41 +140,6 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--accent);
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            gap: 8px;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        .nav-btn {
-            background: rgba(29, 53, 87, 0.7);
-            color: var(--accent);
-            border: none;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-btn:hover, .nav-btn.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 0 10px rgba(230, 57, 70, 0.4);
-        }
-
-        .nav-btn i {
-            font-size: 0.8rem;
         }
 
         /* Main Content */
@@ -281,15 +151,15 @@
 
         @media (min-width: 992px) {
             .content-container {
-                grid-template-columns: 250px 1fr;
+                grid-template-columns: 300px 1fr;
             }
         }
 
-        /* Categories - Aligned to left */
+        /* Categories */
         .categories {
             background: rgba(13, 27, 42, 0.8);
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px;
             height: fit-content;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -297,38 +167,30 @@
 
         .categories h2 {
             color: var(--accent);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 1px solid rgba(168, 218, 220, 0.2);
-            font-size: 1.3rem;
             display: flex;
             align-items: center;
             gap: 10px;
-            justify-content: flex-start;
-        }
-
-        .categories h2 i {
-            color: var(--primary);
         }
 
         .category-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            align-items: flex-start;
+            gap: 12px;
         }
 
         .category-item {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
+            padding: 15px 20px;
             background: rgba(29, 53, 87, 0.4);
             border-radius: 10px;
             transition: var(--transition);
             cursor: pointer;
-            gap: 12px;
+            gap: 15px;
             border-left: 3px solid transparent;
-            width: 100%;
         }
 
         .category-item:hover {
@@ -342,10 +204,10 @@
         }
 
         .category-icon {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             background: rgba(168, 218, 220, 0.1);
-            border-radius: 8px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -353,28 +215,18 @@
 
         .category-icon i {
             color: var(--accent);
-            font-size: 0.9rem;
         }
 
-        .category-text {
-            text-align: left;
-        }
-        
         .category-text h3 {
-            font-size: 1rem;
-            margin-bottom: 2px;
-        }
-
-        .category-text p {
-            font-size: 0.8rem;
-            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 3px;
         }
 
         /* Content Sections */
         .sections {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
         .section-card {
@@ -383,130 +235,65 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
-            display: block;
-        }
-
-        .section-card.expanded {
-            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.2);
         }
 
         .section-header {
-            padding: 18px 20px;
+            padding: 20px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .section-header:hover {
-            background: rgba(29, 53, 87, 0.4);
         }
 
         .section-title {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
         .section-title i {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: rgba(230, 57, 70, 0.2);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary);
-            font-size: 1.1rem;
         }
 
         .section-title h2 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--accent);
         }
 
-        .section-toggle {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: rgba(168, 218, 220, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .section-card.expanded .section-toggle {
-            transform: rotate(180deg);
-            background: rgba(230, 57, 70, 0.2);
-            color: var(--primary);
-        }
-
         .section-content {
-            padding: 0 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .section-card.expanded .section-content {
-            padding: 0 20px 20px;
-            max-height: 2000px;
+            padding: 0 25px 25px;
         }
 
         .section-content h3 {
             color: var(--accent);
-            margin: 15px 0 8px;
+            margin: 20px 0 10px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 1.1rem;
-        }
-
-        .section-content h3 i {
-            color: var(--primary);
-            font-size: 0.9rem;
+            gap: 10px;
         }
 
         .section-content p, .section-content li {
-            line-height: 1.6;
+            line-height: 1.7;
             color: rgba(241, 250, 238, 0.9);
-            font-size: 0.95rem;
         }
 
         .section-content ul, .section-content ol {
-            padding-left: 20px;
-            margin: 12px 0;
+            padding-left: 25px;
+            margin: 15px 0;
         }
 
         .section-content li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
-        .section-content a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: var(--transition);
-            border-bottom: 1px dotted rgba(168, 218, 220, 0.4);
-        }
-
-        .section-content a:hover {
-            color: var(--primary);
-            border-bottom: 1px solid var(--primary);
-        }
-
-        .disclaimer {
-            background: rgba(230, 57, 70, 0.15);
-            padding: 12px;
-            border-radius: 8px;
-            margin: 15px 0;
-            border-left: 3px solid var(--primary);
-            font-size: 0.9rem;
-        }
-
-        /* Founder Section - Improved */
+        /* Founder Section */
         .founder-section {
             text-align: center;
             padding: 30px;
@@ -519,334 +306,100 @@
         .founder-title {
             color: var(--accent);
             margin-bottom: 25px;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
         }
 
         .founder-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
         }
 
         @media (min-width: 768px) {
             .founder-container {
                 flex-direction: row;
                 justify-content: center;
-                align-items: center;
             }
         }
 
         .founder-image {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--primary);
-            box-shadow: 0 0 20px rgba(230, 57, 70, 0.4);
-            background: linear-gradient(45deg, #1d3557, #457b9d);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            text-align: center;
-            padding: 15px;
+            box-shadow: 0 0 25px rgba(230, 57, 70, 0.4);
         }
 
         .founder-info {
-            max-width: 700px;
+            max-width: 600px;
             text-align: center;
         }
 
         .founder-info h3 {
             color: var(--accent);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 15px;
         }
 
         .founder-info p {
             line-height: 1.7;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: rgba(241, 250, 238, 0.9);
             font-style: italic;
-            font-size: 1.1rem;
-        }
-        
-        .founder-quote {
-            font-size: 1.2rem;
-            background: rgba(168, 218, 220, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 20px 0;
-            border-left: 4px solid var(--primary);
-        }
-
-        /* WhatsApp Button */
-        .whatsapp-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-        }
-
-        .whatsapp-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-
-        /* Block Modal */
-        .block-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--darker);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 0 50px rgba(230, 57, 70, 0.5);
-            border: 2px solid var(--primary);
-        }
-
-        .modal-content h2 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-
-        .modal-content p {
-            color: var(--accent);
-            margin-bottom: 20px;
-            font-size: 1rem;
-        }
-
-        .code-input {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .code-input input {
-            width: 45px;
-            height: 55px;
-            text-align: center;
-            font-size: 1.8rem;
-            border: 2px solid var(--accent);
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 8px;
-        }
-
-        .code-input input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(230, 57, 70, 0.5);
-        }
-
-        .submit-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .submit-btn:hover {
-            background: var(--primary-dark);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 25px 0;
-            margin-top: 40px;
+            padding: 30px 0;
+            margin-top: 50px;
             color: var(--gray);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 12px 0;
-        }
-
-        .footer-links a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-card {
-            animation: fadeIn 0.5s ease-out;
-            animation-fill-mode: both;
-        }
-
-        .section-card:nth-child(1) { animation-delay: 0.1s; }
-        .section-card:nth-child(2) { animation-delay: 0.2s; }
-        .section-card:nth-child(3) { animation-delay: 0.3s; }
-        .section-card:nth-child(4) { animation-delay: 0.4s; }
-        .section-card:nth-child(5) { animation-delay: 0.5s; }
-        .section-card:nth-child(6) { animation-delay: 0.6s; }
-        .section-card:nth-child(7) { animation-delay: 0.7s; }
-        .section-card:nth-child(8) { animation-delay: 0.8s; }
-        .section-card:nth-child(9) { animation-delay: 0.9s; }
-        .section-card:nth-child(10) { animation-delay: 1.0s; }
-        .section-card:nth-child(11) { animation-delay: 1.1s; }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(13, 27, 42, 0.5);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
-        
-        /* Improvement Indicator */
-        .improvement-badge {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--primary);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 30px;
-            font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 3000;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .logo {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .content-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="improvement-badge">
-        <i class="fas fa-check-circle"></i> Probleme rezolvate!
-    </div>
-    
-    <!-- WhatsApp Button -->
-    <a href="https://wa.me/1234567890" class="whatsapp-btn" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Block Modal -->
-    <div class="block-modal" id="blockModal">
-        <div class="modal-content">
-            <h2><i class="fas fa-lock"></i> Acces Restricționat</h2>
-            <p>Pentru a continua, introduceți codul de securitate 5050:</p>
-            <div class="code-input">
-                <input type="number" id="digit1" maxlength="1" min="0" max="9">
-                <input type="number" id="digit2" maxlength="1" min="0" max="9">
-                <input type="number" id="digit3" maxlength="1" min="0" max="9">
-                <input type="number" id="digit4" maxlength="1" min="0" max="9">
-            </div>
-            <button class="submit-btn" id="submitCode">Verifică Codul</button>
-        </div>
-    </div>
-
     <div class="container">
         <header>
             <div class="header-top">
-                <div class="logo-container">
-                    <div class="logo">
-                        <div class="logo-image"></div>
-                        <div class="logo-text">
-                            <h1>SwissRoHub.ch</h1>
-                            <div class="slogan">Un ghid complet pentru românii în Elveția</div>
-                        </div>
+                <div class="logo">
+                    <div class="logo-image"></div>
+                    <div class="logo-text">
+                        <h1>SwissRoHub.ch</h1>
+                        <div class="slogan">Un ghid complet pentru românii în Elveția</div>
                     </div>
                 </div>
                 <div class="language-switcher">
                     <button class="language-btn">
                         <i class="fas fa-globe"></i> RO
-                        <i class="fas fa-chevron-down"></i>
                     </button>
-                    <div class="language-dropdown">
-                        <a href="#" data-lang="de"><i class="fas fa-language"></i> Deutsch</a>
-                        <a href="#" data-lang="en"><i class="fas fa-language"></i> English</a>
-                        <a href="#" data-lang="es"><i class="fas fa-language"></i> Español</a>
-                        <a href="#" data-lang="it"><i class="fas fa-language"></i> Italiano</a>
-                        <a href="#" data-lang="tr"><i class="fas fa-language"></i> Türkçe</a>
-                    </div>
                 </div>
             </div>
             
-            <div class="slogan-large">
-                <i class="fas fa-quote-left"></i> Informații clare, soluții reale pentru românii în Elveția <i class="fas fa-quote-right"></i>
-            </div>
-
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Caută informații...">
+                <input type="text" placeholder="Caută informații...">
             </div>
-
-            <nav>
-                <button class="nav-btn active" id="homeBtn"><i class="fas fa-home"></i> Acasă</button>
-                <button class="nav-btn"><i class="fas fa-newspaper"></i> Știri</button>
-                <button class="nav-btn"><i class="fas fa-calendar"></i> Evenimente</button>
-                <button class="nav-btn"><i class="fas fa-users"></i> Comunitate</button>
-                <button class="nav-btn"><i class="fas fa-question-circle"></i> Întrebări</button>
-            </nav>
         </header>
 
         <div class="content-container">
@@ -889,64 +442,16 @@
                             <p>LaMal, asigurări complementare</p>
                         </div>
                     </div>
-                    <div class="category-item">
-                        <div class="category-icon">
-                            <i class="fas fa-church"></i>
-                        </div>
-                        <div class="category-text">
-                            <h3>Biserici Ortodoxe</h3>
-                            <p>Locații, program slujbe</p>
-                        </div>
-                    </div>
-                    <div class="category-item">
-                        <div class="category-icon">
-                            <i class="fas fa-hand-holding-usd"></i>
-                        </div>
-                        <div class="category-text">
-                            <h3>Șomaj & Ajutor Social</h3>
-                            <p>RAV, indemnizații, ajutor</p>
-                        </div>
-                    </div>
-                    <div class="category-item">
-                        <div class="category-icon">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                        </div>
-                        <div class="category-text">
-                            <h3>Taxe & Impozite</h3>
-                            <p>Obligații fiscale, calculatoare</p>
-                        </div>
-                    </div>
-                    <div class="category-item">
-                        <div class="category-icon">
-                            <i class="fas fa-user-md"></i>
-                        </div>
-                        <div class="category-text">
-                            <h3>Servicii Românești</h3>
-                            <p>Avocați, doctori, contabili</p>
-                        </div>
-                    </div>
-                    <div class="category-item">
-                        <div class="category-icon">
-                            <i class="fas fa-coffee"></i>
-                        </div>
-                        <div class="category-text">
-                            <h3>O Cafea în Doi</h3>
-                            <p>Socializare, întâlniri</p>
-                        </div>
-                    </div>
                 </div>
             </aside>
 
             <main class="sections">
                 <!-- Acte & Rezidenta -->
-                <div class="section-card expanded">
+                <div class="section-card">
                     <div class="section-header">
                         <div class="section-title">
                             <i class="fas fa-file-contract"></i>
                             <h2>Acte & Rezidență</h2>
-                        </div>
-                        <div class="section-toggle">
-                            <i class="fas fa-chevron-down"></i>
                         </div>
                     </div>
                     <div class="section-content">
@@ -964,10 +469,6 @@
                             <li>Prezentare la primăria locală în 14 zile de la sosire</li>
                             <li>Depune documentele necesare: pașaport, contract de muncă, dovadă locuință, poză biometrică</li>
                         </ol>
-                        
-                        <div class="disclaimer">
-                            <i class="fas fa-exclamation-circle"></i> Atenție: Radierea adresei anterioare este obligatorie la schimbarea domiciliului.
-                        </div>
                     </div>
                 </div>
 
@@ -977,9 +478,6 @@
                         <div class="section-title">
                             <i class="fas fa-briefcase"></i>
                             <h2>Muncă & Carieră</h2>
-                        </div>
-                        <div class="section-toggle">
-                            <i class="fas fa-chevron-down"></i>
                         </div>
                     </div>
                     <div class="section-content">
@@ -992,98 +490,17 @@
                             <li>Agenții de plasare: Adecco, Randstad, Manpower</li>
                             <li>Recomandări prin comunitatea românească</li>
                         </ul>
-                        
-                        <h3><i class="fas fa-file-alt"></i> Redactarea CV-ului elvețian</h3>
-                        <p>CV-ul trebuie să fie clar, concis (1-2 pagini), să conțină: date personale, experiență profesională, educație, limbi vorbite, fotografie profesională și recomandări.</p>
-                        
-                        <h3><i class="fas fa-euro-sign"></i> Salariu minim în Elveția</h3>
-                        <p>Salariul minim variază pe cantoni. În Geneva este de 24.32 CHF/oră (din 2024), iar în alte regiuni poate fi negociat.</p>
-                    </div>
-                </div>
-
-                <!-- Locuinte -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <div class="section-title">
-                            <i class="fas fa-home"></i>
-                            <h2>Locuințe & Închirieri</h2>
-                        </div>
-                        <div class="section-toggle">
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                    </div>
-                    <div class="section-content">
-                        <h3><i class="fas fa-house-user"></i> Găsirea unei locuințe</h3>
-                        <ul>
-                            <li>Platforme: homegate.ch, immoscout24.ch, comparis.ch</li>
-                            <li>Anunțuri în supermarketuri și biserici românești</li>
-                            <li>Grupuri de Facebook pentru români în Elveția</li>
-                        </ul>
-                        
-                        <h3><i class="fas fa-money-bill-wave"></i> Plata garanției (Kaution)</h3>
-                        <p>Garanția standard este de 2-3 luni de chirie, blocată într-un cont special (Kautionskonto). Firme care oferă soluții alternative:</p>
-                        <ul>
-                            <li><a href="https://www.firstcaution.ch">firstcaution.ch</a></li>
-                            <li><a href="https://www.smartcaution.ch">smartcaution.ch</a></li>
-                            <li><a href="https://www.swisscaution.ch">swisscaution.ch</a></li>
-                        </ul>
-                        
-                        <h3><i class="fas fa-file-contract"></i> Contractul de închiriere</h3>
-                        <p>Include: numele părților, durata contractului, chiria lunară, garanția, condițiile de reziliere și starea locuinței la predare.</p>
-                        
-                        <h3><i class="fas fa-info-circle"></i> Informații suplimentare</h3>
-                        <p>La schimbarea adresei, trebuie să te înregistrezi la noua primărie în termen de 14 zile și să anunți vechea primărie.</p>
                     </div>
                 </div>
                 
-                <!-- Servicii Românesti -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <div class="section-title">
-                            <i class="fas fa-user-md"></i>
-                            <h2>Servicii Românești</h2>
-                        </div>
-                        <div class="section-toggle">
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                    </div>
-                    <div class="section-content">
-                        <h3><i class="fas fa-gavel"></i> Avocați români</h3>
-                        <ul>
-                            <li>Dr. Radu Popescu - Zurich, +41 78 123 45 67</li>
-                            <li>Av. Elena Georgescu - Geneva, +41 79 222 33 44</li>
-                            <li>Av. Daniel Dumitrescu - Basel, +41 76 345 67 89</li>
-                        </ul>
-                        
-                        <h3><i class="fas fa-stethoscope"></i> Doctori români</h3>
-                        <ul>
-                            <li>Dr. Ioana Mihai - Medic de familie, Zurich</li>
-                            <li>Dr. Paul Stanciu - Cardiolog, Geneva</li>
-                            <li>Dr. Camelia Andreescu - Pediatru, Lausanne</li>
-                        </ul>
-                        
-                        <h3><i class="fas fa-calculator"></i> Contabili români</h3>
-                        <ul>
-                            <li>Maria Dobre - contabil autorizat, Lucerna</li>
-                            <li>Ioan Crețu - contabil pentru PFA și firme mici, Basel</li>
-                            <li>Silvia Andrei - servicii contabilitate, Zurich</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Founder Section - Improved -->
+                <!-- Founder Section -->
                 <section class="founder-section">
                     <h2 class="founder-title">Fondatorul SwissRoHub</h2>
                     <div class="founder-container">
-                        <div class="founder-image">
-                            Iacob D-V
-                        </div>
+                        <img src="https://i.imgur.com/6NoyUtq.jpg" alt="Fondator" class="founder-image">
                         <div class="founder-info">
                             <h3>Iacob D-V</h3>
-                            <div class="founder-quote">
-                                "O comunitate puternică începe cu informații corecte și ajutor reciproc. SwissRoHub este locul unde românii din Elveția găsesc soluții la problemele lor, conectează cu alți români și își construiesc o viață mai bună în această țară."
-                            </div>
-                            <p>Cu o experiență de peste 10 ani în Elveția, Iacob a înființat SwissRoHub pentru a ajuta comunitatea românească să navigheze cu succes provocările vieții în străinătate.</p>
+                            <p>"O comunitate puternică începe cu informații corecte și ajutor reciproc."</p>
                             <p>Fondator SwissRoHub</p>
                         </div>
                     </div>
@@ -1093,271 +510,20 @@
 
         <footer>
             <p>© 2023 SwissRoHub.ch - Toate drepturile rezervate</p>
-            <div class="footer-links">
-                <a href="#">Termeni și condiții</a>
-                <a href="#">Politica de confidențialitate</a>
-                <a href="#">Contact</a>
-                <a href="#">Despre noi</a>
-            </div>
             <p>Proiect non-profit dedicat comunității românești din Elveția</p>
         </footer>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Accordion functionality
-            document.querySelectorAll('.section-header').forEach(header => {
-                header.addEventListener('click', () => {
-                    const card = header.parentElement;
-                    card.classList.toggle('expanded');
+        // Simple interactivity for categories
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                document.querySelectorAll('.category-item').forEach(i => {
+                    i.classList.remove('active');
                 });
-            });
-
-            // Category selection
-            document.querySelectorAll('.category-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    // Remove active class from all items
-                    document.querySelectorAll('.category-item').forEach(i => {
-                        i.classList.remove('active');
-                    });
-                    // Add active class to clicked item
-                    item.classList.add('active');
-                    
-                    // Scroll to corresponding section
-                    const categoryText = item.querySelector('h3').textContent;
-                    const sectionHeaders = document.querySelectorAll('.section-title h2');
-                    sectionHeaders.forEach(header => {
-                        if (header.textContent.includes(categoryText)) {
-                            header.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            header.parentElement.parentElement.parentElement.classList.add('expanded');
-                        }
-                    });
-                });
-            });
-
-            // Search functionality
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('keyup', function() {
-                    const searchTerm = this.value.toLowerCase();
-                    
-                    document.querySelectorAll('.section-card').forEach(card => {
-                        const header = card.querySelector('.section-title h2')?.textContent.toLowerCase() || '';
-                        const content = card.querySelector('.section-content')?.textContent.toLowerCase() || '';
-                        
-                        if (header.includes(searchTerm) || content.includes(searchTerm)) {
-                            card.style.display = 'block';
-                            card.classList.add('expanded');
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            }
-
-            // Home button functionality
-            const homeBtn = document.getElementById('homeBtn');
-            if (homeBtn) {
-                homeBtn.addEventListener('click', function() {
-                    // Reset active nav button
-                    document.querySelectorAll('.nav-btn').forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                    
-                    // Reset active category
-                    document.querySelectorAll('.category-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    document.querySelector('.category-item').classList.add('active');
-                    
-                    // Reset search
-                    if (searchInput) searchInput.value = '';
-                    
-                    // Reset sections
-                    document.querySelectorAll('.section-card').forEach((card, index) => {
-                        card.style.display = 'block';
-                        if (index === 0) {
-                            card.classList.add('expanded');
-                        } else {
-                            card.classList.remove('expanded');
-                        }
-                    });
-                    
-                    // Scroll to top
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-            
-            // Block modal after 5 minutes (300,000 ms)
-            setTimeout(() => {
-                const blockModal = document.getElementById('blockModal');
-                if (blockModal) {
-                    blockModal.style.display = 'flex';
-                    // Auto focus first input
-                    const digit1 = document.getElementById('digit1');
-                    if (digit1) digit1.focus();
-                }
-            }, 300000); // 5 minutes = 300,000 milliseconds
-            
-            // Code verification
-            const submitCodeBtn = document.getElementById('submitCode');
-            if (submitCodeBtn) {
-                submitCodeBtn.addEventListener('click', function() {
-                    const digit1 = document.getElementById('digit1')?.value || '';
-                    const digit2 = document.getElementById('digit2')?.value || '';
-                    const digit3 = document.getElementById('digit3')?.value || '';
-                    const digit4 = document.getElementById('digit4')?.value || '';
-                    
-                    const code = digit1 + digit2 + digit3 + digit4;
-                    
-                    if(code === '5050') {
-                        const blockModal = document.getElementById('blockModal');
-                        if (blockModal) blockModal.style.display = 'none';
-                    } else {
-                        alert('Cod incorect! Introduceți 5050 pentru a continua.');
-                    }
-                });
-            }
-            
-            // Auto-focus and move between inputs
-            const inputs = document.querySelectorAll('.code-input input');
-            inputs.forEach((input, index) => {
-                input.addEventListener('input', function() {
-                    if(this.value.length === 1 && index < inputs.length - 1) {
-                        inputs[index + 1].focus();
-                    }
-                });
-                
-                input.addEventListener('keydown', function(e) {
-                    if(e.key === 'Backspace' && this.value === '' && index > 0) {
-                        inputs[index - 1].focus();
-                    }
-                });
-            });
-            
-            // Dynamic translation functionality
-            document.querySelectorAll('.language-dropdown a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const lang = this.getAttribute('data-lang');
-                    const langText = this.textContent.trim();
-                    
-                    // Update the language button text
-                    const langBtn = document.querySelector('.language-btn');
-                    if (langBtn) {
-                        langBtn.innerHTML = `<i class="fas fa-globe"></i> ${langText} <i class="fas fa-chevron-down"></i>`;
-                    }
-                    
-                    // Translation dictionary
-                    const translations = {
-                        'de': {
-                            'Acces Restricționat': 'Zugriff Beschränkt',
-                            'Pentru a continua, introduceți codul de securitate 5050:': 'Um fortzufahren, geben Sie den Sicherheitscode 5050 ein:',
-                            'Verifică Codul': 'Code überprüfen',
-                            'Cod incorect!': 'Falscher Code!',
-                            'Caută informații...': 'Suche Informationen...',
-                            'Acasă': 'Zuhause',
-                            'Știri': 'Nachrichten',
-                            'Evenimente': 'Veranstaltungen',
-                            'Comunitate': 'Gemeinschaft',
-                            'Întrebări': 'Fragen'
-                        },
-                        'en': {
-                            'Acces Restricționat': 'Restricted Access',
-                            'Pentru a continua, introduceți codul de securitate 5050:': 'To continue, enter the security code 5050:',
-                            'Verifică Codul': 'Verify Code',
-                            'Cod incorect!': 'Incorrect code!',
-                            'Caută informații...': 'Search for information...',
-                            'Acasă': 'Home',
-                            'Știri': 'News',
-                            'Evenimente': 'Events',
-                            'Comunitate': 'Community',
-                            'Întrebări': 'Questions'
-                        },
-                        'es': {
-                            'Acces Restricționat': 'Acceso Restringido',
-                            'Pentru a continua, introduceți codul de securitate 5050:': 'Para continuar, introduzca el código de seguridad 5050:',
-                            'Verifică Codul': 'Verificar Código',
-                            'Cod incorect!': '¡Código incorrecto!',
-                            'Caută informații...': 'Buscar información...',
-                            'Acasă': 'Inicio',
-                            'Știri': 'Noticias',
-                            'Evenimente': 'Eventos',
-                            'Comunitate': 'Comunidad',
-                            'Întrebări': 'Preguntas'
-                        },
-                        'it': {
-                            'Acces Restricționat': 'Accesso Limitato',
-                            'Pentru a continua, introduceți codul de securitate 5050:': 'Per continuare, inserisci il codice di sicurezza 5050:',
-                            'Verifică Codul': 'Verifica Codice',
-                            'Cod incorect!': 'Codice errato!',
-                            'Caută informații...': 'Cerca informazioni...',
-                            'Acasă': 'Home',
-                            'Știri': 'Notizie',
-                            'Evenimente': 'Eventi',
-                            'Comunitate': 'Comunità',
-                            'Întrebări': 'Domande'
-                        },
-                        'tr': {
-                            'Acces Restricționat': 'Kısıtlı Erişim',
-                            'Pentru a continua, introduceți codul de securitate 5050:': 'Devam etmek için 5050 güvenlik kodunu girin:',
-                            'Verifică Codul': 'Kodu Doğrula',
-                            'Cod incorect!': 'Yanlış kod!',
-                            'Caută informații...': 'Bilgi ara...',
-                            'Acasă': 'Ana Sayfa',
-                            'Știri': 'Haberler',
-                            'Evenimente': 'Etkinlikler',
-                            'Comunitate': 'Topluluk',
-                            'Întrebări': 'Sorular'
-                        }
-                    };
-                    
-                    // Translate page content
-                    if (translations[lang]) {
-                        // Translate modal
-                        const modalTitle = document.querySelector('.modal-content h2 i');
-                        const modalTitleText = document.querySelector('.modal-content h2');
-                        const modalText = document.querySelector('.modal-content p');
-                        const modalBtn = document.getElementById('submitCode');
-                        
-                        if (modalTitle && modalTitleText && modalText && modalBtn) {
-                            modalTitleText.innerHTML = `<i class="fas fa-lock"></i> ${translations[lang]['Acces Restricționat']}`;
-                            modalText.textContent = translations[lang]['Pentru a continua, introduceți codul de securitate 5050:'];
-                            modalBtn.textContent = translations[lang]['Verifică Codul'];
-                        }
-                        
-                        // Translate search placeholder
-                        if (searchInput) {
-                            searchInput.placeholder = translations[lang]['Caută informații...'];
-                        }
-                        
-                        // Translate navigation buttons
-                        document.querySelectorAll('.nav-btn').forEach((btn, index) => {
-                            if (index === 0) btn.textContent = translations[lang]['Acasă'];
-                            if (index === 1) btn.textContent = translations[lang]['Știri'];
-                            if (index === 2) btn.textContent = translations[lang]['Evenimente'];
-                            if (index === 3) btn.textContent = translations[lang]['Comunitate'];
-                            if (index === 4) btn.textContent = translations[lang]['Întrebări'];
-                        });
-                        
-                        // Update alert message
-                        submitCodeBtn.onclick = function() {
-                            const digit1 = document.getElementById('digit1').value;
-                            const digit2 = document.getElementById('digit2').value;
-                            const digit3 = document.getElementById('digit3').value;
-                            const digit4 = document.getElementById('digit4').value;
-                            
-                            const code = digit1 + digit2 + digit3 + digit4;
-                            
-                            if (code === '5050') {
-                                document.getElementById('blockModal').style.display = 'none';
-                            } else {
-                                alert(translations[lang]['Cod incorect!']);
-                            }
-                        };
-                    }
-                });
+                // Add active class to clicked item
+                this.classList.add('active');
             });
         });
     </script>
