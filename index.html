@@ -1,170 +1,218 @@
 <!DOCTYPE html>
-<html lang="ro" dir="ltr">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwissRoHub.ch | Ghid Oficial pentru Românii în Elveția</title>
+    <title>SwissRoHub.ch | Portal Oficial pentru Românii în Elveția</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #0057B8;   /* Albastru Elveția */
-            --secondary: #FFD700; /* Galben Elveția */
+            --secondary: #F1F8FF; /* Albastru deschis */
             --accent: #C41E3A;    /* Roșu România */
             --dark: #1A365D;
-            --light: #F8FAFC;
+            --light: #FFFFFF;
             --gray: #4A5568;
-            --success: #38A169;
+            --border: #E2E8F0;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #f0f7ff 0%, #f8f9ff 100%);
+            background-color: #F8FAFC;
             color: var(--dark);
-            line-height: 1.7;
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
         
-        /* ===== HEADER & NAVIGATION ===== */
+        /* ===== HEADER ===== */
         header {
-            background: linear-gradient(to right, var(--primary) 0%, #003D82 100%);
-            color: white;
-            padding: 1.2rem 5%;
-            box-shadow: 0 4px 20px rgba(0, 45, 90, 0.25);
+            background-color: var(--light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         
         .header-container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            align-items: center;
             justify-content: space-between;
-        }
-        
-        .logo-container {
-            display: flex;
             align-items: center;
-            gap: 12px;
         }
         
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
         }
         
         .logo span {
-            color: var(--secondary);
-        }
-        
-        .language-switcher {
-            display: flex;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50px;
-            padding: 4px;
-        }
-        
-        .lang-btn {
-            padding: 8px 16px;
-            border-radius: 50px;
-            background: transparent;
-            border: none;
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .lang-btn.active {
-            background: white;
-            color: var(--primary);
+            color: var(--accent);
         }
         
         .nav-container {
-            flex: 1 1 100%;
-            margin-top: 1rem;
+            display: flex;
+            gap: 1.5rem;
         }
         
-        nav {
+        .nav-main {
             display: flex;
-            gap: 2px;
-            overflow-x: auto;
-            padding-bottom: 4px;
+            gap: 1.2rem;
         }
         
         .nav-item {
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 0.8rem 0;
+            color: var(--dark);
+            text-decoration: none;
             font-weight: 500;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            position: relative;
+            transition: color 0.3s;
         }
         
         .nav-item:hover, .nav-item.active {
-            background: white;
             color: var(--primary);
         }
         
-        .nav-item i {
-            font-size: 1.1rem;
+        .nav-item.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
         
         /* ===== MAIN CONTENT ===== */
         .main-container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 0 2rem;
             flex: 1;
             width: 100%;
         }
         
-        .page-header {
+        .dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+        
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            background: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            padding: 1.5rem;
+            height: fit-content;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .sidebar-link:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        
+        .sidebar-link.active {
+            background: var(--secondary);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* ===== CONTENT AREA ===== */
+        .content-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
         }
         
         .page-title {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
+            font-weight: 600;
             color: var(--dark);
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .page-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 70px;
-            height: 4px;
-            background: var(--secondary);
-            border-radius: 2px;
         }
         
         .breadcrumb {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             color: var(--gray);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         
         .breadcrumb a {
@@ -172,340 +220,216 @@
             text-decoration: none;
         }
         
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .category-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 5px 25px rgba(0, 45, 90, 0.08);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            border: 1px solid rgba(0, 0, 0, 0.03);
-        }
-        
-        .category-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0, 45, 90, 0.15);
-        }
-        
-        .card-header {
-            padding: 1.5rem;
-            background: linear-gradient(to right, var(--primary), #004A9B);
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.15);
+        .content-card {
+            background: var(--light);
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
         
         .card-title {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 600;
-        }
-        
-        .card-content {
-            padding: 1.8rem;
-            flex-grow: 1;
-        }
-        
-        .card-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        
-        .card-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .card-list li:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        
-        .card-list i {
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-top: 5px;
-            flex-shrink: 0;
-        }
-        
-        .card-footer {
-            padding: 1.2rem 1.8rem;
-            background: var(--light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid rgba(0, 0, 0, 0.04);
-        }
-        
-        .card-link {
+            margin-bottom: 1.5rem;
             color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .card-link:hover {
-            color: var(--dark);
-            gap: 12px;
-        }
-        
-        .locked-section {
-            position: relative;
-        }
-        
-        .lock-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--secondary);
-            color: var(--dark);
-            padding: 6px 12px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        /* ===== PERMITS SECTION ===== */
-        .permits-container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 5px 25px rgba(0, 45, 90, 0.08);
-            padding: 2.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        .section-title {
-            font-size: 1.6rem;
-            margin-bottom: 2rem;
-            color: var(--dark);
             display: flex;
             align-items: center;
             gap: 12px;
         }
         
-        .permits-grid {
+        .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
         }
         
-        .permit-card {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 1.8rem;
-            border-left: 4px solid var(--primary);
-            transition: all 0.3s ease;
+        .info-box {
+            background: var(--secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
         }
         
-        .permit-card:hover {
+        .info-box:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 45, 90, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-content {
+            line-height: 1.7;
+            color: var(--gray);
+        }
+        
+        .info-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .info-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .info-list i {
+            color: var(--primary);
+            margin-top: 5px;
+        }
+        
+        /* ===== PERMIT SECTION ===== */
+        .permit-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .permit-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
         }
         
         .permit-title {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
         .permit-badge {
-            background: var(--secondary);
-            color: var(--dark);
+            background: var(--primary);
+            color: white;
             padding: 4px 10px;
             border-radius: 4px;
             font-size: 0.85rem;
-            font-weight: 600;
-        }
-        
-        /* ===== FOUNDER SECTION ===== */
-        .founder-section {
-            background: linear-gradient(to right, var(--dark) 0%, #0f2a4f 100%);
-            border-radius: 16px;
-            padding: 3rem;
-            color: white;
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-            margin-bottom: 3rem;
-        }
-        
-        .founder-quote {
-            flex: 1;
-            font-size: 1.3rem;
-            line-height: 1.8;
-            font-style: italic;
-            position: relative;
-            padding-left: 2rem;
-        }
-        
-        .founder-quote:before {
-            content: """;
-            position: absolute;
-            left: 0;
-            top: -20px;
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.1);
-            font-family: serif;
-        }
-        
-        .founder-info {
-            text-align: right;
-            flex: 0 0 250px;
-        }
-        
-        .founder-name {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--secondary);
         }
         
         /* ===== FOOTER ===== */
         footer {
             background: var(--dark);
             color: white;
-            padding: 3rem 5% 2rem;
-            margin-top: auto;
+            padding: 3rem 2rem 2rem;
+            margin-top: 3rem;
         }
         
-        .footer-grid {
-            max-width: 1400px;
+        .footer-container {
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2.5rem;
-            margin-bottom: 2.5rem;
         }
         
         .footer-column h3 {
-            color: var(--secondary);
+            color: white;
             margin-bottom: 1.5rem;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
         }
         
         .footer-links {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 0.8rem;
         }
         
         .footer-links a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            transition: all 0.3s;
         }
         
         .footer-links a:hover {
-            color: var(--secondary);
+            color: white;
+            padding-left: 5px;
         }
         
         .copyright {
             text-align: center;
             padding-top: 2rem;
+            margin-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
         }
         
-        /* Responsive Design */
-        @media (max-width: 1100px) {
-            .header-container {
-                flex-direction: column;
-                align-items: flex-start;
+        .founder-quote {
+            font-style: italic;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            border-left: 3px solid var(--accent);
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
             }
             
-            .nav-container {
-                width: 100%;
-            }
-            
-            nav {
-                flex-wrap: wrap;
-            }
-            
-            .founder-section {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .founder-info {
-                text-align: center;
+            .sidebar {
+                display: none;
             }
         }
         
         @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .page-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-            }
-            
-            .breadcrumb {
-                align-self: flex-end;
-            }
-        }
-        
-        @media (max-width: 480px) {
             .header-container {
+                flex-direction: column;
+                gap: 1rem;
                 padding: 1rem;
             }
             
-            .main-container {
-                padding: 0 1rem;
+            .nav-main {
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
-            .permits-container, .founder-section {
-                padding: 1.5rem;
+            .user-actions {
+                justify-content: center;
             }
             
-            .permit-title {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-header {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-            
-            .card-header {
-                flex-direction: column;
-                text-align: center;
+                gap: 1rem;
             }
         }
     </style>
@@ -514,379 +438,386 @@
     <!-- Header -->
     <header>
         <div class="header-container">
-            <div class="logo-container">
-                <div class="logo">Swiss<span>Ro</span>Hub</div>
-                <div class="language-switcher">
-                    <button class="lang-btn active">RO</button>
-                    <button class="lang-btn">DE</button>
-                    <button class="lang-btn">FR</button>
+            <a href="#" class="logo">
+                <i class="fas fa-mountain"></i>
+                Swiss<span>Ro</span>Hub
+            </a>
+            
+            <div class="nav-container">
+                <div class="nav-main">
+                    <a href="#" class="nav-item active">Acasă</a>
+                    <a href="#acte" class="nav-item">Acte & Rezidență</a>
+                    <a href="#locuinte" class="nav-item">Locuințe</a>
+                    <a href="#munca" class="nav-item">Muncă & Carieră</a>
+                    <a href="#asigurari" class="nav-item">Asigurări</a>
+                    <a href="#biserici" class="nav-item">Biserici</a>
                 </div>
             </div>
             
-            <div class="nav-container">
-                <nav>
-                    <div class="nav-item active"><i class="fas fa-home"></i> Acasă</div>
-                    <div class="nav-item"><i class="fas fa-file-contract"></i> Acte & Rezidență</div>
-                    <div class="nav-item"><i class="fas fa-house-user"></i> Locuințe</div>
-                    <div class="nav-item"><i class="fas fa-briefcase"></i> Muncă & Carieră</div>
-                    <div class="nav-item"><i class="fas fa-heartbeat"></i> Asigurări</div>
-                    <div class="nav-item"><i class="fas fa-church"></i> Biserici</div>
-                    <div class="nav-item"><i class="fas fa-hand-holding-usd"></i> Ajutor Social</div>
-                </nav>
+            <div class="user-actions">
+                <button class="btn btn-outline"><i class="fas fa-user"></i> Autentificare</button>
+                <button class="btn btn-primary"><i class="fas fa-globe"></i> RO/DE</button>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
     <div class="main-container">
-        <div class="page-header">
-            <h1 class="page-title">Ghid Complet pentru Românii în Elveția</h1>
+        <div class="content-header">
+            <h1 class="page-title">Portal de Resurse pentru Românii în Elveția</h1>
             <div class="breadcrumb">
                 <a href="#"><i class="fas fa-home"></i> Acasă</a> > <span>Resurse Esențiale</span>
             </div>
         </div>
         
-        <div class="content-grid">
-            <!-- Acte & Rezidenta -->
-            <div class="category-card">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-passport"></i>
+        <div class="dashboard">
+            <!-- Sidebar Navigation -->
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title"><i class="fas fa-compass"></i> Navigare</h3>
+                    <div class="sidebar-links">
+                        <a href="#" class="sidebar-link active">
+                            <i class="fas fa-home"></i> Panou Principal
+                        </a>
+                        <a href="#acte" class="sidebar-link">
+                            <i class="fas fa-file-alt"></i> Acte & Rezidență
+                        </a>
+                        <a href="#locuinte" class="sidebar-link">
+                            <i class="fas fa-house-user"></i> Locuințe & Contracte
+                        </a>
+                        <a href="#munca" class="sidebar-link">
+                            <i class="fas fa-briefcase"></i> Muncă & Carieră
+                        </a>
+                        <a href="#asigurari" class="sidebar-link">
+                            <i class="fas fa-heartbeat"></i> Asigurări Medicale
+                        </a>
+                        <a href="#biserici" class="sidebar-link">
+                            <i class="fas fa-church"></i> Biserici Ortodoxe
+                        </a>
+                        <a href="#social" class="sidebar-link">
+                            <i class="fas fa-hands-helping"></i> Ajutor Social
+                        </a>
+                        <a href="#taxe" class="sidebar-link">
+                            <i class="fas fa-file-invoice-dollar"></i> Taxe & Impozite
+                        </a>
                     </div>
-                    <div class="card-title">Acte & Rezidență</div>
-                </div>
-                <div class="card-content">
-                    <ul class="card-list">
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Tipuri de permise de ședere și cerințe</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Procedura de radiere a adresei anterioare</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Documente necesare pentru înregistrare</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Permis de conducere elvețian</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link">Vezi toate resursele <i class="fas fa-arrow-right"></i></a>
-                    <div class="lock-badge"><i class="fas fa-lock"></i> Securizat</div>
-                </div>
-            </div>
-            
-            <!-- Locuinte & Inchirieri -->
-            <div class="category-card">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-house-user"></i>
-                    </div>
-                    <div class="card-title">Locuințe & Închirieri</div>
-                </div>
-                <div class="card-content">
-                    <ul class="card-list">
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Cum să găsești locuință în Elveția</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Contracte tip de închiriere</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Drepturile chiriașilor în Elveția</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Garanții și depozite de închiriere</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link">Accesează ghidul <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Munca & Cariera -->
-            <div class="category-card locked-section">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="card-title">Muncă & Carieră</div>
-                </div>
-                <div class="card-content">
-                    <ul class="card-list">
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Oportunități de angajare pentru români</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Contracte de muncă elvețiene</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Drepturile lucrătorilor în Elveția</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Recunoașterea calificărilor profesionale</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link">Deblochează accesul <i class="fas fa-lock"></i></a>
-                    <div class="lock-badge"><i class="fas fa-lock"></i> Securizat</div>
-                </div>
-            </div>
-            
-            <!-- Asigurari Medicale -->
-            <div class="category-card">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <div class="card-title">Asigurări Medicale</div>
-                </div>
-                <div class="card-content">
-                    <ul class="card-list">
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Asigurarea medicală obligatorie (LaMal)</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Asigurări medicale complementare</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Cum să alegi cel mai bun furnizor</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Proceduri medicale pentru români</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link">Compară oferte <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Biserici Ortodoxe -->
-            <div class="category-card">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-church"></i>
-                    </div>
-                    <div class="card-title">Biserici Ortodoxe</div>
-                </div>
-                <div class="card-content">
-                    <ul class="card-list">
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Locații bisericești pentru români</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Program slujbe și evenimente</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Comunități religioase românești</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Botezuri, cununii și înmormântări</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link">Vezi programul <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            
-            <!-- Somaj & Ajutor Social -->
-            <div class="category-card locked-section">
-                <div class="card-header">
-                    <div class="card-icon">
-                        <i class="fas fa-hands-helping"></i>
-                    </div>
-                    <div class="card-title">Șomaj & Ajutor Social</div>
-                </div>
-                <div class="card-content">
-                    <ul class="card-list">
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Înregistrare la RAV (Biroul de Șomaj)</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Indemnizații de șomaj și cerințe</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Ajutor social pentru familii</div>
-                        </li>
-                        <li>
-                            <i class="fas fa-chevron-right"></i>
-                            <div>Programe de recalificare profesională</div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="#" class="card-link">Deblochează accesul <i class="fas fa-lock"></i></a>
-                    <div class="lock-badge"><i class="fas fa-lock"></i> Securizat</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Permits Section -->
-        <div class="permits-container">
-            <h2 class="section-title"><i class="fas fa-id-card"></i> Tipuri de Permise de Ședere</h2>
-            
-            <div class="permits-grid">
-                <div class="permit-card">
-                    <h3 class="permit-title">
-                        <span class="permit-badge">Permis L</span>
-                        Ședere Temporară
-                    </h3>
-                    <ul class="card-list">
-                        <li><i class="fas fa-check-circle"></i> Angajări sub 12 luni</li>
-                        <li><i class="fas fa-check-circle"></i> Formare profesională</li>
-                        <li><i class="fas fa-check-circle"></i> Valabilitate limitată</li>
-                        <li><i class="fas fa-check-circle"></i> Nu poate fi prelungit</li>
-                    </ul>
                 </div>
                 
-                <div class="permit-card">
-                    <h3 class="permit-title">
-                        <span class="permit-badge">Permis B</span>
-                        Rezidență Temporară
-                    </h3>
-                    <ul class="card-list">
-                        <li><i class="fas fa-check-circle"></i> Contracte peste 12 luni</li>
-                        <li><i class="fas fa-check-circle"></i> Reînnoibil anual</li>
-                        <li><i class="fas fa-check-circle"></i> Drept de familie</li>
-                        <li><i class="fas fa-check-circle"></i> Acces la prestații sociale</li>
-                    </ul>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title"><i class="fas fa-life-ring"></i> Suport</h3>
+                    <div class="sidebar-links">
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-question-circle"></i> Întrebări Frecvente
+                        </a>
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-phone-alt"></i> Asistență Telefonică
+                        </a>
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-envelope"></i> Contactează-ne
+                        </a>
+                    </div>
                 </div>
                 
-                <div class="permit-card">
-                    <h3 class="permit-title">
-                        <span class="permit-badge">Permis C</span>
-                        Rezidență Permanentă
-                    </h3>
-                    <ul class="card-list">
-                        <li><i class="fas fa-check-circle"></i> După 5-10 ani de ședere</li>
-                        <li><i class="fas fa-check-circle"></i> Drepturi complete</li>
-                        <li><i class="fas fa-check-circle"></i> Valabilitate nelimitată</li>
-                        <li><i class="fas fa-check-circle"></i> Schimbare liberă de job</li>
-                    </ul>
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title"><i class="fas fa-exclamation-triangle"></i> Urgent</h3>
+                    <div class="sidebar-links">
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-ambulance"></i> Urgențe Medicale
+                        </a>
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-passport"></i> Documente Pierdute
+                        </a>
+                        <a href="#" class="sidebar-link">
+                            <i class="fas fa-gavel"></i> Asistență Legală
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Founder Section -->
-        <div class="founder-section">
-            <div class="founder-quote">
-                "O comunitate puternică începe cu informații corecte și ajutor reciproc. SwissRoHub este mai mult decât un ghid - este o punte între culturi, o unealtă pentru integrare și o sursă de încredere pentru românii care își construiesc o nouă viață în Elveția."
-            </div>
-            <div class="founder-info">
-                <div class="founder-name">Iacob D-V</div>
-                <div>Fondator SwissRoHub</div>
+            
+            <!-- Main Content Area -->
+            <div class="content-area">
+                <!-- Acte & Rezidenta -->
+                <div class="content-card" id="acte">
+                    <h2 class="card-title"><i class="fas fa-passport"></i> Acte & Rezidență</h2>
+                    
+                    <div class="card-grid">
+                        <div class="info-box">
+                            <h3 class="info-title"><i class="fas fa-id-card"></i> Permise de Ședere</h3>
+                            <div class="info-content">
+                                Informații complete despre tipurile de permise necesare pentru șederea în Elveția.
+                            </div>
+                            <ul class="info-list">
+                                <li><i class="fas fa-check-circle"></i> Permis L - Ședere temporară</li>
+                                <li><i class="fas fa-check-circle"></i> Permis B - Rezidență temporară</li>
+                                <li><i class="fas fa-check-circle"></i> Permis C - Rezidență permanentă</li>
+                                <li><i class="fas fa-check-circle"></i> Documente necesare pentru aplicare</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h3 class="info-title"><i class="fas fa-home"></i> Radierea Adresei</h3>
+                            <div class="info-content">
+                                Procedura obligatorie la schimbarea domiciliului în Elveția.
+                            </div>
+                            <ul class="info-list">
+                                <li><i class="fas fa-check-circle"></i> Pași pentru radierea adresei vechi</li>
+                                <li><i class="fas fa-check-circle"></i> Documente necesare</li>
+                                <li><i class="fas fa-check-circle"></i> Termene limită importante</li>
+                                <li><i class="fas fa-check-circle"></i> Contacte utile</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h3 class="info-title"><i class="fas fa-car"></i> Permis de Conducere</h3>
+                            <div class="info-content">
+                                Cum să schimbi permisul românesc cu unul elvețian.
+                            </div>
+                            <ul class="info-list">
+                                <li><i class="fas fa-check-circle"></i> Procedura de schimbare</li>
+                                <li><i class="fas fa-check-circle"></i> Documente necesare</li>
+                                <li><i class="fas fa-check-circle"></i> Taxe și costuri</li>
+                                <li><i class="fas fa-check-circle"></i> Centre autorizate</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h3 class="card-title" style="margin-top: 2rem; font-size: 1.2rem;">
+                        <i class="fas fa-info-circle"></i> Tipuri de Permise de Ședere
+                    </h3>
+                    
+                    <div class="permit-section">
+                        <div class="permit-card">
+                            <h4 class="permit-title">
+                                <span class="permit-badge">Permis L</span> Ședere Temporară
+                            </h4>
+                            <ul class="info-list">
+                                <li><i class="fas fa-clock"></i> Valabil pentru angajări sub 12 luni</li>
+                                <li><i class="fas fa-graduation-cap"></i> Pentru formare profesională</li>
+                                <li><i class="fas fa-ban"></i> Nu poate fi prelungit</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="permit-card">
+                            <h4 class="permit-title">
+                                <span class="permit-badge">Permis B</span> Rezidență Temporară
+                            </h4>
+                            <ul class="info-list">
+                                <li><i class="fas fa-file-contract"></i> Pentru contracte peste 12 luni</li>
+                                <li><i class="fas fa-sync-alt"></i> Reînnoibil anual</li>
+                                <li><i class="fas fa-users"></i> Drept de familie</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="permit-card">
+                            <h4 class="permit-title">
+                                <span class="permit-badge">Permis C</span> Rezidență Permanentă
+                            </h4>
+                            <ul class="info-list">
+                                <li><i class="fas fa-calendar-check"></i> După 5-10 ani de ședere</li>
+                                <li><i class="fas fa-infinity"></i> Valabilitate nelimitată</li>
+                                <li><i class="fas fa-briefcase"></i> Schimbare liberă de job</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Locuinte & Inchirieri -->
+                <div class="content-card" id="locuinte">
+                    <h2 class="card-title"><i class="fas fa-house-user"></i> Locuințe & Închirieri</h2>
+                    
+                    <div class="card-grid">
+                        <div class="info-box">
+                            <h3 class="info-title"><i class="fas fa-search"></i> Găsire Locuință</h3>
+                            <div class="info-content">
+                                Ghid complet pentru găsirea unei locuințe în Elveția.
+                            </div>
+                            <ul class="info-list">
+                                <li><i class="fas fa-check-circle"></i> Platforme de închirieri</li>
+                                <li><i class="fas fa-check-circle"></i> Zone recomandate</li>
+                                <li><i class="fas fa-check-circle"></i> Costuri medii pe regiuni</li>
+                                <li><i class="fas fa-check-circle"></i> Agenții imobiliare de încredere</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h3 class="info-title"><i class="fas fa-file-signature"></i> Contracte de Închiriere</h3>
+                            <div class="info-content">
+                                Tot ce trebuie să știi despre contractele de închiriere.
+                            </div>
+                            <ul class="info-list">
+                                <li><i class="fas fa-check-circle"></i> Elemente obligatorii</li>
+                                <li><i class="fas fa-check-circle"></i> Clauze speciale</li>
+                                <li><i class="fas fa-check-circle"></i> Termene de reziliere</li>
+                                <li><i class="fas fa-check-circle"></i> Depozite de garanție</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h3 class="info-title"><i class="fas fa-balance-scale"></i> Drepturi și Obligații</h3>
+                            <div class="info-content">
+                                Drepturile și obligațiile chiriașilor în Elveția.
+                            </div>
+                            <ul class="info-list">
+                                <li><i class="fas fa-check-circle"></i> Întreținerea locuinței</li>
+                                <li><i class="fas fa-check-circle"></i> Creșteri de chirie</li>
+                                <li><i class="fas fa-check-circle"></i> Reparații necesare</li>
+                                <li><i class="fas fa-check-circle"></i> Organizații de protecție</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Munca & Cariera -->
+                <div class="content-card" id="munca">
+                    <h2 class="card-title"><i class="fas fa-briefcase"></i> Muncă & Carieră</h2>
+                    
+                    <div class="card-grid">
+                        <div class="info-box">
+                            <h3 class="info-title"><i class="fas fa-search-dollar"></i> Oportunități de Angajare</h3>
+                            <div class="info-content">
+                                Cele mai bune domenii și regiuni pentru angajarea românilor.
+                            </div>
+                            <ul class="info-list">
+                                <li><i class="fas fa-check-circle"></i> Domenii cu cerere ridicată</li>
+                                <li><i class="fas fa-check-circle"></i> Salarii medii pe sectoare</li>
+                                <li><i class="fas fa-check-circle"></i> Platforme de job-uri</li>
+                                <li><i class="fas fa-check-circle"></i> Agentii de recrutare</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h3 class="info-title"><i class="fas fa-file-contract"></i> Contracte de Muncă</h3>
+                            <div class="info-content">
+                                Elementele esențiale ale contractelor de muncă elvețiene.
+                            </div>
+                            <ul class="info-list">
+                                <li><i class="fas fa-check-circle"></i> Elemente obligatorii</li>
+                                <li><i class="fas fa-check-circle"></i> Ore de lucru și concedii</li>
+                                <li><i class="fas fa-check-circle"></i> Perioade de probă</li>
+                                <li><i class="fas fa-check-circle"></i> Rezilierea contractului</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-box">
+                            <h3 class="info-title"><i class="fas fa-user-shield"></i> Drepturi ale Lucrătorilor</h3>
+                            <div class="info-content">
+                                Drepturile garantate de legislația elvețiană.
+                            </div>
+                            <ul class="info-list">
+                                <li><i class="fas fa-check-circle"></i> Salariul minim</li>
+                                <li><i class="fas fa-check-circle"></i> Ore suplimentare</li>
+                                <li><i class="fas fa-check-circle"></i> Protecția muncii</li>
+                                <li><i class="fas fa-check-circle"></i> Sindicatelor și asociații</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Founder Section -->
+                <div class="content-card">
+                    <div class="founder-quote">
+                        <p>"O comunitate puternică începe cu informații corecte și ajutor reciproc. SwissRoHub este platforma care unește comunitatea românească din Elveția prin resurse verificate și suport profesional."</p>
+                        <p style="margin-top: 1rem; font-weight: 500;">- Iacob D-V, Fondator SwissRoHub</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-grid">
+        <div class="footer-container">
             <div class="footer-column">
                 <h3>SwissRoHub</h3>
                 <div class="footer-links">
-                    <a href="#"><i class="fas fa-info-circle"></i> Despre proiect</a>
-                    <a href="#"><i class="fas fa-envelope"></i> Contactează-ne</a>
-                    <a href="#"><i class="fas fa-handshake"></i> Colaborări</a>
-                    <a href="#"><i class="fas fa-lock"></i> Securitate și confidențialitate</a>
+                    <a href="#"><i class="fas fa-info-circle"></i> Despre Noi</a>
+                    <a href="#"><i class="fas fa-history"></i> Istoric Proiect</a>
+                    <a href="#"><i class="fas fa-newspaper"></i> Noutăți și Actualizări</a>
+                    <a href="#"><i class="fas fa-handshake"></i> Parteneriate</a>
                 </div>
             </div>
             
             <div class="footer-column">
                 <h3>Resurse Oficiale</h3>
                 <div class="footer-links">
-                    <a href="#"><i class="fas fa-external-link-alt"></i> SEM - Secțiunea Migrație</a>
-                    <a href="#"><i class="fas fa-external-link-alt"></i> ch.ch - Ghid Oficial</a>
-                    <a href="#"><i class="fas fa-external-link-alt"></i> RAV - Ajutor Șomaj</a>
+                    <a href="#"><i class="fas fa-external-link-alt"></i> SEM - Migrație</a>
+                    <a href="#"><i class="fas fa-external-link-alt"></i> Portal.ch - Ghid Oficial</a>
+                    <a href="#"><i class="fas fa-external-link-alt"></i> RAV - Șomaj</a>
                     <a href="#"><i class="fas fa-external-link-alt"></i> Priminfo - Asigurări</a>
                 </div>
             </div>
             
             <div class="footer-column">
-                <h3>Comunitate</h3>
+                <h3>Suport și Contact</h3>
                 <div class="footer-links">
-                    <a href="#"><i class="fab fa-facebook"></i> Grupul nostru Facebook</a>
-                    <a href="#"><i class="fab fa-whatsapp"></i> Grupuri regionale WhatsApp</a>
-                    <a href="#"><i class="fas fa-calendar-alt"></i> Evenimente comunitare</a>
-                    <a href="#"><i class="fas fa-hands-helping"></i> Voluntariat</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> Întrebări Frecvente</a>
+                    <a href="#"><i class="fas fa-phone-alt"></i> +41 123 456 789</a>
+                    <a href="#"><i class="fas fa-envelope"></i> contact@swissrohub.ch</a>
+                    <a href="#"><i class="fas fa-map-marker-alt"></i> Zürich, Elveția</a>
                 </div>
             </div>
             
             <div class="footer-column">
-                <h3>Suport</h3>
+                <h3>Legal</h3>
                 <div class="footer-links">
-                    <a href="#"><i class="fas fa-question-circle"></i> Întrebări Frecvente</a>
-                    <a href="#"><i class="fas fa-book"></i> Ghid de utilizare</a>
-                    <a href="#"><i class="fas fa-download"></i> Documente utile</a>
-                    <a href="#"><i class="fas fa-phone-alt"></i> Asistență telefonică</a>
+                    <a href="#"><i class="fas fa-gavel"></i> Termeni și Condiții</a>
+                    <a href="#"><i class="fas fa-lock"></i> Politică de Confidențialitate</a>
+                    <a href="#"><i class="fas fa-cookie"></i> Politică Cookie-uri</a>
+                    <a href="#"><i class="fas fa-balance-scale"></i> Notificări Legale</a>
                 </div>
             </div>
         </div>
         
         <div class="copyright">
-            &copy; 2025 SwissRoHub.ch - Toate drepturile rezervate. Proiect dezvoltat pentru comunitatea românească din Elveția.
+            &copy; 2025 SwissRoHub.ch - Toate drepturile rezervate. O platformă dedicată comunității românești din Elveția.
         </div>
     </footer>
 
     <script>
-        // Language switching functionality
-        document.querySelectorAll('.lang-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                document.querySelectorAll('.lang-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                this.classList.add('active');
-                
-                // In a real implementation, this would load translations
-                alert('Funcționalitate de traducere: Limba selectată - ' + this.textContent);
-            });
-        });
-        
-        // Navigation active state
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                });
-                this.classList.add('active');
-            });
-        });
-        
-        // Locked sections alert
-        document.querySelectorAll('.locked-section .card-link').forEach(link => {
-            link.addEventListener('click', function(e) {
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                alert('Secțiune securizată: Această zonă necesită autentificare pentru accesul complet. Contactați administratorul pentru detalii.');
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
+        
+        // Set active navigation item
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.content-card');
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + currentSection) {
+                    item.classList.add('active');
+                }
+            });
+            
+            document.querySelectorAll('.sidebar-link').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + currentSection) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Initialize first section as active
+        document.querySelector('.nav-item').classList.add('active');
     </script>
 </body>
 </html>
