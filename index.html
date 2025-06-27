@@ -20,6 +20,7 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            line-height: 1.6;
         }
         
         .container {
@@ -32,11 +33,12 @@
         /* Header */
         header {
             background: rgba(0, 0, 0, 0.7);
-            padding: 20px 0;
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         
         nav {
@@ -46,7 +48,7 @@
         }
         
         .logo {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             display: flex;
             align-items: center;
@@ -68,13 +70,13 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
         
         .nav-links a {
             color: #fff;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 500;
             position: relative;
             padding: 5px 0;
@@ -107,7 +109,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: 80vh;
+            min-height: 85vh;
             padding: 40px 0;
             position: relative;
         }
@@ -124,16 +126,15 @@
         }
         
         .hero h1 {
-            font-size: 5rem;
+            font-size: 4.5rem;
             font-weight: 700;
             margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
         .hero p {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             max-width: 700px;
             margin-bottom: 40px;
             line-height: 1.6;
@@ -154,6 +155,7 @@
             transition: all 0.3s ease;
             display: inline-block;
             cursor: pointer;
+            border: none;
         }
         
         .btn-primary {
@@ -195,7 +197,7 @@
         
         .section-title h2 {
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #ffd700;
         }
         
@@ -208,7 +210,7 @@
         .rubrics-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
             justify-content: center;
         }
         
@@ -241,7 +243,7 @@
         }
         
         .rubric-icon {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             transition: transform 0.3s ease;
         }
         
@@ -254,7 +256,7 @@
         
         .rubric-content.active {
             padding: 20px;
-            max-height: 500px;
+            max-height: 1000px;
         }
         
         .rubric-content p {
@@ -268,7 +270,60 @@
         }
         
         .rubric-content li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .rubric-content li:before {
+            content: "•";
+            color: #ffd700;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+        
+        .rubric-content h4 {
+            color: #ffd700;
+            margin: 20px 0 10px;
+            font-size: 1.3rem;
+        }
+        
+        .info-box {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid #ffd700;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        
+        .warning-box {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        th {
+            background: rgba(0, 0, 0, 0.5);
+            color: #ffd700;
         }
         
         /* Payment Section */
@@ -290,7 +345,7 @@
         }
         
         .payment-info p {
-            margin: 10px 0;
+            margin: 15px 0;
             font-size: 1.2rem;
         }
         
@@ -298,6 +353,8 @@
             color: #ffd700;
             font-weight: bold;
             font-size: 1.3rem;
+            display: inline-block;
+            padding: 0 5px;
         }
         
         .code-display {
@@ -306,7 +363,7 @@
             border-radius: 10px;
             font-size: 2rem;
             letter-spacing: 10px;
-            margin: 20px 0;
+            margin: 25px 0;
             display: inline-block;
             font-weight: bold;
             color: #ffd700;
@@ -316,6 +373,7 @@
             font-size: 1.2rem;
             margin-top: 10px;
             color: #ff6b6b;
+            font-weight: 600;
         }
         
         /* Footer */
@@ -324,6 +382,7 @@
             padding: 30px 0;
             text-align: center;
             margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .footer-content {
@@ -332,7 +391,7 @@
         }
         
         .footer-content p {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 1.1rem;
         }
         
@@ -348,28 +407,33 @@
             padding: 12px 24px;
             border-radius: 50px;
             text-decoration: none;
-            margin-top: 15px;
+            margin-top: 20px;
             font-weight: bold;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
         
         .whatsapp-link:hover {
             background: #128C7E;
             transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                gap: 15px;
+                font-size: 0.9rem;
             }
             
             .hero h1 {
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
             
             .hero p {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
             
             .buttons {
@@ -380,20 +444,33 @@
             .rubric {
                 width: 100%;
             }
+            
+            .rubric-header h3 {
+                font-size: 1.3rem;
+            }
         }
         
         @media (max-width: 480px) {
+            .nav-links {
+                display: none;
+            }
+            
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
             
             .hero p {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             
             .btn {
-                padding: 12px 30px;
+                padding: 12px 25px;
                 font-size: 1rem;
+                width: 100%;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
             }
         }
         
@@ -450,11 +527,11 @@
     
     <section class="hero">
         <div class="container">
-            <h1>SIMPLICITY.</h1>
-            <p>LANDING PAGE TEMPLATE</p>
+            <h1>SWISSROHUB</h1>
+            <p>Ghidul complet pentru românii în Elveția</p>
             <div class="buttons">
-                <a href="#contact" class="btn btn-primary">CONTACT US</a>
-                <a href="#rubrics" class="btn btn-secondary">KNOW MORE</a>
+                <a href="#contact" class="btn btn-primary">CONTACTEAZĂ-NE</a>
+                <a href="#rubrics" class="btn btn-secondary">AFLĂ MAI MULTE</a>
             </div>
         </div>
     </section>
@@ -463,70 +540,141 @@
         <div class="container">
             <div class="section-title">
                 <h2>Rubrici SwissRoHub</h2>
-                <p>Toate informațiile necesare pentru românii în Elveția</p>
+                <p>Informații complete și actualizate pentru comunitatea românească în Elveția</p>
             </div>
             
             <div class="rubrics-container">
+                <!-- Rubrica Acte & Rezidență -->
                 <div class="rubric">
                     <div class="rubric-header" onclick="toggleRubric(this)">
-                        <h3>Acte & Rezidență</h3>
+                        <h3><i class="fas fa-file-contract"></i> Acte & Rezidență</h3>
                         <i class="fas fa-chevron-down rubric-icon"></i>
                     </div>
                     <div class="rubric-content">
-                        <p>Informații complete despre permisele de ședere și procedurile de înregistrare.</p>
+                        <h4>Tipuri de permise de ședere</h4>
                         <ul>
-                            <li>Permisul L: Ședere temporară</li>
-                            <li>Permisul B: Rezidență temporară pe termen lung</li>
-                            <li>Permisul C: Rezidență permanentă</li>
-                            <li>Documente necesare pentru înregistrare</li>
+                            <li><strong>Permisul L</strong>: Ședere temporară pentru angajări sub 12 luni</li>
+                            <li><strong>Permisul B</strong>: Rezidență temporară pe termen lung</li>
+                            <li><strong>Permisul C</strong>: Rezidență permanentă după 5-10 ani</li>
+                            <li><strong>Permisul G</strong>: Pentru lucrătorii frontaliers</li>
                         </ul>
+                        
+                        <div class="info-box">
+                            <p><i class="fas fa-info-circle"></i> Pentru cetățenii UE/EFTA, permisul B se obține după 5 ani de ședere continuă.</p>
+                        </div>
+                        
+                        <h4>Documente necesare</h4>
+                        <ul>
+                            <li>Pașaport sau carte de identitate valabilă</li>
+                            <li>Contract de muncă sau dovadă a mijloacelor financiare</li>
+                            <li>Dovada asigurării medicale</li>
+                            <li>Contract de închiriere sau proprietate</li>
+                            <li>Formularul de înregistrare completat</li>
+                        </ul>
+                        
+                        <h4>Centre de înregistrare</h4>
+                        <table>
+                            <tr>
+                                <th>Regiune</th>
+                                <th>Oficiu</th>
+                                <th>Termen</th>
+                            </tr>
+                            <tr>
+                                <td>Zurich</td>
+                                <td>Kreisbüro</td>
+                                <td>14 zile</td>
+                            </tr>
+                            <tr>
+                                <td>Geneva</td>
+                                <td>Office cantonal</td>
+                                <td>8 zile</td>
+                            </tr>
+                            <tr>
+                                <td>Basel</td>
+                                <td>Einwohnerdienste</td>
+                                <td>14 zile</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 
+                <!-- Rubrica Muncă & Carieră -->
                 <div class="rubric">
                     <div class="rubric-header" onclick="toggleRubric(this)">
-                        <h3>Muncă & Carieră</h3>
+                        <h3><i class="fas fa-briefcase"></i> Muncă & Carieră</h3>
                         <i class="fas fa-chevron-down rubric-icon"></i>
                     </div>
                     <div class="rubric-content">
-                        <p>Oportunități de angajare și drepturile lucrătorilor în Elveția.</p>
+                        <h4>Drepturile lucrătorilor</h4>
                         <ul>
-                            <li>Contracte de muncă</li>
-                            <li>Drepturile angajaților</li>
-                            <li>Salarii și beneficii</li>
-                            <li>Recunoașterea calificărilor</li>
+                            <li>Salariu minim (în cantonele unde există)</li>
+                            <li>Asigurare de sănătate obligatorie</li>
+                            <li>Zile libere legale (minim 4 săptămâni/an)</li>
+                            <li>Protecție împotriva concedierii arbitrare</li>
                         </ul>
+                        
+                        <h4>Găsirea unui loc de muncă</h4>
+                        <table>
+                            <tr>
+                                <th>Platformă</th>
+                                <th>Specializare</th>
+                                <th>Website</th>
+                            </tr>
+                            <tr>
+                                <td>Jobup.ch</td>
+                                <td>Toate domeniile</td>
+                                <td>jobup.ch</td>
+                            </tr>
+                            <tr>
+                                <td>Indeed.ch</td>
+                                <td>Agregator oferte</td>
+                                <td>indeed.ch</td>
+                            </tr>
+                            <tr>
+                                <td>Jobs.ch</td>
+                                <td>Domenii tehnice</td>
+                                <td>jobs.ch</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="info-box">
+                            <p><i class="fas fa-lightbulb"></i> În Elveția, CV-ul trebuie să fie concis (1-2 pagini), cu fotografie profesională.</p>
+                        </div>
                     </div>
                 </div>
                 
+                <!-- Rubrica Insolvență -->
                 <div class="rubric">
                     <div class="rubric-header" onclick="toggleRubric(this)">
-                        <h3>Locuințe</h3>
+                        <h3><i class="fas fa-balance-scale"></i> Insolvență & Datorii</h3>
                         <i class="fas fa-chevron-down rubric-icon"></i>
                     </div>
                     <div class="rubric-content">
-                        <p>Ghid pentru găsirea locuinței și înțelegerea contractelor de închiriere.</p>
+                        <h4>Proceduri de insolvență</h4>
                         <ul>
-                            <li>Zone recomandate</li>
-                            <li>Costuri medii</li>
-                            <li>Proceduri de închiriere</li>
-                            <li>Drepturile chiriașilor</li>
+                            <li><strong>Concordat</strong>: Negociere cu creditorii înainte de insolvență</li>
+                            <li><strong>Insolvență simplificată</strong>: Pentru datorii sub 100,000 CHF</li>
+                            <li><strong>Insolvență ordinară</strong>: Pentru datorii peste 100,000 CHF</li>
                         </ul>
-                    </div>
-                </div>
-                
-                <div class="rubric">
-                    <div class="rubric-header" onclick="toggleRubric(this)">
-                        <h3>Asigurări</h3>
-                        <i class="fas fa-chevron-down rubric-icon"></i>
-                    </div>
-                    <div class="rubric-content">
-                        <p>Asigurări medicale obligatorii și opțiuni complementare.</p>
+                        
+                        <h4>Consecințe plecare cu datorii</h4>
                         <ul>
-                            <li>Asigurări de sănătate</li>
-                            <li>Asigurări de accident</li>
-                            <li>Asigurări de locuință</li>
-                            <li>Comparație furnizori</li>
+                            <li>Restricții la reintrarea în Elveția (5-10 ani)</li>
+                            <li>Posibilitate de executare silită în țara de origine</li>
+                            <li>Înscriere în registrul central de debitori</li>
+                            <li>Probleme la obținerea de vize</li>
+                        </ul>
+                        
+                        <div class="warning-box">
+                            <p><i class="fas fa-exclamation-triangle"></i> O datorie neachitată rămâne în registrul de executare timp de 20 de ani!</p>
+                        </div>
+                        
+                        <h4>Soluții recomandate</h4>
+                        <ul>
+                            <li>Negociere directă cu creditorii</li>
+                            <li>Acord de restanțiere notarial</li>
+                            <li>Procedură de insolvență înainte de plecare</li>
+                            <li>Consiliere juridică specializată</li>
                         </ul>
                     </div>
                 </div>
@@ -544,7 +692,7 @@
             <div class="payment-info">
                 <p>Taxă de mentenanță: <span class="highlight">20 CHF</span></p>
                 <p>Plata este necesară pentru deblocarea tuturor rubricilor și serviciilor noastre.</p>
-                <p>După plată, veți primi un cod de acces prin WhatsApp.</p>
+                <p>După plată, veți primi codul de acces prin WhatsApp.</p>
                 
                 <div class="code-display">0 5 0 5</div>
                 
@@ -569,7 +717,7 @@
                 <p><i class="fas fa-user"></i> Nume: <span class="highlight">Iacob D.V.</span></p>
                 <p><i class="fas fa-map-marker-alt"></i> Adresă: <span class="highlight">4802 Strengelbach</span></p>
                 <p><i class="fas fa-envelope"></i> Email: <span class="highlight">vegga2007@gmail.com</span></p>
-                <p><i class="fas fa-clock"></i> Răspundem în maxim 24 de ore</p>
+                <p><i class="fas fa-clock"></i> Răspundem în maxim <span class="highlight">24 de ore</span></p>
                 
                 <div class="buttons" style="justify-content: center; margin-top: 30px;">
                     <a href="mailto:vegga2007@gmail.com" class="btn btn-primary">Trimite Email</a>
@@ -579,14 +727,15 @@
         </div>
     </section>
     
-    <footer id="contact">
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <p>© 2023 SwissRoHub. Toate drepturile rezervate.</p>
                 <div class="contact-info">
-                    <p>Adresă: 4802 Strengelbach</p>
-                    <p>Contact: Iacob D.V. | vegga2007@gmail.com</p>
-                    <p>Taxă mentenanță: 20 CHF</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Adresă: 4802 Strengelbach</p>
+                    <p><i class="fas fa-user"></i> Contact: Iacob D.V.</p>
+                    <p><i class="fas fa-envelope"></i> vegga2007@gmail.com</p>
+                    <p><i class="fas fa-money-bill-wave"></i> Taxă mentenanță: 20 CHF</p>
                 </div>
             </div>
         </div>
