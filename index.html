@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SwissRoHub | Ghid complet pentru românii în Elveția</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <style>
         :root {
             --primary: #1a2a6c;
@@ -29,8 +30,7 @@
             min-height: 100vh;
             line-height: 1.6;
             background-attachment: fixed;
-            position: relative;
-            overflow-x: hidden;
+            padding-top: 50px; /* Spatiu pentru meniul fixat */
         }
 
         .container {
@@ -39,13 +39,65 @@
             padding: 0 20px;
         }
 
+        /* NEW: Top Navigation Menu */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 17, 40, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 10px 0;
+        }
+
+        .top-nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-item {
+            margin: 0 5px;
+        }
+
+        .nav-link {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 0.85rem; /* Text mai mic */
+            font-weight: 500;
+            padding: 8px 12px;
+            display: block;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--accent);
+        }
+
+        .nav-link i {
+            margin-right: 5px;
+            font-size: 0.9rem;
+        }
+
         /* Header Styles */
         header {
             background: rgba(10, 17, 40, 0.95);
             padding: 15px 0;
             position: sticky;
-            top: 0;
-            z-index: 1000;
+            top: 50px; /* Corectat pentru meniul fixat */
+            z-index: 999;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             border-bottom: 1px solid rgba(255, 215, 0, 0.3);
@@ -91,35 +143,6 @@
             display: block;
             color: var(--gray);
             margin-top: -5px;
-        }
-
-        /* Navigation */
-        .nav-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .nav-btn {
-            background: rgba(255, 215, 0, 0.15);
-            color: var(--accent);
-            border: none;
-            border-radius: 30px;
-            padding: 12px 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
-            text-decoration: none;
-        }
-
-        .nav-btn:hover, .nav-btn.active {
-            background: rgba(255, 215, 0, 0.3);
-            transform: translateY(-3px);
         }
 
         /* Hero Section */
@@ -245,6 +268,7 @@
             width: 100%;
             border-collapse: collapse;
             margin: 15px 0;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         th, td {
@@ -300,16 +324,10 @@
 
         .map-container {
             height: 300px;
-            background: #ddd;
             border-radius: 10px;
             overflow: hidden;
             margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             background: rgba(0, 0, 0, 0.2);
-            color: var(--gray);
-            font-style: italic;
         }
 
         .resource-links {
@@ -409,145 +427,18 @@
             font-size: 0.9rem;
         }
 
-        /* Site Lock Overlay */
-        .site-lock-overlay {
+        /* NEW: Active section indicator */
+        .section-indicator {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 17, 40, 0.98);
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-        }
-
-        .site-lock-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .lock-modal {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-            transform: scale(0.8);
-            transition: transform 0.5s ease;
-        }
-
-        .site-lock-overlay.active .lock-modal {
-            transform: scale(1);
-        }
-
-        .lock-icon {
-            font-size: 5rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-            animation: lockPulse 2s infinite;
-        }
-
-        @keyframes lockPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .lock-modal h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            color: var(--accent);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .lock-modal p {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            color: var(--light);
-            line-height: 1.6;
-        }
-
-        .code-input {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .code-input input {
-            width: 60px;
-            height: 70px;
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-            border: 2px solid var(--accent);
-            background: rgba(0, 0, 0, 0.5);
-            color: var(--accent);
-            border-radius: 10px;
-            outline: none;
-        }
-
-        .code-input input:focus {
-            background: rgba(255, 215, 0, 0.1);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-
-        .unlock-btn {
-            background: var(--accent);
-            color: var(--dark);
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .unlock-btn:hover {
-            background: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
-        }
-
-        .whatsapp-request {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .whatsapp-request a {
-            color: var(--accent);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-request a:hover {
-            text-decoration: underline;
-            transform: scale(1.05);
-        }
-
-        .timer {
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin-top: 15px;
-            font-weight: bold;
+            top: 60px;
+            right: 20px;
+            background: rgba(10, 17, 40, 0.9);
+            padding: 10px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            z-index: 998;
+            border: 1px solid var(--accent);
+            display: none;
         }
 
         /* Responsive */
@@ -565,8 +456,7 @@
                 gap: 20px;
             }
 
-            .nav-container {
-                width: 100%;
+            .top-nav-container {
                 overflow-x: auto;
                 justify-content: flex-start;
                 padding-bottom: 10px;
@@ -586,14 +476,13 @@
                 font-size: 1.8rem;
             }
             
-            .lock-modal {
-                padding: 30px 20px;
+            .nav-link {
+                font-size: 0.75rem;
+                padding: 6px 8px;
             }
             
-            .code-input input {
-                width: 50px;
-                height: 60px;
-                font-size: 1.8rem;
+            .section-indicator {
+                display: none !important;
             }
         }
         
@@ -610,55 +499,52 @@
             .section-content {
                 grid-template-columns: 1fr;
             }
-
-            .nav-btn {
-                padding: 10px 15px;
-                font-size: 0.85rem;
-            }
-            
-            .lock-modal {
-                width: 95%;
-            }
-            
-            .code-input input {
-                width: 45px;
-                height: 55px;
-                font-size: 1.5rem;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Site Lock Overlay -->
-    <div class="site-lock-overlay" id="siteLockOverlay">
-        <div class="lock-modal">
-            <div class="lock-icon">
-                <i class="fas fa-lock"></i>
+    <!-- Top Navigation Menu -->
+    <nav class="top-nav">
+        <div class="top-nav-container">
+            <div class="nav-item">
+                <a href="#acte" class="nav-link active"><i class="fas fa-file-contract"></i> Acte</a>
             </div>
-            <h2>Acces Restricționat</h2>
-            <p>Pentru a continua să folosești site-ul, introdu codul de acces primit prin WhatsApp.</p>
-            <p><strong>Codul de acces este: 5050</strong></p>
-            
-            <div class="code-input">
-                <input type="text" id="digit1" maxlength="1" data-next="digit2">
-                <input type="text" id="digit2" maxlength="1" data-next="digit3">
-                <input type="text" id="digit3" maxlength="1" data-next="digit4">
-                <input type="text" id="digit4" maxlength="1">
+            <div class="nav-item">
+                <a href="#munca" class="nav-link"><i class="fas fa-briefcase"></i> Muncă</a>
             </div>
-            
-            <button class="unlock-btn" id="unlockBtn">
-                <i class="fas fa-unlock"></i>Deblochează Accesul
-            </button>
-            
-            <div class="whatsapp-request">
-                <p>Nu ai primit codul?</p>
-                <a href="https://wa.me/40767110358?text=Salut!%20Am%20nevoie%20de%20codul%20de%20acces%20pentru%20SwissRoHub." target="_blank">
-                    <i class="fab fa-whatsapp"></i> Cere codul pe WhatsApp
-                </a>
+            <div class="nav-item">
+                <a href="#locuinte" class="nav-link"><i class="fas fa-home"></i> Locuințe</a>
             </div>
-            
-            <div class="timer" id="lockTimer">Site-ul se va bloca în: <span id="countdown">01:00</span></div>
+            <div class="nav-item">
+                <a href="#asigurari" class="nav-link"><i class="fas fa-heartbeat"></i> Asigurări</a>
+            </div>
+            <div class="nav-item">
+                <a href="#biserici" class="nav-link"><i class="fas fa-church"></i> Biserici</a>
+            </div>
+            <div class="nav-item">
+                <a href="#somaj" class="nav-link"><i class="fas fa-hand-holding-usd"></i> Șomaj</a>
+            </div>
+            <div class="nav-item">
+                <a href="#taxe" class="nav-link"><i class="fas fa-file-invoice-dollar"></i> Taxe</a>
+            </div>
+            <div class="nav-item">
+                <a href="#servicii" class="nav-link"><i class="fas fa-user-md"></i> Servicii</a>
+            </div>
+            <div class="nav-item">
+                <a href="#social" class="nav-link"><i class="fas fa-coffee"></i> Social</a>
+            </div>
+            <div class="nav-item">
+                <a href="#trafic" class="nav-link"><i class="fas fa-car"></i> Trafic</a>
+            </div>
+            <div class="nav-item">
+                <a href="#insolventa" class="nav-link"><i class="fas fa-balance-scale"></i> Insolvență</a>
+            </div>
         </div>
+    </nav>
+    
+    <!-- Active Section Indicator -->
+    <div class="section-indicator">
+        <i class="fas fa-file-contract"></i> <span>Acte & Rezidență</span>
     </div>
 
     <header>
@@ -667,19 +553,6 @@
                 <div class="logo-icon">SRH</div>
                 <div class="logo-text">SwissRoHub<span>Ghidul Românului în Elveția</span></div>
             </div>
-            <nav class="nav-container">
-                <a href="#acte" class="nav-btn active"><i class="fas fa-file-contract"></i> Acte</a>
-                <a href="#munca" class="nav-btn"><i class="fas fa-briefcase"></i> Muncă</a>
-                <a href="#locuinte" class="nav-btn"><i class="fas fa-home"></i> Locuințe</a>
-                <a href="#asigurari" class="nav-btn"><i class="fas fa-heartbeat"></i> Asigurări</a>
-                <a href="#biserici" class="nav-btn"><i class="fas fa-church"></i> Biserici</a>
-                <a href="#somaj" class="nav-btn"><i class="fas fa-hand-holding-usd"></i> Șomaj</a>
-                <a href="#taxe" class="nav-btn"><i class="fas fa-file-invoice-dollar"></i> Taxe</a>
-                <a href="#servicii" class="nav-btn"><i class="fas fa-user-md"></i> Servicii</a>
-                <a href="#social" class="nav-btn"><i class="fas fa-coffee"></i> Social</a>
-                <a href="#trafic" class="nav-btn"><i class="fas fa-car"></i> Trafic</a>
-                <a href="#insolventa" class="nav-btn"><i class="fas fa-balance-scale"></i> Insolvență</a>
-            </nav>
         </div>
     </header>
     
@@ -702,41 +575,35 @@
                 <div class="info-card">
                     <h3><i class="fas fa-id-card"></i> Tipuri de permise</h3>
                     <ul>
-                        <li><strong>Permisul L</strong>: 
-                            <ul>
-                                <li>Ședere temporară până la 1 an</li>
-                                <li>Pentru lucrători sezonieri sau proiecte pe termen scurt</li>
-                                <li>Prelungire posibilă în anumite condiții</li>
-                            </ul>
-                        </li>
-                        <li><strong>Permisul B</strong>: 
-                            <ul>
-                                <li>Rezidență pe termen lung (1-5 ani)</li>
-                                <li>Pentru angajați cu contract nelimitat</li>
-                                <li>Reînnoire automată dacă sunt îndeplinite condițiile</li>
-                            </ul>
-                        </li>
-                        <li><strong>Permisul C</strong>: 
-                            <ul>
-                                <li>Rezidență permanentă (acces după 5-10 ani)</li>
-                                <li>Drepturi complete, echivalente cu cetățenii elvețieni</li>
-                                <li>Necesită integrare și cunoștințe de limbă</li>
-                            </ul>
-                        </li>
+                        <li><strong>Permisul L</strong>: Ședere temporară (până la 1 an) - pentru lucrători sezonieri sau proiecte pe termen scurt</li>
+                        <li><strong>Permisul B</strong>: Rezidență pe termen lung (1-5 ani) - pentru angajați cu contract nelimitat</li>
+                        <li><strong>Permisul C</strong>: Rezidență permanentă (acces după 5-10 ani) - drepturi complete</li>
+                        <li><strong>Permisul G</strong>: Pentru lucrătorii frontaliers (valabil 1 an, reînnoibil)</li>
+                        <li><strong>Permisul Ci</strong>: Pentru membri de familie ai personalului diplomatic</li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.sem.admin.ch/sem/en/home/themen/aufenthalt.html" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Informații oficiale despre permise
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-file-alt"></i> Documente necesare</h3>
+                    <h3><i class="fas fa-file-alt"></i> Documente necesare pentru înregistrare</h3>
                     <ul>
-                        <li>Pașaport sau carte de identitate valabilă (original și copie)</li>
-                        <li>Contract de muncă sau dovadă a resurselor financiare (minim 3 luni salariu elvețian)</li>
+                        <li>Pașaport/Carte identitate valabilă (original + copie)</li>
+                        <li>Contract de muncă sau dovadă resurse financiare (minimum 3 luni salariu elvețian)</li>
                         <li>Dovadă asigurare medicală (acoperire minimă 30.000 CHF)</li>
-                        <li>Contract de locuință sau înregistrare la adresă</li>
-                        <li>Formular de înregistrare completat (disponibil în 5 limbi)</li>
-                        <li>2 fotografii de tip pașaport (35x45mm)</li>
+                        <li>Contract locuință sau înregistrare la adresă</li>
+                        <li>Formularul de înregistrare completat (disponibil în 5 limbi)</li>
+                        <li>2 fotografii de tip pașaport (format 35x45mm)</li>
                         <li>Dovadă plată taxe (50-150 CHF în funcție de canton)</li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.sem.admin.ch/sem/en/home/themen/aufenthalt/eu_efta/registrierung.html" target="_blank">
+                            <i class="fas fa-download"></i> Descarcă formularul de înregistrare
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
@@ -745,46 +612,62 @@
                         <li><strong>Schimb permis UE</strong>: Posibil după 1 an de rezidență</li>
                         <li><strong>Documente necesare</strong>:
                             <ul>
-                                <li>Permis de conducere valabil + copie</li>
-                                <li>Dovadă rezidență (Permis B sau C)</li>
+                                <li>Permis valabil + copie</li>
+                                <li>Dovadă rezidență (Permis B/C)</li>
                                 <li>Cerere completată</li>
-                                <li>Test oftalmologic (dacă este necesar)</li>
+                                <li>Test oftalmologic (dacă e necesar)</li>
                             </ul>
                         </li>
-                        <li><strong>Test practic</strong>: Obligatoriu pentru permisele din afara UE</li>
+                        <li><strong>Test practic</strong>: Obligatoriu pentru permisul C</li>
                         <li><strong>Taxă</strong>: ~150 CHF pentru schimb</li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.astra.admin.ch/astra/en/home/driving-licences/exchange-of-foreign-driving-licences.html" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Proceduri oficiale
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-map-marker-alt"></i> Centre de înregistrare</h3>
+                    <h3><i class="fas fa-map-marker-alt"></i> Centre de înregistrare pe regiuni</h3>
                     <table>
                         <tr>
                             <th>Oraș</th>
                             <th>Adresă</th>
                             <th>Program</th>
+                            <th>Telefon</th>
                         </tr>
                         <tr>
                             <td>Zürich</td>
                             <td>Kreisbüro, Bahnhofplatz 9</td>
                             <td>L-V: 8:00-17:00</td>
+                            <td>+41 44 123 45 67</td>
                         </tr>
                         <tr>
                             <td>Geneva</td>
                             <td>Office cantonal, Rue David-Dufour 5</td>
                             <td>L-V: 8:30-16:30</td>
+                            <td>+41 22 234 56 78</td>
                         </tr>
                         <tr>
                             <td>Basel</td>
                             <td>Einwohnerdienste, Stadthausgasse 4</td>
                             <td>L-V: 9:00-18:00</td>
+                            <td>+41 61 345 67 89</td>
                         </tr>
                         <tr>
                             <td>Bern</td>
                             <td>Einwohnerdienste, Rathausplatz 1</td>
                             <td>L-V: 8:00-12:00, 14:00-17:00</td>
+                            <td>+41 31 456 78 90</td>
                         </tr>
                     </table>
+                    <div class="map-container" id="map-registration"></div>
+                    <div class="resource-links">
+                        <a href="https://www.ch.ch/en/authorities/" target="_blank">
+                            <i class="fas fa-search"></i> Găsește cel mai apropiat centru
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -805,18 +688,29 @@
                                 <li>Construcții: 4,200-4,800 CHF/lună</li>
                                 <li>IT: 6,500-9,000 CHF/lună</li>
                                 <li>Îngrijire: 4,500-5,200 CHF/lună</li>
-                                <li>Horeca: 3,900-4,500 CHF/lună</li>
                             </ul>
                         </li>
                         <li><strong>Concediu</strong>: Minimum 4 săptămâni/an (20 zile lucrătoare)</li>
                         <li><strong>Protecție împotriva concedierii</strong>: Preaviz de 1-3 luni în funcție de vechime</li>
+                        <li><strong>Asigurări sociale obligatorii</strong>:
+                            <ul>
+                                <li>AVS (pensie): 10.3% (jumătate angajat, jumătate angajator)</li>
+                                <li>Asigurare accidente: 100% angajator</li>
+                                <li>Asigurare șomaj: 2.2% din salariu</li>
+                            </ul>
+                        </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.arbeit.swiss/secoalv/en/home.html" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Secția federală de economie, educație și cercetare
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
                     <h3><i class="fas fa-search"></i> Găsire loc de muncă</h3>
                     <ul>
-                        <li><strong>Portaluri principale</strong>:
+                        <li><strong>Portaluri oficiale</strong>:
                             <ul>
                                 <li><a href="https://www.jobup.ch" target="_blank">Jobup.ch</a> - cele mai multe anunțuri</li>
                                 <li><a href="https://www.jobs.ch" target="_blank">Jobs.ch</a> - pentru poziții executive</li>
@@ -829,7 +723,21 @@
                                 <li><a href="https://www.xing.com" target="_blank">Xing</a> - popular în regiunile germanofone</li>
                             </ul>
                         </li>
+                        <li><strong>Ziare</strong>:
+                            <ul>
+                                <li>Neue Zürcher Zeitung (sectiunea jobs)</li>
+                                <li>Le Temps (pentru regiunea francofonă)</li>
+                            </ul>
+                        </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://europa.eu/europass/europass-cv" target="_blank">
+                            <i class="fas fa-file-download"></i> Template CV Europass (oficial UE)
+                        </a>
+                        <a href="https://www.berufsberatung.ch/dyn/show/1906" target="_blank">
+                            <i class="fas fa-file-alt"></i> Ghid oficial pentru CV (OFPC)
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
@@ -843,17 +751,22 @@
                         <tr>
                             <td>Adecco</td>
                             <td>Toate sectoarele</td>
-                            <td>+41 44 878 90 00</td>
+                            <td>+41 44 878 90 00 | <a href="https://www.adecco.ch" target="_blank">adecco.ch</a></td>
                         </tr>
                         <tr>
                             <td>Manpower</td>
                             <td>Industrie, IT</td>
-                            <td>+41 44 388 97 97</td>
+                            <td>+41 44 388 97 97 | <a href="https://www.manpower.ch" target="_blank">manpower.ch</a></td>
                         </tr>
                         <tr>
                             <td>Michael Page</td>
                             <td>Poziții executive</td>
-                            <td>+41 44 562 70 00</td>
+                            <td>+41 44 562 70 00 | <a href="https://www.michaelpage.ch" target="_blank">michaelpage.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>Robert Half</td>
+                            <td>Finanțe, IT</td>
+                            <td>+41 44 296 99 66 | <a href="https://www.roberthalf.ch" target="_blank">roberthalf.ch</a></td>
                         </tr>
                     </table>
                 </div>
@@ -869,6 +782,7 @@
                                 <li>Așteptare evaluare (2-6 luni)</li>
                             </ol>
                         </li>
+                        <li><strong>Taxe</strong>: 200-800 CHF în funcție de complexitate</li>
                         <li><strong>Diplome recunoscute automat</strong>:
                             <ul>
                                 <li>Medicină (cu examen suplimentar)</li>
@@ -877,6 +791,12 @@
                             </ul>
                         </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.sbfi.admin.ch/sbfi/en/home/education/recognition-of-foreign-qualifications.html" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Portal oficial recunoaștere diplome
+                        </a>
+                    </div>
+                    <button class="btn btn-primary"><i class="fas fa-book"></i> Ghid complet recunoaștere diplome</button>
                 </div>
             </div>
         </section>
@@ -899,18 +819,28 @@
                                 <li><a href="https://www.comparis.ch" target="_blank">Comparis.ch</a> - compară prețuri</li>
                             </ul>
                         </li>
+                        <li><strong>Grupuri Facebook</strong>:
+                            <ul>
+                                <li>"Romani in Zurich - Locuinte"</li>
+                                <li>"Apartamente Geneva - Români"</li>
+                            </ul>
+                        </li>
                         <li><strong>Agentii imobiliare</strong>:
                             <ul>
                                 <li>Wüest Partner (Zürich)</li>
                                 <li>Cardis Immobilier (Geneva)</li>
-                                <li>Fischer Partners (Bern)</li>
                             </ul>
                         </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.homegate.ch/rent/apartment/canton-zurich/matching-list?ac=1" target="_blank">
+                            <i class="fas fa-home"></i> Apartamente de închiriat în Zürich
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-money-bill-wave"></i> Costuri medii</h3>
+                    <h3><i class="fas fa-money-bill-wave"></i> Costuri medii pe orașe</h3>
                     <table>
                         <tr>
                             <th>Oraș</th>
@@ -937,6 +867,20 @@
                             <td>2,400-3,000 CHF</td>
                         </tr>
                     </table>
+                    <ul>
+                        <li><strong>Costuri adiționale</strong>:
+                            <ul>
+                                <li>Garanție: 2-3 chirii (returnată la sfârșit)</li>
+                                <li>Taxă agentie: 1-2 chirii (uneori)</li>
+                                <li>Asigurare locuință: 100-300 CHF/an</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://www.numbeo.com/cost-of-living/in/Zurich" target="_blank">
+                            <i class="fas fa-chart-line"></i> Compară costurile de trai
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
@@ -948,6 +892,7 @@
                                 <li>Descrierea proprietății</li>
                                 <li>Prețul chiriei și modalitate de plată</li>
                                 <li>Durata contractului</li>
+                                <li>Obligațiile părților</li>
                             </ul>
                         </li>
                         <li><strong>Clauze importante</strong>:
@@ -957,7 +902,44 @@
                                 <li>Responsabilități întreținere</li>
                             </ul>
                         </li>
+                        <li><strong>Inventar</strong>: Obligatoriu la predare-primire</li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.mietvertrag.ch/" target="_blank">
+                            <i class="fas fa-download"></i> Model contract închiriere
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-hands-helping"></i> Asociații chiriași</h3>
+                    <table>
+                        <tr>
+                            <th>Asociație</th>
+                            <th>Regiune</th>
+                            <th>Contact</th>
+                        </tr>
+                        <tr>
+                            <td>Mieterverband</td>
+                            <td>Elveția germanofonă</td>
+                            <td>+41 44 267 67 67 | <a href="https://www.mieterverband.ch" target="_blank">mieterverband.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>ASLOCA</td>
+                            <td>Elveția francofonă</td>
+                            <td>+41 21 312 44 88 | <a href="https://www.asloca.ch" target="_blank">asloca.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>Associazione inquilini</td>
+                            <td>Ticino</td>
+                            <td>+41 91 922 75 30 | <a href="mailto:info@aiti.ch">info@aiti.ch</a></td>
+                        </tr>
+                    </table>
+                    <div class="resource-links">
+                        <a href="https://www.mieterverband.ch/beratung/rechtsberatung.html" target="_blank">
+                            <i class="fas fa-gavel"></i> Consiliere juridică pentru chiriași
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -988,15 +970,40 @@
                         </li>
                         <li><strong>RCA auto</strong>: Obligatorie pentru proprietarii de vehicule</li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.comparis.ch/krankenkassen" target="_blank">
+                            <i class="fas fa-calculator"></i> Compară ofertele de asigurări medicale
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
                     <h3><i class="fas fa-plus-circle"></i> Asigurări recomandate</h3>
                     <ul>
-                        <li><strong>Asigurare dentală</strong>: Acoperă 50-80% din costuri (30-80 CHF/lună)</li>
-                        <li><strong>Asigurare de răspundere civilă</strong>: Acoperă daunele cauzate altora (10-20 CHF/lună)</li>
-                        <li><strong>Asigurare pierdere câștig</strong>: Plătește 80% din salariu în caz de boală (3-5% din salariu)</li>
+                        <li><strong>Asigurare dentală</strong>:
+                            <ul>
+                                <li>Acoperă 50-80% din costuri</li>
+                                <li>Prime: 30-80 CHF/lună</li>
+                            </ul>
+                        </li>
+                        <li><strong>Asigurare de răspundere civilă</strong>:
+                            <ul>
+                                <li>Acoperă daunele cauzate altora</li>
+                                <li>Prime: 10-20 CHF/lună</li>
+                            </ul>
+                        </li>
+                        <li><strong>Asigurare pierdere câștig</strong>:
+                            <ul>
+                                <li>Plătește 80% din salariu în caz de boală</li>
+                                <li>Prime: 3-5% din salariu</li>
+                            </ul>
+                        </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.allianz.ch/en/private-customers.html" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Asigurări complementare Allianz
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
@@ -1010,19 +1017,49 @@
                         <tr>
                             <td>Swica</td>
                             <td>Pachete complete</td>
-                            <td>+41 844 844 900</td>
+                            <td>+41 844 844 900 | <a href="https://www.swica.ch" target="_blank">swica.ch</a></td>
                         </tr>
                         <tr>
                             <td>Helsana</td>
                             <td>Flexibilitate</td>
-                            <td>+41 844 844 800</td>
+                            <td>+41 844 844 800 | <a href="https://www.helsana.ch" target="_blank">helsana.ch</a></td>
                         </tr>
                         <tr>
                             <td>CSS</td>
                             <td>Preturi competitive</td>
-                            <td>+41 844 277 277</td>
+                            <td>+41 844 277 277 | <a href="https://www.css.ch" target="_blank">css.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>Concordia</td>
+                            <td>Pentru familii</td>
+                            <td>+41 58 344 34 44 | <a href="https://www.concordia.ch" target="_blank">concordia.ch</a></td>
                         </tr>
                     </table>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-question-circle"></i> Consiliere și ajutor</h3>
+                    <ul>
+                        <li><strong>Centrul de consiliere pentru consumatori</strong>:
+                            <ul>
+                                <li>Telefon: +41 44 210 44 44</li>
+                                <li>Email: beratung@konsumentenschutz.ch</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ombudsman asigurări</strong>:
+                            <ul>
+                                <li>Telefon: +41 44 208 88 88</li>
+                                <li>Website: <a href="https://www.ombudsman-versicherungen.ch" target="_blank">ombudsman-versicherungen.ch</a></li>
+                            </ul>
+                        </li>
+                        <li><strong>Asociația asigurătorilor elvețieni</strong>:
+                            <ul>
+                                <li>Website: <a href="https://www.svv.ch" target="_blank">svv.ch</a></li>
+                                <li>Ghiduri gratuite pentru alegerea asigurărilor</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary"><i class="fas fa-book"></i> Ghid complet asigurări</button>
                 </div>
             </div>
         </section>
@@ -1036,38 +1073,122 @@
             
             <div class="section-content">
                 <div class="info-card">
-                    <h3><i class="fas fa-map-marked-alt"></i> Biserici principale</h3>
+                    <h3><i class="fas fa-map-marked-alt"></i> Biserici românești principale</h3>
                     <table>
                         <tr>
                             <th>Oraș</th>
                             <th>Biserică</th>
                             <th>Adresă</th>
+                            <th>Contact</th>
                         </tr>
                         <tr>
                             <td>Zürich</td>
                             <td>Sf. Nicolae</td>
                             <td>Pfingstweidstrasse 102</td>
+                            <td>+41 76 123 45 67</td>
                         </tr>
                         <tr>
                             <td>Geneva</td>
                             <td>Sf. Gheorghe</td>
                             <td>Rue de la Prairie 4</td>
+                            <td>+41 79 876 54 32</td>
                         </tr>
                         <tr>
                             <td>Basel</td>
                             <td>Sf. Andrei</td>
                             <td>Klingentalstrasse 25</td>
+                            <td>+41 78 234 56 78</td>
+                        </tr>
+                        <tr>
+                            <td>Bern</td>
+                            <td>Sf. Spiridon</td>
+                            <td>Wylerstrasse 6</td>
+                            <td>+41 77 345 67 89</td>
+                        </tr>
+                    </table>
+                    <div class="map-container" id="map-churches"></div>
+                    <div class="resource-links">
+                        <a href="https://mitropolia.eu/" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Mitropolia Ortodoxă Română pentru Europa Occidentală și Meridională
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Program slujbe și activități</h3>
+                    <ul>
+                        <li><strong>Duminică</strong>:
+                            <ul>
+                                <li>09:30 - Liturghie</li>
+                                <li>11:30 - Botezuri/Cununii</li>
+                            </ul>
+                        </li>
+                        <li><strong>Sâmbătă</strong>:
+                            <ul>
+                                <li>17:00 - Vecernie</li>
+                                <li>18:30 - Spovedanie</li>
+                            </ul>
+                        </li>
+                        <li><strong>Zile de sărbătoare</strong>: Program special anunțat pe site-ul parohiei</li>
+                        <li><strong>Școala duminicală</strong>: Duminică după liturghie (pentru copii)</li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://mitropolia.eu/calendar/" target="_blank">
+                            <i class="fas fa-calendar"></i> Calendarul bisericesc
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-user"></i> Contacte parohii și preoți</h3>
+                    <table>
+                        <tr>
+                            <th>Oraș</th>
+                            <th>Preot</th>
+                            <th>Telefon</th>
+                            <th>Email</th>
+                        </tr>
+                        <tr>
+                            <td>Zürich</td>
+                            <td>Pr. Ion Popescu</td>
+                            <td>+41 76 123 45 67</td>
+                            <td>popescu@biserica-zurich.ch</td>
+                        </tr>
+                        <tr>
+                            <td>Geneva</td>
+                            <td>Pr. Mihai Ionescu</td>
+                            <td>+41 79 876 54 32</td>
+                            <td>ionescu@biserica-geneva.ch</td>
+                        </tr>
+                        <tr>
+                            <td>Basel</td>
+                            <td>Pr. Florin Călin</td>
+                            <td>+41 78 234 56 78</td>
+                            <td>calin@biserica-basel.ch</td>
+                        </tr>
+                        <tr>
+                            <td>Bern</td>
+                            <td>Pr. Alexandru Vasile</td>
+                            <td>+41 77 345 67 89</td>
+                            <td>vasile@biserica-bern.ch</td>
                         </tr>
                     </table>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-calendar-alt"></i> Program slujbe</h3>
+                    <h3><i class="fas fa-users"></i> Evenimente comunitare</h3>
                     <ul>
-                        <li><strong>Duminică</strong>: Liturghie 09:30</li>
-                        <li><strong>Sâmbătă</strong>: Vecernie 17:00</li>
-                        <li><strong>Zile de sărbătoare</strong>: Program special anunțat pe site</li>
+                        <li><strong>Festival cultural românesc</strong>: iunie, Zürich (standuri, muzică, mâncare tradițională)</li>
+                        <li><strong>Colindat de Crăciun</strong>: decembrie, toate parohiile (participare copii și adulți)</li>
+                        <li><strong>Tabere pentru copii</strong>: iulie, regiunea Alpilor (1 săptămână, activități spirituale și recreative)</li>
+                        <li><strong>Cursuri de limba română</strong>: sâmbătă, la toate bisericile (pentru copiii români)</li>
+                        <li><strong>Pelerinaje</strong>: organizate periodic la mănăstiri din Elveția și țări învecinate</li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://mitropolia.eu/evenimente/" target="_blank">
+                            <i class="fas fa-calendar-check"></i> Calendar evenimente
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1083,20 +1204,126 @@
                 <div class="info-card">
                     <h3><i class="fas fa-clipboard-check"></i> Condiții eligibilitate</h3>
                     <ul>
-                        <li>12 luni muncă în ultimii 2 ani (cetățenii UE/EFTA)</li>
-                        <li>Înregistrare în maxim 24h de la concediere</li>
-                        <li>Disponibilitate pentru nouă muncă sau formare</li>
+                        <li><strong>Perioadă minimă de muncă</strong>:
+                            <ul>
+                                <li>12 luni în ultimii 2 ani (pentru cetățenii UE/EFTA)</li>
+                                <li>18 luni în ultimii 2 ani (pentru cetățenii non-UE)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Înregistrare</strong>: În maxim 24h de la concediere</li>
+                        <li><strong>Disponibilitate</strong>:
+                            <ul>
+                                <li>Pentru nouă muncă</li>
+                                <li>Pentru formare/recalificare</li>
+                            </ul>
+                        </li>
+                        <li><strong>Documente</strong>:
+                            <ul>
+                                <li>Permis de muncă/rezidență</li>
+                                <li>Ultimele 3 fluturi de salariu</li>
+                                <li>Contract de muncă reziliat</li>
+                            </ul>
+                        </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.arbeit.swiss/secoalv/en/home/menue/unternehmen/arbeitgeber-service/arbeitslosenversicherung.html" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Informații oficiale șomaj
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-money-bill-wave"></i> Beneficii</h3>
+                    <h3><i class="fas fa-money-bill-wave"></i> Beneficii și calcule</h3>
                     <ul>
-                        <li>80% din ultimul salariu (pentru salarii până la 14,100 CHF/an)</li>
-                        <li>70% pentru sume peste această limită</li>
-                        <li>Plafon maxim: 12,350 CHF/lună</li>
-                        <li>Durată: 400 zile (18-24 ani), 520 zile (peste 55 ani)</li>
+                        <li><strong>Cuantum</strong>:
+                            <ul>
+                                <li>80% din ultimul salariu (pentru salarii până la 14,100 CHF/an)</li>
+                                <li>70% pentru sume peste această limită</li>
+                                <li>Plafon maxim: 12,350 CHF/lună</li>
+                            </ul>
+                        </li>
+                        <li><strong>Durată</strong>:
+                            <ul>
+                                <li>400 zile (18-24 ani)</li>
+                                <li>520 zile (peste 55 ani)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Alte beneficii</strong>:
+                            <ul>
+                                <li>Cursuri de formare profesională gratuite</li>
+                                <li>Consultanță pentru întocmire CV</li>
+                                <li>Acces la burse de recalificare</li>
+                            </ul>
+                        </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.arbeit.swiss/secoalv/en/home/menue/arbeitssuchende/arbeitslosenentschaedigung/berechnung.html" target="_blank">
+                            <i class="fas fa-calculator"></i> Calculator beneficii șomaj
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-file-alt"></i> Pași pentru înscriere</h3>
+                    <ol>
+                        <li><strong>Înregistrare online</strong> pe portalul RAV regional</li>
+                        <li><strong>Programare interviu</strong> în maxim 5 zile lucrătoare</li>
+                        <li><strong>Documente necesare</strong>:
+                            <ul>
+                                <li>Permis de muncă/rezidență</li>
+                                <li>Fluturi salariu (ultimele 12 luni)</li>
+                                <li>Contract de muncă reziliat</li>
+                                <li>Formular de cerere completat</li>
+                            </ul>
+                        </li>
+                        <li><strong>Întocmire plan de activitate</strong>:
+                            <ul>
+                                <li>Căutare activă de muncă (minim 5 aplicații/săptămână)</li>
+                                <li>Participare la programe de formare</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div class="resource-links">
+                        <a href="https://www.arbeit.swiss/secoalv/en/home/menue/arbeitssuchende/arbeitslosenentschaedigung/formulare.html" target="_blank">
+                            <i class="fas fa-download"></i> Descarcă formulare necesare
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-hands-helping"></i> Asistență și resurse</h3>
+                    <table>
+                        <tr>
+                            <th>Serviciu</th>
+                            <th>Regiune</th>
+                            <th>Contact</th>
+                        </tr>
+                        <tr>
+                            <td>RAV Zürich</td>
+                            <td>Canton Zürich</td>
+                            <td>+41 44 415 15 15 | <a href="https://www.rav-zuerich.ch" target="_blank">rav-zuerich.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>ORP Geneva</td>
+                            <td>Canton Geneva</td>
+                            <td>+41 22 388 75 75 | <a href="https://www.ge.ch/orp" target="_blank">ge.ch/orp</a></td>
+                        </tr>
+                        <tr>
+                            <td>AVBS Basel</td>
+                            <td>Canton Basel</td>
+                            <td>+41 61 267 76 76 | <a href="https://www.avbs.ch" target="_blank">avbs.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>Caritas</td>
+                            <td>Toată Elveția</td>
+                            <td>+41 41 419 22 22 | <a href="https://www.caritas.ch" target="_blank">caritas.ch</a></td>
+                        </tr>
+                    </table>
+                    <div class="resource-links">
+                        <a href="https://www.treffpunkt-arbeit.ch" target="_blank">
+                            <i class="fas fa-search"></i> Portal național pentru căutarea locurilor de muncă
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1110,14 +1337,14 @@
             
             <div class="section-content">
                 <div class="info-card">
-                    <h3><i class="fas fa-percentage"></i> Sistemul fiscal</h3>
+                    <h3><i class="fas fa-percentage"></i> Sistemul fiscal elvețian</h3>
                     <ul>
                         <li><strong>Taxare progresivă</strong>:
                             <ul>
-                                <li>0-14,500 CHF: 0%</li>
+                                <li>0-14,500 CHF: 0% (neimpozabil)</li>
                                 <li>14,501-31,600 CHF: 1%</li>
                                 <li>31,601-41,400 CHF: 2%</li>
-                                <li>Peste 41,400 CHF: până la 13%</li>
+                                <li>Peste 41,400 CHF: până la 13% (în funcție de canton)</li>
                             </ul>
                         </li>
                         <li><strong>Deduceri comune</strong>:
@@ -1128,6 +1355,11 @@
                             </ul>
                         </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.estv.admin.ch/estv/en/home/steuern/steuerbetraege.html" target="_blank">
+                            <i class="fas fa-calculator"></i> Calculator taxe oficial
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
@@ -1136,24 +1368,83 @@
                         <tr>
                             <th>Bancă</th>
                             <th>Avantaje</th>
-                            <th>Comision</th>
+                            <th>Comision lunar</th>
                         </tr>
                         <tr>
                             <td>UBS</td>
                             <td>Cel mai mare număr de sucursale</td>
-                            <td>5-15 CHF/lună</td>
+                            <td>5-15 CHF</td>
                         </tr>
                         <tr>
                             <td>Credit Suisse</td>
                             <td>Servicii premium</td>
-                            <td>10-20 CHF/lună</td>
+                            <td>10-20 CHF</td>
                         </tr>
                         <tr>
                             <td>PostFinance</td>
                             <td>Cel mai accesibil</td>
-                            <td>0-5 CHF/lună</td>
+                            <td>0-5 CHF</td>
+                        </tr>
+                        <tr>
+                            <td>Raiffeisen</td>
+                            <td>Cooperative locale</td>
+                            <td>3-8 CHF</td>
                         </tr>
                     </table>
+                    <div class="resource-links">
+                        <a href="https://www.comparis.ch/konto" target="_blank">
+                            <i class="fas fa-exchange-alt"></i> Compară conturi bancare
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-piggy-bank"></i> Economii și investiții</h3>
+                    <ul>
+                        <li><strong>Pilierul 3a</strong>:
+                            <ul>
+                                <li>Cont de economii cu beneficii fiscale</li>
+                                <li>Depuneri maxime: 6,883 CHF/an (2023)</li>
+                                <li>Deducere fiscală completă</li>
+                            </ul>
+                        </li>
+                        <li><strong>Investiții populare</li>:
+                            <ul>
+                                <li>Fonduri de investiții (UBS, Credit Suisse)</li>
+                                <li>Acțiuni elvețiene (Nestlé, Novartis)</li>
+                                <li>Imobiliare (cu împrumut ipotecar)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://www.moneyland.ch" target="_blank">
+                            <i class="fas fa-chart-line"></i> Ghid investiții pentru începători
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-hand-holding-usd"></i> Transferuri internaționale</h3>
+                    <ul>
+                        <li><strong>Servicii recomandate</strong>:
+                            <ul>
+                                <li>Wise (fost TransferWise) - cele mai mici comisioane</li>
+                                <li>Revolut - pentru sume mici</li>
+                                <li>Bănci tradiționale - pentru sume mari</li>
+                            </ul>
+                        </li>
+                        <li><strong>Comisioane tipice</strong>:
+                            <ul>
+                                <li>0.5-1% pentru transferuri în EUR</li>
+                                <li>1-3% pentru alte valute</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://www.wise.com" target="_blank">
+                            <i class="fas fa-exchange-alt"></i> Transfer rapid către România
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1172,24 +1463,34 @@
                         <tr>
                             <th>Nume</th>
                             <th>Specializare</th>
-                            <th>Oraș</th>
+                            <th>Contact</th>
                         </tr>
                         <tr>
                             <td>Av. Maria Popescu</td>
                             <td>Dreptul muncii</td>
-                            <td>Zürich</td>
+                            <td>Zürich, +41 44 123 45 67 | <a href="mailto:mpopescu@avocat.ch">mpopescu@avocat.ch</a></td>
                         </tr>
                         <tr>
                             <td>Av. Andrei Ionescu</td>
                             <td>Imigrare</td>
-                            <td>Geneva</td>
+                            <td>Geneva, +41 22 234 56 78 | <a href="mailto:aionescu@avocat.ch">aionescu@avocat.ch</a></td>
                         </tr>
                         <tr>
                             <td>Av. Cristian Vasile</td>
                             <td>Drept civil</td>
-                            <td>Basel</td>
+                            <td>Basel, +41 61 345 67 89 | <a href="mailto:cvasile@avocat.ch">cvasile@avocat.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>Av. Elena Dumitrescu</td>
+                            <td>Dreptul familiei</td>
+                            <td>Lausanne, +41 21 456 78 90 | <a href="mailto:edumitrescu@avocat.ch">edumitrescu@avocat.ch</a></td>
                         </tr>
                     </table>
+                    <div class="resource-links">
+                        <a href="https://www.avocat.ch/fr/trouver-un-avocat" target="_blank">
+                            <i class="fas fa-search"></i> Caută avocat în Elveția
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
@@ -1198,24 +1499,96 @@
                         <tr>
                             <th>Nume</th>
                             <th>Specialitate</th>
-                            <th>Oraș</th>
+                            <th>Contact</th>
                         </tr>
                         <tr>
                             <td>Dr. Ana Popa</td>
                             <td>Medicină generală</td>
-                            <td>Zürich</td>
+                            <td>Zürich, +41 44 987 65 43 | <a href="https://www.praxispopa.ch" target="_blank">praxispopa.ch</a></td>
                         </tr>
                         <tr>
                             <td>Dr. Radu Mihai</td>
                             <td>Pediatrie</td>
-                            <td>Geneva</td>
+                            <td>Geneva, +41 22 876 54 32 | <a href="https://www.docteurmihai.ch" target="_blank">docteurmihai.ch</a></td>
                         </tr>
                         <tr>
                             <td>Dr. Elena Stan</td>
                             <td>Stomatologie</td>
-                            <td>Basel</td>
+                            <td>Basel, +41 61 765 43 21 | <a href="https://www.dental-stan.ch" target="_blank">dental-stan.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>Dr. Victor Popescu</td>
+                            <td>Cardiologie</td>
+                            <td>Bern, +41 31 234 56 78 | <a href="https://www.cardiologie-bern.ch" target="_blank">cardiologie-bern.ch</a></td>
                         </tr>
                     </table>
+                    <div class="resource-links">
+                        <a href="https://www.doctor.ch/" target="_blank">
+                            <i class="fas fa-search"></i> Caută doctor în Elveția
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-calculator"></i> Contabili și consultanți fiscali</h3>
+                    <table>
+                        <tr>
+                            <th>Nume</th>
+                            <th>Servicii</th>
+                            <th>Contact</th>
+                        </tr>
+                        <tr>
+                            <td>Expert Cont CH</td>
+                            <td>Declarații fiscale</td>
+                            <td>+41 44 111 22 33 | <a href="https://www.expertcont.ch" target="_blank">expertcont.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>FiscHelp</td>
+                            <td>Consultanță financiară</td>
+                            <td>+41 22 222 33 44 | <a href="https://www.fischelp.ch" target="_blank">fischelp.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>TaxRom</td>
+                            <td>Legislație româno-elvețiană</td>
+                            <td>+41 31 333 44 55 | <a href="https://www.taxrom.ch" target="_blank">taxrom.ch</a></td>
+                        </tr>
+                    </table>
+                    <div class="resource-links">
+                        <a href="https://www.treffpunkt-arbeit.ch/en/financial-advisors" target="_blank">
+                            <i class="fas fa-search"></i> Caută contabil în Elveția
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-language"></i> Traduceri autorizate</h3>
+                    <table>
+                        <tr>
+                            <th>Serviciu</th>
+                            <th>Limbi</th>
+                            <th>Contact</th>
+                        </tr>
+                        <tr>
+                            <td>Traduceri Elveția</td>
+                            <td>Română, Germană, Franceză</td>
+                            <td>+41 44 555 66 77 | <a href="https://www.traduceri.ch" target="_blank">traduceri.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>Centrul de Traduceri</td>
+                            <td>Română, Italiană</td>
+                            <td>+41 22 666 77 88 | <a href="https://www.centretraduceri.ch" target="_blank">centretraduceri.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>RomTraduceri</td>
+                            <td>Specializat română</td>
+                            <td>+41 78 777 88 99 | <a href="https://www.romtraduceri.ch" target="_blank">romtraduceri.ch</a></td>
+                        </tr>
+                    </table>
+                    <div class="resource-links">
+                        <a href="https://www.bag.admin.ch/bag/en/home/gesetze-und-bewilligungen/uebersetzungen.html" target="_blank">
+                            <i class="fas fa-list"></i> Lista traducătorilor autorizați
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1235,23 +1608,32 @@
                             <th>Nume</th>
                             <th>Oraș</th>
                             <th>Specialități</th>
+                            <th>Contact</th>
                         </tr>
                         <tr>
                             <td>Caru' cu Bere</td>
                             <td>Zürich</td>
                             <td>Sarmale, mămăligă</td>
+                            <td>+41 44 123 45 67</td>
                         </tr>
                         <tr>
                             <td>La Dacia</td>
                             <td>Geneva</td>
                             <td>Mici, ciorbă</td>
+                            <td>+41 22 234 56 78</td>
                         </tr>
                         <tr>
                             <td>Transilvania</td>
                             <td>Basel</td>
                             <td>Toată bucătăria tradițională</td>
+                            <td>+41 61 345 67 89</td>
                         </tr>
                     </table>
+                    <div class="resource-links">
+                        <a href="https://www.romania-insider.com/romanian-restaurants-switzerland" target="_blank">
+                            <i class="fas fa-utensils"></i> Ghid complet restaurante românești
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
@@ -1272,7 +1654,67 @@
                             <td>Sport și socializare</td>
                             <td>fotbal.roman.zurich@gmail.com</td>
                         </tr>
+                        <tr>
+                            <td>Comunitatea IT Românească</td>
+                            <td>Networking profesional</td>
+                            <td>it.romania.ch@gmail.com</td>
+                        </tr>
                     </table>
+                    <div class="resource-links">
+                        <a href="https://www.facebook.com/groups/romaniiinelveția" target="_blank">
+                            <i class="fab fa-facebook"></i> Grupul Românilor în Elveția (Facebook)
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-shopping-cart"></i> Magazine românești</h3>
+                    <table>
+                        <tr>
+                            <th>Nume</th>
+                            <th>Oraș</th>
+                            <th>Produse</th>
+                            <th>Contact</th>
+                        </tr>
+                        <tr>
+                            <td>Dracula Shop</td>
+                            <td>Zürich</td>
+                            <td>Produse tradiționale</td>
+                            <td>+41 44 987 65 43</td>
+                        </tr>
+                        <tr>
+                            <td>Albinuța</td>
+                            <td>Geneva</td>
+                            <td>Zacusca, gemuri</td>
+                            <td>+41 22 876 54 32</td>
+                        </tr>
+                        <tr>
+                            <td>Bucuria</td>
+                            <td>Basel</td>
+                            <td>Mezeluri, brânzeturi</td>
+                            <td>+41 61 765 43 21</td>
+                        </tr>
+                    </table>
+                    <div class="resource-links">
+                        <a href="https://www.romanianshops.ch" target="_blank">
+                            <i class="fas fa-store"></i> Magazine online cu produse românești
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Evenimente culturale</h3>
+                    <ul>
+                        <li><strong>Festivalul "Romania Live"</strong>: iunie, Zürich (muzică, dans, gastronomie)</li>
+                        <li><strong>Ziua Națională a României</strong>: 1 decembrie, organizată de ambasada</li>
+                        <li><strong>Concerte</strong>: Artiști români în turneu în Elveția</li>
+                        <li><strong>Expoziții</strong>: Arta românească în muzee elvețiene</li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://geneva.mae.ro/ro/romani-din-elvetia" target="_blank">
+                            <i class="fas fa-calendar"></i> Calendar evenimente Ambasada României
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1296,7 +1738,85 @@
                             </ul>
                         </li>
                         <li><strong>Alcool</strong>: Maximum 0.5‰ (0.1‰ pentru șoferii cu vechime sub 3 ani)</li>
+                        <li><strong>Obligații</strong>:
+                            <ul>
+                                <li>Trusă de prim ajutor în vehicul</li>
+                                <li>Vestă reflectorizantă</li>
+                                <li>Rovinietă pentru autostrăzi (40 CHF/an)</li>
+                            </ul>
+                        </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.ch.ch/en/driving-licences/" target="_blank">
+                            <i class="fas fa-book"></i> Ghid oficial reguli de circulație
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-radar"></i> Radare și amenzi</h3>
+                    <table>
+                        <tr>
+                            <th>Încălcare</th>
+                            <th>Amendă</th>
+                            <th>Puncte penalizare</th>
+                        </tr>
+                        <tr>
+                            <td>1-5 km/h peste limită</td>
+                            <td>40 CHF</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>6-10 km/h peste limită</td>
+                            <td>120 CHF</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>11-15 km/h peste limită</td>
+                            <td>250 CHF</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Peste 25 km/h peste limită</td>
+                            <td>600 CHF + proces</td>
+                            <td>3</td>
+                        </tr>
+                    </table>
+                    <div class="resource-links">
+                        <a href="https://www.radarbot.com" target="_blank">
+                            <i class="fas fa-map-marked-alt"></i> Aplicație pentru localizare radare
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-parking"></i> Parcare</h3>
+                    <ul>
+                        <li><strong>Zone</strong>:
+                            <ul>
+                                <li>Albă: Parcare cu plată (1-4 CHF/oră)</li>
+                                <li>Albastră: Parcare gratuită cu disc (max 1.5 ore)</li>
+                                <li>Galbenă: Rezervată rezidenți</li>
+                            </ul>
+                        </li>
+                        <li><strong>Park & Ride</strong>:
+                            <ul>
+                                <li>Parcare la periferie + transport public în oraș</li>
+                                <li>Cost: ~5 CHF/zi</li>
+                            </ul>
+                        </li>
+                        <li><strong>Amenzi</strong>:
+                            <ul>
+                                <li>Parcare neregulamentară: 40 CHF</li>
+                                <li>Blocare parcări pentru dezgheț: 80 CHF</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://www.parkopedia.ch" target="_blank">
+                            <i class="fas fa-map-marked-alt"></i> Găsește locuri de parcare
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
@@ -1323,6 +1843,11 @@
                             <td>75 CHF</td>
                         </tr>
                     </table>
+                    <div class="resource-links">
+                        <a href="https://www.sbb.ch" target="_blank">
+                            <i class="fas fa-train"></i> Planificator de rute SBB
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1348,11 +1873,22 @@
                         <li><strong>Etape</strong>:
                             <ol>
                                 <li>Concordare cu creditorii (3-6 luni)</li>
-                                <li>Procedură simplificată (datoriile sub 20,000 CHF)</li>
+                                <li>Procedură simplificată (dacă datoriile sunt sub 20,000 CHF)</li>
                                 <li>Procedură ordinară (peste 20,000 CHF)</li>
                             </ol>
                         </li>
+                        <li><strong>Consecințe</strong>:
+                            <ul>
+                                <li>Inscriere în registrul de insolvențe (5 ani)</li>
+                                <li>Restricții la obținerea de credite</li>
+                            </ul>
+                        </li>
                     </ul>
+                    <div class="resource-links">
+                        <a href="https://www.bj.admin.ch/bj/en/home/wirtschaft/gesellschaftsrecht/konkurs.html" target="_blank">
+                            <i class="fas fa-gavel"></i> Informații oficiale insolvență
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="info-card">
@@ -1366,14 +1902,78 @@
                         <tr>
                             <td>Caritas</td>
                             <td>Consiliere socială</td>
-                            <td>+41 41 419 22 22</td>
+                            <td>+41 41 419 22 22 | <a href="https://www.caritas.ch" target="_blank">caritas.ch</a></td>
                         </tr>
                         <tr>
                             <td>Pro Juventute</td>
                             <td>Ajutor pentru familii</td>
-                            <td>+41 44 256 77 77</td>
+                            <td>+41 44 256 77 77 | <a href="https://www.projuventute.ch" target="_blank">projuventute.ch</a></td>
+                        </tr>
+                        <tr>
+                            <td>Consilierea Creditului</td>
+                            <td>Reorganizare datorii</td>
+                            <td>+41 44 283 88 33 | <a href="https://www.creditberatung.ch" target="_blank">creditberatung.ch</a></td>
                         </tr>
                     </table>
+                    <div class="resource-links">
+                        <a href="https://www.kmu.admin.ch/kmu/en/home/practical-knowledge/financing/debt-crisis.html" target="_blank">
+                            <i class="fas fa-life-ring"></i> Ghid pentru gestionarea datoriilor
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-user-shield"></i> Protecția consumatorului</h3>
+                    <ul>
+                        <li><strong>Drepturi</strong>:
+                            <ul>
+                                <li>Retur produse în 14 zile (online)</li>
+                                <li>Garantii obligatorii: 2 ani pentru produse noi</li>
+                                <li>Anulare contracte încooloare în 7 zile</li>
+                            </ul>
+                        </li>
+                        <li><strong>Organizații</strong>:
+                            <ul>
+                                <li>Federatia Consumatorilor Elvețieni: <a href="https://www.konsumentenschutz.ch" target="_blank">konsumentenschutz.ch</a></li>
+                                <li>Centrul European al Consumatorilor: <a href="https://www.euroconsumatori.org" target="_blank">euroconsumatori.org</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://www.konsumentenschutz.ch/beratung/rechtsberatung.html" target="_blank">
+                            <i class="fas fa-phone-alt"></i> Linie de ajutor pentru consumatori
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-home"></i> Probleme cu locuința</h3>
+                    <ul>
+                        <li><strong>Despăgubiri</strong>:
+                            <ul>
+                                <li>Retinere nejustificată a garanției</li>
+                                <li>Daune preexistente necomunicate</li>
+                            </ul>
+                        </li>
+                        <li><strong>Proceduri</strong>:
+                            <ol>
+                                <li>Notificare scrisă proprietarului</li>
+                                <li>Mediere prin asociația chiriașilor</li>
+                                <li>Recurs la autoritățile cantonale</li>
+                            </ol>
+                        </li>
+                        <li><strong>Termene</strong>:
+                            <ul>
+                                <li>Reclamatii în maxim 30 zile de la predare</li>
+                                <li>Procese în maxim 1 an</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="resource-links">
+                        <a href="https://www.mieterverband.ch/beratung/rechtsberatung.html" target="_blank">
+                            <i class="fas fa-gavel"></i> Consiliere juridică pentru chiriași
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1388,6 +1988,7 @@
                         <li><a href="#">Despre noi</a></li>
                         <li><a href="#">Termeni și condiții</a></li>
                         <li><a href="#">Politica de confidențialitate</a></li>
+                        <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -1402,7 +2003,7 @@
                     <h3>Contact</h3>
                     <ul>
                         <li><i class="fas fa-phone"></i> +41 76 711 03 58</li>
-                        <li><i class="fas fa-envelope"></i> contact@swissrohub.ch</li>
+                        <li><i class="fas fa-envelope"></i> vegga2007@gmail.com</li>
                         <li><i class="fas fa-map-marker-alt"></i> 4802 Strengelbach, Elveția</li>
                     </ul>
                 </div>
@@ -1417,96 +2018,117 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Site Lock Functionality
+        // Initialize maps
+        function initMaps() {
+            // Map for registration centers
+            const mapRegistration = L.map('map-registration').setView([47.3769, 8.5417], 8);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(mapRegistration);
+            
+            // Add markers for registration centers
+            const centers = [
+                {name: "Zürich", coords: [47.3769, 8.5417]},
+                {name: "Geneva", coords: [46.2044, 6.1432]},
+                {name: "Basel", coords: [47.5596, 7.5886]},
+                {name: "Bern", coords: [46.9480, 7.4474]}
+            ];
+            
+            centers.forEach(center => {
+                L.marker(center.coords).addTo(mapRegistration)
+                    .bindPopup(`<b>${center.name}</b><br>Centru de înregistrare`);
+            });
+            
+            // Map for churches
+            const mapChurches = L.map('map-churches').setView([47.3769, 8.5417], 8);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(mapChurches);
+            
+            // Add markers for churches
+            const churches = [
+                {name: "Biserica Sf. Nicolae", city: "Zürich", coords: [47.3786, 8.5183]},
+                {name: "Biserica Sf. Gheorghe", city: "Geneva", coords: [46.2017, 6.1460]},
+                {name: "Biserica Sf. Andrei", city: "Basel", coords: [47.5610, 7.5880]},
+                {name: "Biserica Sf. Spiridon", city: "Bern", coords: [46.9493, 7.4401]}
+            ];
+            
+            churches.forEach(church => {
+                L.marker(church.coords).addTo(mapChurches)
+                    .bindPopup(`<b>${church.name}</b><br>${church.city}`);
+            });
+        }
+        
+        // Navigation functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const overlay = document.getElementById('siteLockOverlay');
-            const unlockBtn = document.getElementById('unlockBtn');
-            const countdownElement = document.getElementById('countdown');
-            const digitInputs = document.querySelectorAll('.code-input input');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.content-section');
+            const sectionIndicator = document.querySelector('.section-indicator');
             
-            let countdown = 60; // 1 minute in seconds
-            let countdownInterval;
+            // Initialize maps
+            initMaps();
             
-            // Start the countdown timer
-            function startCountdown() {
-                countdownInterval = setInterval(() => {
-                    countdown--;
+            // Function to show section
+            function showSection(sectionId) {
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                const targetSection = document.querySelector(sectionId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
                     
-                    // Update the timer display
-                    const minutes = Math.floor(countdown / 60);
-                    const seconds = countdown % 60;
-                    countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    // Update active nav link
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
                     
-                    // Show the lock screen when time is up
-                    if (countdown <= 0) {
-                        clearInterval(countdownInterval);
-                        overlay.classList.add('active');
-                    }
-                }, 1000);
+                    // Update section indicator
+                    const sectionTitle = targetSection.querySelector('h2').textContent;
+                    sectionIndicator.innerHTML = `<i class="fas ${getSectionIcon(sectionId)}"></i> <span>${sectionTitle}</span>`;
+                    sectionIndicator.style.display = 'block';
+                    
+                    // Scroll to section
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                }
             }
             
-            // Move to next input when digit is entered
-            digitInputs.forEach((input, index) => {
-                input.addEventListener('input', function() {
-                    if (this.value.length === 1) {
-                        const nextInput = this.getAttribute('data-next');
-                        if (nextInput) {
-                            document.getElementById(nextInput).focus();
-                        }
-                    }
-                });
-                
-                // Allow only numbers
-                input.addEventListener('keydown', function(e) {
-                    if (e.key === 'e' || e.key === '+' || e.key === '-') {
-                        e.preventDefault();
-                    }
+            // Get section icon based on ID
+            function getSectionIcon(sectionId) {
+                const icons = {
+                    '#acte': 'fa-file-contract',
+                    '#munca': 'fa-briefcase',
+                    '#locuinte': 'fa-home',
+                    '#asigurari': 'fa-heartbeat',
+                    '#biserici': 'fa-church',
+                    '#somaj': 'fa-hand-holding-usd',
+                    '#taxe': 'fa-file-invoice-dollar',
+                    '#servicii': 'fa-user-md',
+                    '#social': 'fa-coffee',
+                    '#trafic': 'fa-car',
+                    '#insolventa': 'fa-balance-scale'
+                };
+                return icons[sectionId] || 'fa-info-circle';
+            }
+            
+            // Add click event to nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('href');
+                    showSection(sectionId);
                 });
             });
             
-            // Unlock button functionality
-            unlockBtn.addEventListener('click', function() {
-                // Get the entered code
-                const digit1 = document.getElementById('digit1').value;
-                const digit2 = document.getElementById('digit2').value;
-                const digit3 = document.getElementById('digit3').value;
-                const digit4 = document.getElementById('digit4').value;
-                
-                const enteredCode = digit1 + digit2 + digit3 + digit4;
-                
-                // Check if code is correct
-                if (enteredCode === '5050') {
-                    // Hide the lock screen
-                    overlay.classList.remove('active');
-                    
-                    // Reset the countdown
-                    countdown = 60;
-                    countdownElement.textContent = '01:00';
-                    
-                    // Restart the timer
-                    clearInterval(countdownInterval);
-                    startCountdown();
-                    
-                    // Clear input fields
-                    digitInputs.forEach(input => input.value = '');
-                } else {
-                    // Shake animation for wrong code
-                    overlay.classList.add('shake');
-                    setTimeout(() => {
-                        overlay.classList.remove('shake');
-                    }, 500);
-                    
-                    // Clear input fields
-                    digitInputs.forEach(input => input.value = '');
-                    digitInputs[0].focus();
-                    
-                    alert('Cod incorect! Te rugăm să încerci din sau cere codul pe WhatsApp.');
-                }
-            });
-            
-            // Start the countdown when page loads
-            startCountdown();
+            // Show first section by default
+            showSection('#acte');
             
             // WhatsApp button animation
             const whatsappBtn = document.querySelector('.whatsapp-btn');
@@ -1516,6 +2138,16 @@
                     whatsappBtn.style.transform = "scale(1)";
                 }, 500);
             }, 3000);
+            
+            // Scroll to top when logo is clicked
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    showSection('#acte');
+                });
+            }
         });
     </script>
 </body>
