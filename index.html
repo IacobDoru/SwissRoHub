@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwissRoHub | Ghid complet pentru românii în Elveția</title>
+    <title>SwissRoHub | Ghid pentru Românii în Elveția</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -29,7 +29,8 @@
             min-height: 100vh;
             line-height: 1.6;
             background-attachment: fixed;
-            padding-top: 100px; /* Adjusted for top nav */
+            padding-top: 100px;
+            overflow-x: hidden;
         }
 
         .container {
@@ -60,6 +61,22 @@
             margin: 0 auto;
             padding: 0 20px;
             gap: 5px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) transparent;
+        }
+
+        .top-nav-container::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .top-nav-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .top-nav-container::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 2px;
         }
 
         .nav-item {
@@ -72,16 +89,17 @@
             font-size: 0.85rem;
             font-weight: 500;
             padding: 8px 12px;
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             transition: var(--transition);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             border-radius: 4px;
             white-space: nowrap;
+            min-width: 85px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 215, 0, 0.1);
-            text-align: center;
-            min-width: 90px;
         }
 
         .nav-link:hover {
@@ -97,11 +115,8 @@
         }
 
         .nav-link i {
-            margin-right: 5px;
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 5px;
             font-size: 1.1rem;
+            margin-bottom: 5px;
         }
 
         /* Header Styles */
@@ -209,6 +224,13 @@
             border: 1px solid rgba(255, 215, 0, 0.2);
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .section-title {
@@ -449,27 +471,6 @@
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .top-nav-container {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding-bottom: 10px;
-            }
-            
-            .top-nav-container::-webkit-scrollbar {
-                height: 6px;
-            }
-            
-            .top-nav-container::-webkit-scrollbar-track {
-                background: rgba(0,0,0,0.1);
-            }
-            
-            .top-nav-container::-webkit-scrollbar-thumb {
-                background: var(--accent);
-                border-radius: 3px;
-            }
-        }
-
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 3rem;
@@ -727,8 +728,8 @@
             </div>
         </section>
         
-        <!-- Other sections are hidden by default -->
-        <section id="munca" class="content-section" style="display: none;">
+        <!-- Munca & Angajare -->
+        <section id="munca" class="content-section">
             <div class="section-title">
                 <i class="fas fa-briefcase"></i>
                 <h2>Muncă & Angajare</h2>
@@ -736,12 +737,54 @@
             <div class="section-content">
                 <div class="info-card">
                     <h3><i class="fas fa-search"></i> Cum să găsești un loc de muncă</h3>
-                    <p>Conținut despre muncă și angajare...</p>
+                    <ul>
+                        <li><strong>Portaluri de joburi</strong>: jobs.ch, jobscout24.ch, jobup.ch</li>
+                        <li><strong>Agenții de recrutare</strong>: Adecco, Manpower, Randstad</li>
+                        <li><strong>Rețele sociale profesionale</strong>: LinkedIn, Xing</li>
+                        <li><strong>Site-uri oficiale</strong>: Portalul oficial al guvernului elvețian pentru angajare</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-file-signature"></i> Contract de muncă</h3>
+                    <ul>
+                        <li>Elementele esențiale: salariu, ore de lucru, funcție, perioadă de probă</li>
+                        <li>Tipuri de contracte: determinat, nedeterminat, part-time</li>
+                        <li>Drepturi și obligații ale angajatului</li>
+                        <li>Procedura de reziliere a contractului</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-money-bill-wave"></i> Salarii și beneficii</h3>
+                    <table>
+                        <tr>
+                            <th>Profesie</th>
+                            <th>Salariu mediu (CHF/lună)</th>
+                        </tr>
+                        <tr>
+                            <td>Asistent medical</td>
+                            <td>6,000 - 8,500</td>
+                        </tr>
+                        <tr>
+                            <td>Inginer</td>
+                            <td>7,500 - 10,500</td>
+                        </tr>
+                        <tr>
+                            <td>Constructor</td>
+                            <td>5,500 - 7,500</td>
+                        </tr>
+                        <tr>
+                            <td>Șofer</td>
+                            <td>5,000 - 7,000</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </section>
         
-        <section id="locuinte" class="content-section" style="display: none;">
+        <!-- Locuinte & Cazare -->
+        <section id="locuinte" class="content-section">
             <div class="section-title">
                 <i class="fas fa-home"></i>
                 <h2>Locuințe & Cazare</h2>
@@ -749,13 +792,172 @@
             <div class="section-content">
                 <div class="info-card">
                     <h3><i class="fas fa-building"></i> Găsirea unei locuințe</h3>
-                    <p>Conținut despre locuințe și cazare...</p>
+                    <ul>
+                        <li>Platforme online: homegate.ch, comparis.ch, immoscout24.ch</li>
+                        <li>Agenții imobiliare locale</li>
+                        <li>Anunțuri în ziare locale și grupuri de români</li>
+                        <li>Cerințe: dosar cu acte, garanție, istoric de chiriaș</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-euro-sign"></i> Costuri medii de locuință</h3>
+                    <table>
+                        <tr>
+                            <th>Oraș</th>
+                            <th>Chirie 2 camere (CHF/lună)</th>
+                        </tr>
+                        <tr>
+                            <td>Zürich</td>
+                            <td>2,000 - 2,800</td>
+                        </tr>
+                        <tr>
+                            <td>Geneva</td>
+                            <td>1,900 - 2,700</td>
+                        </tr>
+                        <tr>
+                            <td>Basel</td>
+                            <td>1,700 - 2,400</td>
+                        </tr>
+                        <tr>
+                            <td>Bern</td>
+                            <td>1,600 - 2,200</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-file-contract"></i> Contractul de închiriere</h3>
+                    <ul>
+                        <li>Durata minimă a contractului</li>
+                        <li>Depozitul de garanție (2-3 luni chirii)</li>
+                        <li>Obligații ale proprietarului și chiriașului</li>
+                        <li>Procedura de reziliere a contractului</li>
+                    </ul>
                 </div>
             </div>
         </section>
         
-        <!-- The rest of the sections follow the same pattern -->
+        <!-- Asigurari & Sanatate -->
+        <section id="asigurari" class="content-section">
+            <div class="section-title">
+                <i class="fas fa-heartbeat"></i>
+                <h2>Asigurări & Sănătate</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3><i class="fas fa-shield-alt"></i> Asigurări medicale obligatorii</h3>
+                    <ul>
+                        <li>Toți rezidenții Elveției trebuie să aibă asigurare medicală</li>
+                        <li>Costuri: 300-600 CHF/lună în funcție de vârstă și canton</li>
+                        <li>Franchiză: 300-2,500 CHF/an (cu cât e mai mare, cu atât este mai mică prima lunară)</li>
+                        <li>Comparație: comparis.ch, priminfo.ch</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-hospital"></i> Sistemul medical</h3>
+                    <ul>
+                        <li>Medic de familie - primul punct de contact</li>
+                        <li>Spitale și clinici private</li>
+                        <li>Urgențe: numărul 144</li>
+                        <li>Asistență medicală pentru copii și femei însărcinate</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
         
+        <!-- Other sections (hidden until clicked) -->
+        <section id="biserici" class="content-section">
+            <div class="section-title">
+                <i class="fas fa-church"></i>
+                <h2>Biserici & Comunitate</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3><i class="fas fa-praying-hands"></i> Biserici românești în Elveția</h3>
+                    <p>Conținut despre biserici și comunități...</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="somaj" class="content-section">
+            <div class="section-title">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h2>Șomaj & Ajutor Social</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3><i class="fas fa-file-invoice"></i> Ajutor de șomaj</h3>
+                    <p>Informații despre ajutorul de șomaj...</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="taxe" class="content-section">
+            <div class="section-title">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h2>Taxe & Impozite</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3><i class="fas fa-calculator"></i> Sistemul fiscal elvețian</h3>
+                    <p>Informații despre taxe și impozite...</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="servicii" class="content-section">
+            <div class="section-title">
+                <i class="fas fa-user-md"></i>
+                <h2>Servicii Publice</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3><i class="fas fa-school"></i> Educație și școli</h3>
+                    <p>Informații despre sistemul educațional...</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="social" class="content-section">
+            <div class="section-title">
+                <i class="fas fa-coffee"></i>
+                <h2>Social & Integrare</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3><i class="fas fa-users"></i> Comunități de români</h3>
+                    <p>Informații despre grupuri sociale...</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="trafic" class="content-section">
+            <div class="section-title">
+                <i class="fas fa-car"></i>
+                <h2>Trafic & Transport</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3><i class="fas fa-subway"></i> Transport public</h3>
+                    <p>Informații despre sistemul de transport...</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="insolventa" class="content-section">
+            <div class="section-title">
+                <i class="fas fa-balance-scale"></i>
+                <h2>Insolvență & Probleme Legale</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-card">
+                    <h3><i class="fas fa-gavel"></i> Asistență juridică</h3>
+                    <p>Informații despre probleme legale...</p>
+                </div>
+            </div>
+        </section>
     </main>
     
     <a href="https://wa.me/41791234567" class="whatsapp-btn" target="_blank">
@@ -808,7 +1010,6 @@
     </footer>
 
     <script>
-        // Navigation functionality
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
@@ -816,22 +1017,8 @@
             const indicatorIcon = sectionIndicator.querySelector('i');
             const indicatorText = sectionIndicator.querySelector('span');
             
-            // Function to show a specific section
-            function showSection(sectionId) {
-                // Hide all sections
-                contentSections.forEach(section => {
-                    section.style.display = 'none';
-                });
-                
-                // Show the requested section
-                const activeSection = document.getElementById(sectionId);
-                if(activeSection) {
-                    activeSection.style.display = 'block';
-                }
-            }
-            
-            // Set initial state (show Acte section)
-            showSection('acte');
+            // Show Acte section by default
+            document.getElementById('acte').style.display = 'block';
             
             // Add click event listeners to navigation links
             navLinks.forEach(link => {
@@ -847,13 +1034,24 @@
                     // Get section ID from href
                     const sectionId = this.getAttribute('href').substring(1);
                     
-                    // Show the corresponding section
-                    showSection(sectionId);
+                    // Hide all sections
+                    contentSections.forEach(section => {
+                        section.style.display = 'none';
+                    });
                     
-                    // Update section indicator
-                    const sectionName = this.getAttribute('data-section');
-                    indicatorIcon.className = this.querySelector('i').className;
-                    indicatorText.textContent = sectionName;
+                    // Show the corresponding section
+                    const activeSection = document.getElementById(sectionId);
+                    if(activeSection) {
+                        activeSection.style.display = 'block';
+                        
+                        // Scroll to the section
+                        activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        
+                        // Update section indicator
+                        const sectionName = this.getAttribute('data-section');
+                        indicatorIcon.className = this.querySelector('i').className;
+                        indicatorText.textContent = sectionName;
+                    }
                 });
             });
             
