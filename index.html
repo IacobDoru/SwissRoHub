@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwissRoHub | Ghid pentru Românii în Elveția</title>
+    <title>SwissRoHub | Ghid complet pentru românii în Elveția</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -29,8 +29,7 @@
             min-height: 100vh;
             line-height: 1.6;
             background-attachment: fixed;
-            padding-top: 100px;
-            overflow-x: hidden;
+            padding-top: 100px; /* Added for fixed header */
         }
 
         .container {
@@ -39,93 +38,14 @@
             padding: 0 20px;
         }
 
-        /* Top Navigation Menu */
-        .top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(10, 17, 40, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-            padding: 10px 0;
-        }
-
-        .top-nav-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            gap: 5px;
-            overflow-x: auto;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) transparent;
-        }
-
-        .top-nav-container::-webkit-scrollbar {
-            height: 4px;
-        }
-        
-        .top-nav-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        
-        .top-nav-container::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        .nav-item {
-            flex-shrink: 0;
-        }
-
-        .nav-link {
-            color: #ecf0f1;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 8px 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-radius: 4px;
-            white-space: nowrap;
-            min-width: 85px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.1);
-        }
-
-        .nav-link:hover {
-            background: rgba(255, 215, 0, 0.15);
-            color: var(--accent);
-        }
-
-        .nav-link.active {
-            background: var(--accent);
-            color: var(--primary);
-            font-weight: 600;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-        }
-
-        .nav-link i {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
         /* Header Styles */
         header {
             background: rgba(10, 17, 40, 0.95);
             padding: 15px 0;
-            position: sticky;
-            top: 50px;
-            z-index: 999;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             border-bottom: 1px solid rgba(255, 215, 0, 0.3);
@@ -136,6 +56,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            position: relative;
         }
 
         .logo {
@@ -143,6 +64,7 @@
             align-items: center;
             gap: 15px;
             margin-bottom: 10px;
+            z-index: 1001;
         }
 
         .logo-icon {
@@ -171,6 +93,151 @@
             display: block;
             color: var(--gray);
             margin-top: -5px;
+        }
+        
+        /* Menu Button */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            position: relative;
+            z-index: 1000;
+        }
+
+        /* Main Navigation */
+        .main-nav {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--accent);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(255, 215, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .nav-link.has-dropdown::after {
+            content: "\f078";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+        
+        /* Dropdown Menus */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 240px;
+            background: rgba(10, 17, 40, 0.98);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 1000;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-item:hover > .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu li {
+            list-style: none;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .dropdown-menu li:last-child {
+            margin-bottom: 0;
+        }
+
+        .dropdown-link {
+            display: block;
+            padding: 10px 15px;
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .dropdown-link:hover {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--accent);
+            padding-left: 20px;
+        }
+
+        .dropdown-link.has-submenu::after {
+            content: "\f054";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            font-size: 0.7rem;
+            position: absolute;
+            right: 15px;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            min-width: 240px;
+            background: rgba(10, 17, 40, 0.98);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(10px);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .dropdown-menu li:hover > .submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
         }
 
         /* Hero Section */
@@ -224,13 +291,6 @@
             border: 1px solid rgba(255, 215, 0, 0.2);
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            display: none;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .section-title {
@@ -303,7 +363,6 @@
             width: 100%;
             border-collapse: collapse;
             margin: 15px 0;
-            background: rgba(0, 0, 0, 0.2);
         }
 
         th, td {
@@ -355,6 +414,20 @@
         .btn-primary:hover {
             background: #fff;
             transform: translateY(-3px);
+        }
+
+        .map-container {
+            height: 300px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--gray);
+            font-style: italic;
         }
 
         .resource-links {
@@ -454,22 +527,6 @@
             font-size: 0.9rem;
         }
 
-        /* Active section indicator */
-        .section-indicator {
-            position: fixed;
-            top: 60px;
-            right: 20px;
-            background: rgba(10, 17, 40, 0.9);
-            padding: 10px 15px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            z-index: 998;
-            border: 1px solid var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         /* Responsive */
         @media (max-width: 992px) {
             .hero h1 {
@@ -481,8 +538,77 @@
             }
 
             .header-container {
+                flex-direction: row;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-container {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 17, 40, 0.98);
+                height: 0;
+                overflow: hidden;
+                transition: var(--transition);
                 flex-direction: column;
-                gap: 20px;
+                padding: 0;
+            }
+
+            .nav-container.active {
+                height: calc(100vh - 80px);
+                padding: 20px 0;
+                overflow-y: auto;
+            }
+
+            .main-nav {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            .nav-item {
+                width: 100%;
+            }
+
+            .nav-link {
+                width: 100%;
+                border-radius: 6px;
+                margin-bottom: 5px;
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                width: 100%;
+                margin-top: 5px;
+                box-shadow: none;
+                background: rgba(0, 0, 0, 0.2);
+            }
+
+            .dropdown-menu.show {
+                display: block;
+            }
+
+            .submenu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+                margin-top: 5px;
+                box-shadow: none;
+                background: rgba(0, 0, 0, 0.2);
+            }
+
+            .submenu.show {
+                display: block;
             }
         }
         
@@ -497,16 +623,6 @@
             
             .section-title h2 {
                 font-size: 1.8rem;
-            }
-            
-            .nav-link {
-                font-size: 0.75rem;
-                padding: 6px 8px;
-                min-width: 80px;
-            }
-            
-            .section-indicator {
-                display: none !important;
             }
         }
         
@@ -523,103 +639,157 @@
             .section-content {
                 grid-template-columns: 1fr;
             }
-            
-            .nav-link {
-                min-width: 70px;
-                font-size: 0.7rem;
-                padding: 5px;
-            }
-            
-            .nav-link i {
-                font-size: 0.9rem;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Top Navigation Menu -->
-    <nav class="top-nav">
-        <div class="top-nav-container">
-            <div class="nav-item">
-                <a href="#acte" class="nav-link active" data-section="Acte & Rezidență">
-                    <i class="fas fa-file-contract"></i>
-                    Acte
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#munca" class="nav-link" data-section="Muncă & Angajare">
-                    <i class="fas fa-briefcase"></i>
-                    Muncă
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#locuinte" class="nav-link" data-section="Locuințe & Cazare">
-                    <i class="fas fa-home"></i>
-                    Locuințe
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#asigurari" class="nav-link" data-section="Asigurări & Sănătate">
-                    <i class="fas fa-heartbeat"></i>
-                    Asigurări
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#biserici" class="nav-link" data-section="Biserici & Comunitate">
-                    <i class="fas fa-church"></i>
-                    Biserici
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#somaj" class="nav-link" data-section="Șomaj & Ajutor Social">
-                    <i class="fas fa-hand-holding-usd"></i>
-                    Somaj
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#taxe" class="nav-link" data-section="Taxe & Impozite">
-                    <i class="fas fa-file-invoice-dollar"></i>
-                    Taxe
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#servicii" class="nav-link" data-section="Servicii Publice">
-                    <i class="fas fa-user-md"></i>
-                    Servicii
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#social" class="nav-link" data-section="Social & Integrare">
-                    <i class="fas fa-coffee"></i>
-                    Social
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#trafic" class="nav-link" data-section="Trafic & Transport">
-                    <i class="fas fa-car"></i>
-                    Trafic
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="#insolventa" class="nav-link" data-section="Insolvență & Probleme Legale">
-                    <i class="fas fa-balance-scale"></i>
-                    Insolvență
-                </a>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- Active Section Indicator -->
-    <div class="section-indicator">
-        <i class="fas fa-file-contract"></i> <span>Acte & Rezidență</span>
-    </div>
-
     <header>
         <div class="container header-container">
             <div class="logo">
                 <div class="logo-icon">SRH</div>
                 <div class="logo-text">SwissRoHub<span>Ghidul Românului în Elveția</span></div>
             </div>
+            
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav-container" id="navContainer">
+                <ul class="main-nav">
+                    <li class="nav-item">
+                        <a href="#acte" class="nav-link has-dropdown">
+                            <i class="fas fa-file-contract"></i> Acte
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#tipuri-permise" class="dropdown-link"><i class="fas fa-id-card"></i> Tipuri de permise</a></li>
+                            <li><a href="#documente-necesare" class="dropdown-link"><i class="fas fa-file-alt"></i> Documente necesare</a></li>
+                            <li><a href="#permis-conducere" class="dropdown-link"><i class="fas fa-car"></i> Permis de conducere</a></li>
+                            <li><a href="#centre-inregistrare" class="dropdown-link"><i class="fas fa-map-marker-alt"></i> Centre de înregistrare</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="#munca" class="nav-link has-dropdown">
+                            <i class="fas fa-briefcase"></i> Muncă
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#drepturi-lucratori" class="dropdown-link"><i class="fas fa-handshake"></i> Drepturile lucrătorilor</a></li>
+                            <li><a href="#gasire-loc-munca" class="dropdown-link"><i class="fas fa-search"></i> Găsire loc de muncă</a></li>
+                            <li><a href="#agentii-recrutare" class="dropdown-link"><i class="fas fa-building"></i> Agenții de recrutare</a></li>
+                            <li><a href="#recunoastere-diplome" class="dropdown-link"><i class="fas fa-graduation-cap"></i> Recunoaștere diplome</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="#locuinte" class="nav-link has-dropdown">
+                            <i class="fas fa-home"></i> Locuințe
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#gasire-locuinta" class="dropdown-link"><i class="fas fa-search-location"></i> Găsire locuință</a></li>
+                            <li><a href="#costuri-medii" class="dropdown-link"><i class="fas fa-money-bill-wave"></i> Costuri medii pe orașe</a></li>
+                            <li><a href="#contract-inchiriere" class="dropdown-link"><i class="fas fa-file-contract"></i> Contract închiriere</a></li>
+                            <li><a href="#asociatii-chiriasi" class="dropdown-link"><i class="fas fa-hands-helping"></i> Asociații chiriași</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="#asigurari" class="nav-link has-dropdown">
+                            <i class="fas fa-heartbeat"></i> Asigurări
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#asigurari-obligatorii" class="dropdown-link"><i class="fas fa-shield-alt"></i> Asigurări obligatorii</a></li>
+                            <li><a href="#asigurari-recomandate" class="dropdown-link"><i class="fas fa-plus-circle"></i> Asigurări recomandate</a></li>
+                            <li><a href="#furnizori-asigurari" class="dropdown-link"><i class="fas fa-building"></i> Furnizori recomandați</a></li>
+                            <li><a href="#consiliere-asigurari" class="dropdown-link"><i class="fas fa-question-circle"></i> Consiliere și ajutor</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item has-mega">
+                        <a href="#" class="nav-link has-dropdown">
+                            <i class="fas fa-ellipsis-h"></i> Mai multe
+                        </a>
+                        <ul class="dropdown-menu" style="width: 500px;">
+                            <li>
+                                <a href="#biserici" class="dropdown-link has-submenu">
+                                    <i class="fas fa-church"></i> Biserici
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#biserici-romanesci" class="dropdown-link"><i class="fas fa-map-marked-alt"></i> Biserici românești</a></li>
+                                    <li><a href="#program-slujbe" class="dropdown-link"><i class="fas fa-calendar-alt"></i> Program slujbe</a></li>
+                                    <li><a href="#contacte-parohii" class="dropdown-link"><i class="fas fa-user"></i> Contacte parohii</a></li>
+                                    <li><a href="#evenimente-comunitare" class="dropdown-link"><i class="fas fa-users"></i> Evenimente comunitare</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#somaj" class="dropdown-link has-submenu">
+                                    <i class="fas fa-hand-holding-usd"></i> Șomaj
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#eligibilitate-somaj" class="dropdown-link"><i class="fas fa-clipboard-check"></i> Condiții eligibilitate</a></li>
+                                    <li><a href="#beneficii-somaj" class="dropdown-link"><i class="fas fa-money-bill-wave"></i> Beneficii și calcule</a></li>
+                                    <li><a href="#inscriere-somaj" class="dropdown-link"><i class="fas fa-file-alt"></i> Pași pentru înscriere</a></li>
+                                    <li><a href="#asistenta-somaj" class="dropdown-link"><i class="fas fa-hands-helping"></i> Asistență și resurse</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#taxe" class="dropdown-link has-submenu">
+                                    <i class="fas fa-file-invoice-dollar"></i> Taxe
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#sistem-fiscal" class="dropdown-link"><i class="fas fa-percentage"></i> Sistemul fiscal</a></li>
+                                    <li><a href="#banci-recomandate" class="dropdown-link"><i class="fas fa-university"></i> Bănci recomandate</a></li>
+                                    <li><a href="#economii-investitii" class="dropdown-link"><i class="fas fa-piggy-bank"></i> Economii și investiții</a></li>
+                                    <li><a href="#transferuri-internationale" class="dropdown-link"><i class="fas fa-hand-holding-usd"></i> Transferuri internaționale</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#servicii" class="dropdown-link has-submenu">
+                                    <i class="fas fa-user-md"></i> Servicii
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#avocati-romani" class="dropdown-link"><i class="fas fa-gavel"></i> Avocați români</a></li>
+                                    <li><a href="#doctori-romani" class="dropdown-link"><i class="fas fa-stethoscope"></i> Doctori români</a></li>
+                                    <li><a href="#contabili" class="dropdown-link"><i class="fas fa-calculator"></i> Contabili și consultanți</a></li>
+                                    <li><a href="#traduceri" class="dropdown-link"><i class="fas fa-language"></i> Traduceri autorizate</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#social" class="dropdown-link has-submenu">
+                                    <i class="fas fa-coffee"></i> Social
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#restaurante-romanesci" class="dropdown-link"><i class="fas fa-utensils"></i> Restaurant românești</a></li>
+                                    <li><a href="#comunitati" class="dropdown-link"><i class="fas fa-users"></i> Comunități și asociații</a></li>
+                                    <li><a href="#magazine-romanesci" class="dropdown-link"><i class="fas fa-shopping-cart"></i> Magazine românești</a></li>
+                                    <li><a href="#evenimente-culturale" class="dropdown-link"><i class="fas fa-calendar-alt"></i> Evenimente culturale</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#trafic" class="dropdown-link has-submenu">
+                                    <i class="fas fa-car"></i> Trafic
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#reguli-circulatie" class="dropdown-link"><i class="fas fa-road"></i> Reguli de circulație</a></li>
+                                    <li><a href="#radare-amenzi" class="dropdown-link"><i class="fas fa-radar"></i> Radare și amenzi</a></li>
+                                    <li><a href="#parcare" class="dropdown-link"><i class="fas fa-parking"></i> Parcare</a></li>
+                                    <li><a href="#transport-public" class="dropdown-link"><i class="fas fa-bus"></i> Transport public</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#insolventa" class="dropdown-link has-submenu">
+                                    <i class="fas fa-balance-scale"></i> Insolvență
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#procedura-insolventa" class="dropdown-link"><i class="fas fa-exclamation-triangle"></i> Procedura de insolvență</a></li>
+                                    <li><a href="#ajutor-insolventa" class="dropdown-link"><i class="fas fa-hand-holding-heart"></i> Ajutor și consiliere</a></li>
+                                    <li><a href="#protectia-consumatorului" class="dropdown-link"><i class="fas fa-user-shield"></i> Protecția consumatorului</a></li>
+                                    <li><a href="#probleme-locuinta" class="dropdown-link"><i class="fas fa-home"></i> Probleme cu locuința</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </header>
     
@@ -631,512 +801,116 @@
     </section>
     
     <main class="container">
-        <!-- Acte & Rezidență -->
-        <section id="acte" class="content-section">
+        <section class="content-section">
             <div class="section-title">
-                <i class="fas fa-file-contract"></i>
-                <h2>Acte & Rezidență</h2>
+                <i class="fas fa-info-circle"></i>
+                <h2>Despre Meniul Multi-Nivel</h2>
             </div>
             
             <div class="section-content">
                 <div class="info-card">
-                    <h3><i class="fas fa-id-card"></i> Tipuri de permise</h3>
+                    <h3><i class="fas fa-sitemap"></i> Navigare Avansată</h3>
+                    <p>Am implementat un meniu multi-nivel pentru a facilita accesul rapid la toate categoriile de informații:</p>
                     <ul>
-                        <li><strong>Permisul L</strong>: Ședere temporară (până la 1 an) - pentru lucrători sezonieri sau proiecte pe termen scurt</li>
-                        <li><strong>Permisul B</strong>: Rezidență pe termen lung (1-5 ani) - pentru angajați cu contract nelimitat</li>
-                        <li><strong>Permisul C</strong>: Rezidență permanentă (acces după 5-10 ani) - drepturi complete</li>
-                        <li><strong>Permisul G</strong>: Pentru lucrătorii frontaliers (valabil 1 an, reînnoibil)</li>
-                        <li><strong>Permisul Ci</strong>: Pentru membri de familie ai personalului diplomatic</li>
+                        <li><strong>Meniul principal</strong> - Categorii principale cu pictograme</li>
+                        <li><strong>Dropdown-uri</strong> - Subcategorii pentru fiecare secțiune principală</li>
+                        <li><strong>Submeniuri</strong> - Pentru secțiunile cu conținut complex</li>
+                        <li><strong>Mega meniu</strong> - Pentru categoria "Mai multe" cu acces la toate secțiunile</li>
                     </ul>
-                    <div class="resource-links">
-                        <a href="https://www.sem.admin.ch/sem/en/home/themen/aufenthalt.html" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Informații oficiale despre permise
-                        </a>
-                    </div>
+                    <p>Meniul este complet responsiv și se adaptează la toate dimensiunile de ecran.</p>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-file-alt"></i> Documente necesare pentru înregistrare</h3>
+                    <h3><i class="fas fa-mobile-alt"></i> Design Responsiv</h3>
+                    <p>Pe dispozitive mobile, meniul se transformă într-o experiență de navigare ușoară:</p>
                     <ul>
-                        <li>Pașaport/Carte identitate valabilă (original + copie)</li>
-                        <li>Contract de muncă sau dovadă resurse financiare (minimum 3 luni salariu elvețian)</li>
-                        <li>Dovadă asigurare medicală (acoperire minimă 30.000 CHF)</li>
-                        <li>Contract locuință sau înregistrare la adresă</li>
-                        <li>Formularul de înregistrare completat (disponibil în 5 limbi)</li>
-                        <li>2 fotografii de tip pașaport (format 35x45mm)</li>
-                        <li>Dovadă plată taxe (50-150 CHF în funcție de canton)</li>
+                        <li>Buton de hamburger pentru afișarea meniului</li>
+                        <li>Navigare verticală cu acces la toate nivelurile</li>
+                        <li>Animații de tranziție pentru o experiență plăcută</li>
+                        <li>Design optimizat pentru atingere pe dispozitive mobile</li>
                     </ul>
-                    <div class="resource-links">
-                        <a href="https://www.sem.admin.ch/sem/en/home/themen/aufenthalt/eu_efta/registrierung.html" target="_blank">
-                            <i class="fas fa-download"></i> Descarcă formularul de înregistrare
-                        </a>
-                    </div>
+                    <p>Experimentați meniul pe diferite dimensiuni de ecran pentru a vedea adaptabilitatea.</p>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-car"></i> Permis de conducere</h3>
+                    <h3><i class="fas fa-palette"></i> Design Integrat</h3>
+                    <p>Meniul a fost creat pentru a se integra perfect cu designul existent al SwissRoHub:</p>
                     <ul>
-                        <li><strong>Schimb permis UE</strong>: Posibil după 1 an de rezidență</li>
-                        <li><strong>Documente necesare</strong>:
-                            <ul>
-                                <li>Permis valabil + copie</li>
-                                <li>Dovadă rezidență (Permis B/C)</li>
-                                <li>Cerere completată</li>
-                                <li>Test oftalmologic (dacă e necesar)</li>
-                            </ul>
-                        </li>
-                        <li><strong>Test practic</strong>: Obligatoriu pentru permisul C</li>
-                        <li><strong>Taxă</strong>: ~150 CHF pentru schimb</li>
+                        <li>Culorile din paleta principală (albastru, roșu, auriu)</li>
+                        <li>Efecte de hover și focus consistente</li>
+                        <li>Pictograme Font Awesome pentru o navigare intuitivă</li>
+                        <li>Transparențe și umbre pentru o adâncime vizuală</li>
                     </ul>
-                    <div class="resource-links">
-                        <a href="https://www.astra.admin.ch/astra/en/home/driving-licences/exchange-of-foreign-driving-licences.html" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Proceduri oficiale
-                        </a>
-                    </div>
+                    <p>Fiecare element al meniului respectă identitatea vizuală a site-ului.</p>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-map-marker-alt"></i> Centre de înregistrare pe regiuni</h3>
-                    <table>
-                        <tr>
-                            <th>Oraș</th>
-                            <th>Adresă</th>
-                            <th>Program</th>
-                        </tr>
-                        <tr>
-                            <td>Zürich</td>
-                            <td>Walcheplatz 2, 8006 Zürich</td>
-                            <td>L-V: 8:00-16:30</td>
-                        </tr>
-                        <tr>
-                            <td>Geneva</td>
-                            <td>Rue David-Dufour 5, 1211 Genève</td>
-                            <td>L-V: 8:30-16:00</td>
-                        </tr>
-                        <tr>
-                            <td>Basel</td>
-                            <td>Spiegelgasse 6, 4001 Basel</td>
-                            <td>L-V: 8:00-16:00</td>
-                        </tr>
-                        <tr>
-                            <td>Bern</td>
-                            <td>Effingerstrasse 27, 3008 Bern</td>
-                            <td>L-V: 8:00-16:30</td>
-                        </tr>
-                    </table>
+                    <h3><i class="fas fa-lightbulb"></i> Cum să utilizați</h3>
+                    <p>Pentru o navigare optimă:</p>
+                    <ul>
+                        <li>Treceți cu mouse-ul peste categoriile principale pentru a vedea submeniurile</li>
+                        <li>Pe mobil, apăsați pe săgeți pentru a extinde subcategoriile</li>
+                        <li>Utilizați categoria "Mai multe" pentru acces rapid la toate secțiunile</li>
+                        <li>Iconițele vă ghidează spre tipul de conținut așteptat</li>
+                    </ul>
+                    <p>Experimentați cu meniul pentru a descoperi toate opțiunile disponibile!</p>
                 </div>
             </div>
         </section>
         
-        <!-- Munca & Angajare -->
-        <section id="munca" class="content-section">
+        <section class="content-section">
             <div class="section-title">
-                <i class="fas fa-briefcase"></i>
-                <h2>Muncă & Angajare</h2>
+                <i class="fas fa-file-alt"></i>
+                <h2>Conținut Demonstrativ</h2>
             </div>
+            
             <div class="section-content">
                 <div class="info-card">
-                    <h3><i class="fas fa-search"></i> Cum să găsești un loc de muncă</h3>
+                    <h3><i class="fas fa-file-contract"></i> Acte & Rezidență</h3>
+                    <p>Informații despre documentele necesare pentru șederea în Elveția:</p>
                     <ul>
-                        <li><strong>Portaluri de joburi</strong>: jobs.ch, jobscout24.ch, jobup.ch</li>
-                        <li><strong>Agenții de recrutare</strong>: Adecco, Manpower, Randstad</li>
-                        <li><strong>Rețele sociale profesionale</strong>: LinkedIn, Xing</li>
-                        <li><strong>Site-uri oficiale</strong>: Portalul oficial al guvernului elvețian pentru angajare</li>
+                        <li>Tipuri de permise de ședere</li>
+                        <li>Documente necesare pentru înregistrare</li>
+                        <li>Proceduri pentru permisul de conducere</li>
+                        <li>Centre de înregistrare pe regiuni</li>
                     </ul>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-file-signature"></i> Contract de muncă</h3>
+                    <h3><i class="fas fa-briefcase"></i> Muncă & Carieră</h3>
+                    <p>Resurse pentru profesioniștii români în Elveția:</p>
                     <ul>
-                        <li>Elementele esențiale: salariu, ore de lucru, funcție, perioadă de probă</li>
-                        <li>Tipuri de contracte: determinat, nedeterminat, part-time</li>
-                        <li>Drepturi și obligații ale angajatului</li>
-                        <li>Procedura de reziliere a contractului</li>
+                        <li>Drepturile lucrătorilor în sistemul elvețian</li>
+                        <li>Platforme pentru găsirea unui loc de muncă</li>
+                        <li>Agenții de recrutare recomandate</li>
+                        <li>Proceduri pentru recunoașterea diplomelor</li>
                     </ul>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-money-bill-wave"></i> Salarii și beneficii</h3>
-                    <table>
-                        <tr>
-                            <th>Profesie</th>
-                            <th>Salariu mediu (CHF/lună)</th>
-                        </tr>
-                        <tr>
-                            <td>Asistent medical</td>
-                            <td>6,000 - 8,500</td>
-                        </tr>
-                        <tr>
-                            <td>Inginer</td>
-                            <td>7,500 - 10,500</td>
-                        </tr>
-                        <tr>
-                            <td>Constructor</td>
-                            <td>5,500 - 7,500</td>
-                        </tr>
-                        <tr>
-                            <td>Șofer</td>
-                            <td>5,000 - 7,000</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Locuinte & Cazare -->
-        <section id="locuinte" class="content-section">
-            <div class="section-title">
-                <i class="fas fa-home"></i>
-                <h2>Locuințe & Cazare</h2>
-            </div>
-            <div class="section-content">
-                <div class="info-card">
-                    <h3><i class="fas fa-building"></i> Găsirea unei locuințe</h3>
+                    <h3><i class="fas fa-home"></i> Locuințe</h3>
+                    <p>Ghid pentru găsirea și administrarea locuințelor:</p>
                     <ul>
-                        <li>Platforme online: homegate.ch, comparis.ch, immoscout24.ch</li>
-                        <li>Agenții imobiliare locale</li>
-                        <li>Anunțuri în ziare locale și grupuri de români</li>
-                        <li>Cerințe: dosar cu acte, garanție, istoric de chiriaș</li>
+                        <li>Portaluri pentru căutarea locuințelor</li>
+                        <li>Costuri medii în principalele orașe</li>
+                        <li>Informații despre contractele de închiriere</li>
+                        <li>Asociații de protecție a chiriașilor</li>
                     </ul>
                 </div>
                 
                 <div class="info-card">
-                    <h3><i class="fas fa-euro-sign"></i> Costuri medii de locuință</h3>
-                    <table>
-                        <tr>
-                            <th>Oraș</th>
-                            <th>Chirie 2 camere (CHF/lună)</th>
-                        </tr>
-                        <tr>
-                            <td>Zürich</td>
-                            <td>2,000 - 2,800</td>
-                        </tr>
-                        <tr>
-                            <td>Geneva</td>
-                            <td>1,900 - 2,700</td>
-                        </tr>
-                        <tr>
-                            <td>Basel</td>
-                            <td>1,700 - 2,400</td>
-                        </tr>
-                        <tr>
-                            <td>Bern</td>
-                            <td>1,600 - 2,200</td>
-                        </tr>
-                    </table>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-file-contract"></i> Contractul de închiriere</h3>
+                    <h3><i class="fas fa-heartbeat"></i> Asigurări</h3>
+                    <p>Sistemul de asigurări în Elveția:</p>
                     <ul>
-                        <li>Durata minimă a contractului</li>
-                        <li>Depozitul de garanție (2-3 luni chirii)</li>
-                        <li>Obligații ale proprietarului și chiriașului</li>
-                        <li>Procedura de reziliere a contractului</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Asigurari & Sanatate -->
-        <section id="asigurari" class="content-section">
-            <div class="section-title">
-                <i class="fas fa-heartbeat"></i>
-                <h2>Asigurări & Sănătate</h2>
-            </div>
-            <div class="section-content">
-                <div class="info-card">
-                    <h3><i class="fas fa-shield-alt"></i> Asigurări medicale obligatorii</h3>
-                    <ul>
-                        <li>Toți rezidenții Elveției trebuie să aibă asigurare medicală</li>
-                        <li>Costuri: 300-600 CHF/lună în funcție de vârstă și canton</li>
-                        <li>Franchiză: 300-2,500 CHF/an (cu cât e mai mare, cu atât este mai mică prima lunară)</li>
-                        <li>Comparație: comparis.ch, priminfo.ch</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-hospital"></i> Sistemul medical</h3>
-                    <ul>
-                        <li>Medic de familie - primul punct de contact</li>
-                        <li>Spitale și clinici private</li>
-                        <li>Urgențe: numărul 144</li>
-                        <li>Asistență medicală pentru copii și femei însărcinate</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-user-md"></i> Medici români în Elveția</h3>
-                    <table>
-                        <tr>
-                            <th>Nume</th>
-                            <th>Specialitate</th>
-                            <th>Localitate</th>
-                        </tr>
-                        <tr>
-                            <td>Dr. Maria Popescu</td>
-                            <td>Medicină generală</td>
-                            <td>Zürich</td>
-                        </tr>
-                        <tr>
-                            <td>Dr. Ion Ionescu</td>
-                            <td>Stomatologie</td>
-                            <td>Geneva</td>
-                        </tr>
-                        <tr>
-                            <td>Dr. Elena Georgescu</td>
-                            <td>Pediatrie</td>
-                            <td>Basel</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Biserici & Comunitate -->
-        <section id="biserici" class="content-section">
-            <div class="section-title">
-                <i class="fas fa-church"></i>
-                <h2>Biserici & Comunitate</h2>
-            </div>
-            <div class="section-content">
-                <div class="info-card">
-                    <h3><i class="fas fa-praying-hands"></i> Biserici românești în Elveția</h3>
-                    <ul>
-                        <li><strong>Biserica Ortodoxă Română "Sfântul Nicolae"</strong>: Zürich, adresă: Seebahnstrasse 98</li>
-                        <li><strong>Biserica Ortodoxă Română "Sfântul Gheorghe"</strong>: Geneva, adresă: Rue de Lyon 106</li>
-                        <li><strong>Biserica Ortodoxă Română "Adormirea Maicii Domnului"</strong>: Basel, adresă: Gundeldingerstrasse 161</li>
-                        <li><strong>Biserica Ortodoxă Română "Sfânta Treime"</strong>: Bern, adresă: Effingerstrasse 55</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-calendar-alt"></i> Program slujbe</h3>
-                    <table>
-                        <tr>
-                            <th>Biserică</th>
-                            <th>Duminică</th>
-                            <th>Sărbători</th>
-                        </tr>
-                        <tr>
-                            <td>Sf. Nicolae - Zürich</td>
-                            <td>9:00, 11:00</td>
-                            <td>9:00</td>
-                        </tr>
-                        <tr>
-                            <td>Sf. Gheorghe - Geneva</td>
-                            <td>10:00</td>
-                            <td>10:00</td>
-                        </tr>
-                        <tr>
-                            <td>Adormirea Maicii Domnului - Basel</td>
-                            <td>9:30</td>
-                            <td>9:30</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Somaj & Ajutor Social -->
-        <section id="somaj" class="content-section">
-            <div class="section-title">
-                <i class="fas fa-hand-holding-usd"></i>
-                <h2>Șomaj & Ajutor Social</h2>
-            </div>
-            <div class="section-content">
-                <div class="info-card">
-                    <h3><i class="fas fa-file-invoice"></i> Ajutor de șomaj</h3>
-                    <ul>
-                        <li>Condiții de eligibilitate: minim 12 luni de muncă în ultimele 2 ani</li>
-                        <li>Durata maximă: 400 zile pentru persoanele sub 55 de ani</li>
-                        <li>Valoarea ajutorului: 70-80% din salariul mediu din ultimele 6 luni</li>
-                        <li>Obligații: căutare activă de muncă, participare la programe de formare</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-hands-helping"></i> Ajutor social</h3>
-                    <ul>
-                        <li>Destinat persoanelor fără venituri suficiente</li>
-                        <li>Acoperă cheltuielile de bază: locuință, alimente, asigurări medicale</li>
-                        <li>Proceduri de aplicare prin centrele sociale cantonale</li>
-                        <li>Obligații: participare la programe de integrare</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Taxe & Impozite -->
-        <section id="taxe" class="content-section">
-            <div class="section-title">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <h2>Taxe & Impozite</h2>
-            </div>
-            <div class="section-content">
-                <div class="info-card">
-                    <h3><i class="fas fa-calculator"></i> Sistemul fiscal elvețian</h3>
-                    <ul>
-                        <li>Impozit progresiv pe venit</li>
-                        <li>Impozite federale, cantonale și comunale</li>
-                        <li>Scutiri fiscale pentru persoanele cu venituri mici</li>
-                        <li>Declarația fiscală anuală</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-percentage"></i> Rate de impozitare</h3>
-                    <table>
-                        <tr>
-                            <th>Canton</th>
-                            <th>Impozit minim</th>
-                            <th>Impozit maxim</th>
-                        </tr>
-                        <tr>
-                            <td>Zürich</td>
-                            <td>4%</td>
-                            <td>13%</td>
-                        </tr>
-                        <tr>
-                            <td>Geneva</td>
-                            <td>5%</td>
-                            <td>14%</td>
-                        </tr>
-                        <tr>
-                            <td>Vaud</td>
-                            <td>4.5%</td>
-                            <td>12.5%</td>
-                        </tr>
-                        <tr>
-                            <td>Bern</td>
-                            <td>5.5%</td>
-                            <td>14.5%</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Servicii Publice -->
-        <section id="servicii" class="content-section">
-            <div class="section-title">
-                <i class="fas fa-user-md"></i>
-                <h2>Servicii Publice</h2>
-            </div>
-            <div class="section-content">
-                <div class="info-card">
-                    <h3><i class="fas fa-school"></i> Educație și școli</h3>
-                    <ul>
-                        <li>Sistem educațional obligatoriu de 11 ani</li>
-                        <li>Școli publice gratuite</li>
-                        <li>Înscrieri prin primăria locală</li>
-                        <li>Cursuri de limba germană/franceză pentru adulți</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-bus"></i> Transport public</h3>
-                    <ul>
-                        <li>Abonamente: Half-fare card, GA Travelcard</li>
-                        <li>Sisteme integrate în fiecare canton</li>
-                        <li>Aplicații mobile: SBB Mobile, Fairtiq</li>
-                        <li>Reduceri pentru studenți și seniori</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Social & Integrare -->
-        <section id="social" class="content-section">
-            <div class="section-title">
-                <i class="fas fa-coffee"></i>
-                <h2>Social & Integrare</h2>
-            </div>
-            <div class="section-content">
-                <div class="info-card">
-                    <h3><i class="fas fa-users"></i> Comunități de români</h3>
-                    <ul>
-                        <li><strong>Asociația Românilor din Zürich</strong>: Organizează evenimente culturale și sociale</li>
-                        <li><strong>Comunitatea Română din Geneva</strong>: Activități pentru copii și familii</li>
-                        <li><strong>Centrul Cultural Român Basel</strong>: Cursuri de limba română pentru copii</li>
-                        <li><strong>Forumuri online</strong>: grupuri Facebook pentru românii în Elveția</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-language"></i> Cursuri de integrare</h3>
-                    <ul>
-                        <li>Cursuri de limba germană/franceză</li>
-                        <li>Workshop-uri despre cultura și valorile elvețiene</li>
-                        <li>Programe de orientare profesională</li>
-                        <li>Asistență pentru recunoașterea calificărilor</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Trafic & Transport -->
-        <section id="trafic" class="content-section">
-            <div class="section-title">
-                <i class="fas fa-car"></i>
-                <h2>Trafic & Transport</h2>
-            </div>
-            <div class="section-content">
-                <div class="info-card">
-                    <h3><i class="fas fa-subway"></i> Transport public</h3>
-                    <ul>
-                        <li>Rețea extinsă de trenuri, tramvaie și autobuze</li>
-                        <li>Frecvență ridicată în zonele urbane</li>
-                        <li>Sistem integrat de bilete</li>
-                        <li>Aplicații pentru planificarea călătoriilor</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-car-alt"></i> Reguli de circulație</h3>
-                    <ul>
-                        <li>Viteza maximă în localitate: 50 km/h</li>
-                        <li>Viteza maximă pe drumuri naționale: 80-100 km/h</li>
-                        <li>Viteza maximă pe autostradă: 120 km/h</li>
-                        <li>Amenda pentru depășirea vitezei: 20-250 CHF</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Insolventa & Probleme Legale -->
-        <section id="insolventa" class="content-section">
-            <div class="section-title">
-                <i class="fas fa-balance-scale"></i>
-                <h2>Insolvență & Probleme Legale</h2>
-            </div>
-            <div class="section-content">
-                <div class="info-card">
-                    <h3><i class="fas fa-gavel"></i> Asistență juridică</h3>
-                    <ul>
-                        <li>Dreptul la avocat în procedurile penale</li>
-                        <li>Asistență juridică gratuită pentru persoanele cu venituri reduse</li>
-                        <li>Consulatul României oferă asistență în cazul problemelor grave</li>
-                        <li>Organizații de sprijin pentru imigranți</li>
-                    </ul>
-                </div>
-                
-                <div class="info-card">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Proceduri de insolvență</h3>
-                    <ul>
-                        <li>Proceduri regulate prin instanțele cantonale</li>
-                        <li>Protecție împotriva creditorilor</li>
-                        <li>Planuri de restabilire financiară</li>
-                        <li>Consilieri financiari autorizați</li>
+                        <li>Asigurări obligatorii și opționale</li>
+                        <li>Furnizori recomandați și comparații</li>
+                        <li>Consiliere pentru alegerea asigurărilor</li>
+                        <li>Proceduri în caz de necesitate medicală</li>
                     </ul>
                 </div>
             </div>
         </section>
     </main>
-    
-    <a href="https://wa.me/41791234567" class="whatsapp-btn" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
     
     <footer>
         <div class="container">
@@ -1145,98 +919,110 @@
                     <h3>SwissRoHub</h3>
                     <ul>
                         <li><a href="#">Despre noi</a></li>
-                        <li><a href="#">Echipa</a></li>
-                        <li><a href="#">Contact</a></li>
                         <li><a href="#">Termeni și condiții</a></li>
+                        <li><a href="#">Politica de confidențialitate</a></li>
+                        <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Resurse utile</h3>
                     <ul>
-                        <li><a href="https://www.ch.ch/en/" target="_blank">Guvernul Elveției</a></li>
-                        <li><a href="https://bern.mae.ro/" target="_blank">Ambasada României</a></li>
-                        <li><a href="https://www.sem.admin.ch/sem/en/home.html" target="_blank">Portal pentru imigranți</a></li>
-                        <li><a href="https://www.fedlex.admin.ch/eli/cc/54/757_781_799/en" target="_blank">Legislația elvețiană</a></li>
+                        <li><a href="https://www.ch.ch/en/" target="_blank">Portalul oficial CH</a></li>
+                        <li><a href="https://www.admin.ch/gov/en/start.html" target="_blank">Guvernul Elveției</a></li>
+                        <li><a href="https://geneva.mae.ro/" target="_blank">Ambasada României</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Comunitate</h3>
+                    <h3>Contact</h3>
                     <ul>
-                        <li><a href="#">Forum</a></li>
-                        <li><a href="#">Evenimente</a></li>
-                        <li><a href="#">Grupuri de suport</a></li>
-                        <li><a href="#">Parteneriate</a></li>
+                        <li><i class="fas fa-phone"></i> +41 XX XXX XX XX</li>
+                        <li><i class="fas fa-envelope"></i> contact@example.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> City, Country</li>
                     </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Abonează-te</h3>
-                    <p>Primește ultimele noutăți și actualizări în inboxul tău.</p>
-                    <form>
-                        <input type="email" placeholder="Adresa ta de email" style="padding: 10px; width: 100%; margin-bottom: 10px; border-radius: 4px; border: none;">
-                        <button class="btn btn-primary">Abonează-te</button>
-                    </form>
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2023 SwissRoHub. Toate drepturile rezervate. | Proiect dezvoltat pentru comunitatea românească din Elveția
+                <p>© 2023 SwissRoHub. Toate drepturile rezervate. | Proiect dezvoltat pentru comunitatea românească din Elveția</p>
             </div>
         </div>
     </footer>
+    
+    <a href="#" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <script>
+        // Menu toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const contentSections = document.querySelectorAll('.content-section');
-            const sectionIndicator = document.querySelector('.section-indicator');
-            const indicatorIcon = sectionIndicator.querySelector('i');
-            const indicatorText = sectionIndicator.querySelector('span');
+            const menuToggle = document.getElementById('menuToggle');
+            const navContainer = document.getElementById('navContainer');
             
-            // Show Acte section by default
-            document.getElementById('acte').style.display = 'block';
+            menuToggle.addEventListener('click', function() {
+                navContainer.classList.toggle('active');
+                this.querySelector('i').classList.toggle('fa-bars');
+                this.querySelector('i').classList.toggle('fa-times');
+            });
             
-            // Add click event listeners to navigation links
+            // Mobile dropdown functionality
+            const navLinks = document.querySelectorAll('.nav-link.has-dropdown');
+            
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Remove active class from all links
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    
-                    // Add active class to clicked link
-                    this.classList.add('active');
-                    
-                    // Get section ID from href
-                    const sectionId = this.getAttribute('href').substring(1);
-                    
-                    // Hide all sections
-                    contentSections.forEach(section => {
-                        section.style.display = 'none';
-                    });
-                    
-                    // Show the corresponding section
-                    const activeSection = document.getElementById(sectionId);
-                    if(activeSection) {
-                        activeSection.style.display = 'block';
+                    if (window.innerWidth <= 992) {
+                        e.preventDefault();
+                        const dropdown = this.nextElementSibling;
+                        dropdown.classList.toggle('show');
                         
-                        // Scroll to the section
-                        activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        
-                        // Update section indicator
-                        const sectionName = this.getAttribute('data-section');
-                        indicatorIcon.className = this.querySelector('i').className;
-                        indicatorText.textContent = sectionName;
+                        // Toggle icon
+                        const icon = this.querySelector('.fa');
+                        if (icon) {
+                            icon.classList.toggle('fa-chevron-down');
+                            icon.classList.toggle('fa-chevron-up');
+                        }
                     }
                 });
             });
             
-            // Scroll behavior for navigation
-            window.addEventListener('scroll', function() {
-                if(window.scrollY > 200) {
-                    sectionIndicator.style.display = 'flex';
-                } else {
-                    sectionIndicator.style.display = 'none';
+            // Mobile submenu functionality
+            const dropdownLinks = document.querySelectorAll('.dropdown-link.has-submenu');
+            
+            dropdownLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 992) {
+                        e.preventDefault();
+                        const submenu = this.nextElementSibling;
+                        submenu.classList.toggle('show');
+                        
+                        // Toggle icon
+                        const icon = this.querySelector('.fa');
+                        if (icon) {
+                            icon.classList.toggle('fa-chevron-right');
+                            icon.classList.toggle('fa-chevron-down');
+                        }
+                    }
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 992 && 
+                    !navContainer.contains(e.target) && 
+                    !menuToggle.contains(e.target) &&
+                    navContainer.classList.contains('active')) {
+                    navContainer.classList.remove('active');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
                 }
             });
+            
+            // WhatsApp button animation
+            const whatsappBtn = document.querySelector('.whatsapp-btn');
+            setInterval(() => {
+                whatsappBtn.style.transform = "scale(1.05)";
+                setTimeout(() => {
+                    whatsappBtn.style.transform = "scale(1)";
+                }, 500);
+            }, 3000);
         });
     </script>
 </body>
